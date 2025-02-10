@@ -1,16 +1,14 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
-
-# Compiled output
-*/dist
-*/tmp
-*/out-tsc
-*/bazel-out
+# Compiled output (Angular)
+frontend/app_edelmiro_monros/dist/
+frontend/app_edelmiro_monros/tmp/
+frontend/app_edelmiro_monros/out-tsc/
+frontend/app_edelmiro_monros/bazel-out/
 
 # Node
-*/node_modules
+frontend/app_edelmiro_monros/node_modules/
 npm-debug.log
 yarn-error.log
-git add .
+
 # IDEs and editors
 .idea/
 .project
@@ -21,47 +19,43 @@ git add .
 *.sublime-workspace
 
 # Visual Studio Code
-.vscode/*
+.vscode/
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-.history/*
+.history/
 
 # Miscellaneous
-*/.angular/cache
+frontend/app_edelmiro_monros/.angular/cache
 .sass-cache/
-*/connect.lock
-*/coverage
-*/libpeerconnection.log
-*/testem.log
-*/typings
+frontend/app_edelmiro_monros/connect.lock
+frontend/app_edelmiro_monros/coverage/
+frontend/app_edelmiro_monros/libpeerconnection.log
+frontend/app_edelmiro_monros/testem.log
+frontend/app_edelmiro_monros/typings/
 
 # System files
 .DS_Store
 Thumbs.db
 
-###> symfony/framework-bundle ###
-*/.env.local
-*/.env.local.php
-*/.env.*.local
-*/config/secrets/prod/prod.decrypt.private.php
-*/public/bundles/
-*/var/
-*/vendor/
-###< symfony/framework-bundle ###
+### Symfony ###
+backend/EdelmiroMonros/.env.local
+backend/EdelmiroMonros/.env.local.php
+backend/EdelmiroMonros/.env.*.local
+backend/EdelmiroMonros/config/secrets/prod/prod.decrypt.private.php
+backend/EdelmiroMonros/public/bundles/
+backend/EdelmiroMonros/var/
+backend/EdelmiroMonros/vendor/
 
-###> phpunit/phpunit ###
-*/phpunit.xml
-*/.phpunit.result.cache
-###< phpunit/phpunit ###
+### PHPUnit ###
+backend/EdelmiroMonros/phpunit.xml
+backend/EdelmiroMonros/.phpunit.result.cache
 
-###> symfony/phpunit-bridge ###
-*/.phpunit.result.cache
-*/phpunit.xml
-###< symfony/phpunit-bridge ###
+### Symfony PHPUnit Bridge ###
+backend/EdelmiroMonros/.phpunit.result.cache
+backend/EdelmiroMonros/phpunit.xml
 
-###> symfony/asset-mapper ###
-*/public/assets/
-*/assets/vendor/
-###< symfony/asset-mapper ###
+### Symfony Asset Mapper ###
+backend/EdelmiroMonros/public/assets/
+backend/EdelmiroMonros/assets/vendor/
