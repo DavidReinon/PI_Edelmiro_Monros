@@ -15,7 +15,7 @@ The app is developed using Git, HTML, CSS, JavaScript (Angular 7), and PHP (Symf
 
 
 ## CREDITS
-This project was developed by Edelmiro Monrós - [David Reinon, Daniel Alos, Daniel Aguado, Felipe Santamaria, Ivan Contador y Adrián Rodríguez.](https://github.com/DavidReinon/PI_Edelmiro_Monros.git).
+This project was developed by Desarrolladores Monrós - [David Reinon, Daniel Alos, Daniel Aguado, Felipe Santamaria, Ivan Contador y Adrián Rodríguez.](https://github.com/DavidReinon/PI_Edelmiro_Monros.git).
 
 ## CONTACT
 
