@@ -1,5 +1,3 @@
-﻿# Proyecto Integrado 2ºDAW
-
 # TITLE
 Edelmiro Monrós.
 
