@@ -1,5 +1,5 @@
 ## CONTRIBUTION
-If you would like to contribute to Wonder Learning Center, we welcome your contributions! Please follow these guidelines:
+If you would like to contribute to Edelmiro Monros, we welcome your contributions! Please follow these guidelines:
 
 1. Fork the repository and create your branch from `main`.
 2. Ensure that your code follows our coding standards and conventions.
