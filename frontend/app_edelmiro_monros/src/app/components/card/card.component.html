@@ -1,1 +1,22 @@
-<p>card works!</p>
+<div class="card h-100">
+    <div class="card-img-top" [title]="title" 
+         [ngStyle]="{ 'background-image': 'url(' + photo + ')', 'background-size': 'cover', 'height': '200px' }">
+    </div>
+    <div class="card-body">
+        <h5 class="card-title" [title]="title">{{ title }}</h5>
+   
+        @if (isExpanded) {
+            <div class="expanded-content mt-3">
+                <p>{{ text }}</p>
+                <p>{{ price }}</p>
+            </div>
+        }
+        <button class="btn btn-primary" (click)="toggleText()">
+            @if (isExpanded) {
+                Ver menos
+            } @else {
+                Ver más
+            }
+        </button>
+    </div>
+</div>
