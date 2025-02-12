@@ -1,5 +1,5 @@
 form {
-    border: 2px solid #FFA308 ;
+    border: 2px solid #FFA308;
 }
 
 form {
@@ -15,8 +15,8 @@ form {
 }
 
 .form-select:focus {
-    border-color: #FFA308 ;
-    box-shadow: 0 0 5px rgba(255, 163, 8, 0.4) 
+    border-color: #FFA308;
+    box-shadow: 0 0 5px rgba(255, 163, 8, 0.4)
 }
 
 textarea.form-control {
@@ -25,7 +25,7 @@ textarea.form-control {
 }
 
 button[type="submit"] {
-    background-color: #FFA308 ;
+    background-color: #FFA308;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -33,28 +33,37 @@ button[type="submit"] {
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-weight: bold;
 }
 
 button[type="submit"]:hover {
-    background-color: #fff ;
+    background-color: #fff;
     color: #FFA308;
-    border: 1px solid #FFA308;
+    border: 2px solid #FFA308;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 8px 18px;
 }
 
 button[type="submit"]:focus {
-    background-color: rgba(255, 163, 8, 0.7) ;
+    background-color: #fff;
+    color: #FFA308;
+    border: 2px solid #FFA308;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 8px 18px;
 }
 
 
 input.form-control:focus,
 select.form-select:focus {
-    border-color: #FFA308 ;
+    border-color: #FFA308;
     outline: none;
     box-shadow: 0 0 5px rgba(255, 163, 8, 0.4);
 }
 
 textarea.form-control:focus {
-    border-color: #FFA308 ;
+    border-color: #FFA308;
     outline: none;
     box-shadow: 0 0 5px rgba(255, 163, 8, 0.4);
 }
