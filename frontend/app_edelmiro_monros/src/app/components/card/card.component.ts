@@ -15,7 +15,7 @@ export class CardComponent {
   @Input() price: number = 0;
   isExpanded: boolean = false;
 
-  toggleText() {
+  expand() {
     this.isExpanded = !this.isExpanded;
   }
 }
