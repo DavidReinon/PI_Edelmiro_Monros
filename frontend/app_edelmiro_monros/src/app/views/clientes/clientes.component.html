@@ -1,11 +1,12 @@
 <div class="container py-5">
-  <h1 class="text-center">Nuestros clientes</h1>
-
-  <app-card-cliente
-    [Nombre]="Nombre"
-    [photo]="'url(' + photo + ')'"
-    [valoracion]="valoracion"
-    [comentario]="comentario"
-    [fecha]="fecha"
-  ></app-card-cliente>
+    <h1 class="text-center">Nuestros clientes</h1>
+<button class="btn btn-primary" (click)="agregarNoticia()">
+<app-card-cliente 
+  [Nombre]="Nombre" 
+  [photo]="photo" 
+  [valoracion]="valoracion" 
+  [comentario]="comentario" 
+  [fecha]="fecha"  
+  (onEliminar)="eliminarNoticia()">>
+</app-card-cliente>
 </div>
