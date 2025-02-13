@@ -25,7 +25,8 @@ export const routes: Routes = [
     {path: 'accesibilidad', component: AccesibilidadComponent},
     {path: 'cookies', component: PoliticaCookiesComponent},
     {path: 'privacidad', component: PoliticaPrivacidadComponent},
-    {path: 'formularioProductos', component: FormularioProductoComponent},
+    {path: 'formularioProducto', component: FormularioProductoComponent},
+
 
 
 ];
