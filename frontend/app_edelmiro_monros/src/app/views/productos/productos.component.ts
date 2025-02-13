@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Productos } from '../../models/productos.interfaces';
 import { CardComponent } from '../../components/card/card.component';
-
+import { RouterLinkActive, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-productos',
-  imports: [CardComponent],
+  imports: [CardComponent, RouterModule,RouterLinkActive],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css',
 })
