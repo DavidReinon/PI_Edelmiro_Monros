@@ -20,11 +20,10 @@ export class EditarNoticiaComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    // Aquí cargaríamos los datos de la noticia a editar
     this.noticiaForm.setValue({
       titulo: 'Título de ejemplo',
       descripcion: 'Descripción de ejemplo',
-      fecha: new Date().toISOString().split('T')[0],
+      fecha: '2024-02-15',
       foto: ''
     });
   }

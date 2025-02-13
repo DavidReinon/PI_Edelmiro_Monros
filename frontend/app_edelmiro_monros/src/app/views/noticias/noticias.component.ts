@@ -7,7 +7,7 @@ interface Noticia {
   titulo: string;
   descripcion: string;
   fecha: Date;
-  foto: string | null;  // En el frontend manejaremos la foto como string (URL o base64)
+  foto: string | null; 
 }
 
 @Component({
