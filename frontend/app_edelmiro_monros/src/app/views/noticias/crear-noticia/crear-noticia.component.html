@@ -24,7 +24,7 @@
             
             <div class="mb-3">
               <label for="foto" class="form-label">Foto</label>
-              <input type="file" class="form-control" id="foto" formControlName="foto">
+              <input type="file" (change)="onFileChange($event)" class="form-control" id="foto" formControlName="foto">
             </div>
 
             <div class="d-flex gap-2 justify-content-end">
