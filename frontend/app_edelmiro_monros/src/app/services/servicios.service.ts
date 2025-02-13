@@ -10,5 +10,6 @@ export class ServiciosService {
   constructor(public http: HttpClient) { }
   public getResponse(url: string): Observable<Response[]> {
     return this.http.get<Response[]>(url);
+    
     }
 }
