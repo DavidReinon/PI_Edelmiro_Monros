@@ -1,4 +1,10 @@
 <div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Noticias</h2>
+    <button class="btn btn-primary" (click)="agregarNoticia()">
+      <i class="bi bi-plus-lg"></i> Añadir Noticia
+    </button>
+  </div>
   <div class="row g-4">
     @for (noticia of noticias; track noticia.id) {
       <div class="col-12 col-md-6">
@@ -6,7 +12,8 @@
           [titulo]="noticia.titulo"
           [descripcion]="noticia.descripcion"
           [foto]="noticia.foto"
-          [fecha]="noticia.fecha">
+          [fecha]="noticia.fecha"
+          (onEliminar)="eliminarNoticia(noticia.id)">
         </app-card-noticias>
       </div>
     }
