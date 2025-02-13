@@ -9,7 +9,7 @@ import { RouterLinkActive, RouterModule } from '@angular/router';
   styleUrl: './productos.component.css',
 })
 export class ProductosComponent {
-  public content: Productos[] = [
+  public productos: Productos[] = [
     {
       title: 'Moño 1',
       text: 'Moño Fallera 1',
@@ -39,4 +39,14 @@ export class ProductosComponent {
       price: 400,
     },
   ];
+  
+  constructor(private router: Router) {}
+
+  agregarNoticia() {
+    this.router.navigate(['/formularioProducto']);
+  }
+
+  eliminarNoticia(id: number) {
+    this.productos = this.productos.filter(producto => producto.id !== id);
+  }
 }
