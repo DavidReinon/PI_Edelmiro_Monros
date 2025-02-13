@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { CardNoticiasComponent } from '../../components/card-noticias/card-noticias.component';
 
 interface Noticia {
@@ -6,7 +7,7 @@ interface Noticia {
   titulo: string;
   descripcion: string;
   fecha: Date;
-  foto: string | null;  // En el frontend manejaremos la foto como string (URL o base64)
+  foto: string | null; 
 }
 
 @Component({
@@ -54,4 +55,14 @@ export class NoticiasComponent {
       foto: "imagen_agua.jpg"
     }
   ];
+
+  constructor(private router: Router) {}
+
+  agregarNoticia() {
+    this.router.navigate(['/noticias/crear']);
+  }
+
+  eliminarNoticia(id: number) {
+    this.noticias = this.noticias.filter(noticia => noticia.id !== id);
+  }
 }
