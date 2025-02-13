@@ -6,8 +6,10 @@ use App\Repository\UsuariosRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: UsuariosRepository::class)]
+#[ApiResource]
 class Usuarios
 {
     #[ORM\Id]
@@ -33,9 +35,16 @@ class Usuarios
     #[ORM\OneToMany(targetEntity: Noticias::class, mappedBy: 'usuario')]
     private Collection $noticias;
 
+    /**
+     * @var Collection<int, Productos>
+     */
+    #[ORM\OneToMany(targetEntity: Productos::class, mappedBy: 'usuarioProducto')]
+    private Collection $productos;
+
     public function __construct()
     {
         $this->noticias = new ArrayCollection();
+        $this->productos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -122,6 +131,36 @@ class Usuarios
             // set the owning side to null (unless already changed)
             if ($noticia->getUsuario() === $this) {
                 $noticia->setUsuario(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Productos>
+     */
+    public function getProductos(): Collection
+    {
+        return $this->productos;
+    }
+
+    public function addProducto(Productos $producto): static
+    {
+        if (!$this->productos->contains($producto)) {
+            $this->productos->add($producto);
+            $producto->setUsuarioProducto($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProducto(Productos $producto): static
+    {
+        if ($this->productos->removeElement($producto)) {
+            // set the owning side to null (unless already changed)
+            if ($producto->getUsuarioProducto() === $this) {
+                $producto->setUsuarioProducto(null);
             }
         }
 
