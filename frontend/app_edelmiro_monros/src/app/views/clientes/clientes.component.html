@@ -1,3 +1,11 @@
-<h1>Nuestros clientes</h1>
+<div class="container py-5">
+  <h1 class="text-center">Nuestros clientes</h1>
 
-<app-card-cliente [Nombre]="Nombre" [photo]="'url(' + photo + ')'" [valoracion]="valoracion" [comentario]="comentario"[fecha]="fecha"></app-card-cliente>
+  <app-card-cliente
+    [Nombre]="Nombre"
+    [photo]="'url(' + photo + ')'"
+    [valoracion]="valoracion"
+    [comentario]="comentario"
+    [fecha]="fecha"
+  ></app-card-cliente>
+</div>
