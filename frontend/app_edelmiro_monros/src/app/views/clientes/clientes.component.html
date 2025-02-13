@@ -1,3 +1,10 @@
 <h1>Nuestros clientes</h1>
-
-<app-card-cliente [Nombre]="Nombre" [photo]="'url(' + photo + ')'" [valoracion]="valoracion" [comentario]="comentario"[fecha]="fecha"></app-card-cliente>
+<button class="btn btn-primary" (click)="agregarNoticia()">
+<app-card-cliente 
+  [Nombre]="Nombre" 
+  [photo]="photo" 
+  [valoracion]="valoracion" 
+  [comentario]="comentario" 
+  [fecha]="fecha"  
+  (onEliminar)="eliminarNoticia()">>
+</app-card-cliente>
