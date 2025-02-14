@@ -54,6 +54,7 @@ jobs:
                   username: ${{ secrets.REMOTE_USER }}
                   key: ${{ secrets.REMOTE_KEY }}
                   script: |
+                      sudo chmod 666 /var/run/docker.sock
                       docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
                       docker pull ${{ secrets.DOCKER_USERNAME }}/symfony-app:${{ github.sha }}
