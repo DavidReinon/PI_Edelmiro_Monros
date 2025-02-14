@@ -14,20 +14,5 @@ export class CardClienteComponent {
   @Input() valoracion: number = 5;
   @Input() fecha: Date = new Date(2005, 4, 12); 
 
-  @Output() onEliminar = new EventEmitter<void>();
-
-  
-
-  editarNoticia() {
-    //this.router.navigate(['/noticias/editar']);
-    console.log('se ha edidtado')
-  }
-
-  eliminarNoticia() {
-    //this.onEliminar.emit();
-    console.log('se ha eliminado')
-
-  }
-
 
 }

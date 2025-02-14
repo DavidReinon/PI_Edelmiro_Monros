@@ -16,13 +16,5 @@ export class ClientesComponent {
   public valoracion: number = 5;
 
   
-  agregarNoticia() {
-    //this.router.navigate(['/noticias/crear']);
-    console.log('Se ha agregado')
-  }
-
-  eliminarNoticia() {
-    //this.noticias = this.noticias.filter(noticia => noticia.id !== id);
-    console.log('Se ha eliminado la noticia con id:');
-  }
+ 
 }
