@@ -35,7 +35,10 @@ jobs:
                   chmod 600 ~/.ssh/id_rsa
 
             - name: Transferir archivo docker-compose.yml
-              run: scp -o StrictHostKeyChecking=no backend/EdelmiroMonros/docker-compose.yml ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}/docker-compose.yml
+              run: scp -o StrictHostKeyChecking=no docker-compose.yml ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}/docker-compose.yml
+
+            - name: Listar archivos
+              run: ls -R
 
             - name: Desplegar en servidor remoto
               run: |
