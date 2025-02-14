@@ -25,8 +25,8 @@ class Noticias
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $fecha = null;
 
-    #[ORM\Column(type: Types::BLOB, nullable: true)]
-    private $foto;
+    #[ORM\Column(length: 255)]
+    private ?string $foto;
 
     #[ORM\ManyToOne(inversedBy: 'noticias')]
     private ?Usuarios $usuario = null;

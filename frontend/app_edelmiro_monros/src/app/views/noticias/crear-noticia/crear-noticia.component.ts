@@ -1,35 +1,46 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { NoticiaService } from '../../../services/noticias.service';
+import { NoticiasService } from '../../../services/noticias.service';
 
 @Component({
   selector: 'app-crear-noticia',
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './crear-noticia.component.html',
-  styleUrl: './crear-noticia.component.css'
+  styleUrls: ['./crear-noticia.component.css']
 })
 export class CrearNoticiaComponent {
   noticiaForm = new FormGroup({
     titulo: new FormControl('', { nonNullable: true }),
     descripcion: new FormControl('', { nonNullable: true }),
     fecha: new FormControl('', { nonNullable: true }),
-    foto: new FormControl<File | null>(null)
   });
 
-  constructor(private router: Router, private noticiaService: NoticiaService) { }
+  public selectedFile: File | null = null;
+
+  constructor(private router: Router, private noticiaService: NoticiasService) { }
 
   public onSubmit() {
-    const formData = new FormData();
     const rawValue = this.noticiaForm.getRawValue();
+
+    const formData: FormData = new FormData();
     formData.append('titulo', rawValue.titulo);
     formData.append('descripcion', rawValue.descripcion);
     formData.append('fecha', rawValue.fecha);
-    if (rawValue.foto) {
-      formData.append('foto', rawValue.foto);
-    }
+    formData.append('usuario', 'api/usuarios/1');
 
+    if (this.selectedFile) {
+      formData.append('foto', this.selectedFile, this.selectedFile.name);
+    }
+    console.log('FormData Contenido:');
+    formData.forEach((value, key) => {
+      console.log(key, value);
+    });
+    this.sendNew(formData);
+  }
+
+  private sendNew(formData: FormData) {
     this.noticiaService.crearNoticia(formData).subscribe({
       next: (response) => {
         console.log('Noticia creada', response);
@@ -48,9 +59,7 @@ export class CrearNoticiaComponent {
   public onFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      const file = input.files[0];
-      this.noticiaForm.get('foto')?.setValue(file);
+      this.selectedFile = input.files[0];
     }
   }
-
-} 
+}
