@@ -1,0 +1,25 @@
+<button class="btn btn-warning" (click)="abrirModal()">Login</button>
+
+<div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="border-color: #FFA308;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="registroModalLabel">Registro</h5>
+        <button type="button" class="btn-close" (click)="cerrarModal()" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <form (submit)="registrarse($event)">
+          <div class="mb-3">
+            <label for="email" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" placeholder="usuario@example.com" required>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" required>
+          </div>
+          <button type="submit" class="btn" style="background-color: #FFA308;">Registrarse</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

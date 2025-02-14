@@ -1,0 +1,26 @@
+.hero {
+    background-color: #000000;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+  }
+  
+  .placeholder-box {
+    height: 250px;
+  }
+  
+  .placeholder-box-large {
+    height: 300px;
+  }
+  
+  .card {
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  video {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  

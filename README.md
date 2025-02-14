@@ -6,7 +6,7 @@ Edelmiro Monrós.
 
 
 ## Languages used / versions
-The app is developed using Git, HTML, CSS, JavaScript (Angular 7), and PHP (Symfony 6.3), ensuring cross-platform compatibility and accessibility. It supports the latest versions of popular web browsers.
+The app is developed using Git, HTML, CSS, Bootstrap, JavaScript (Angular 7), and PHP (Symfony 6.3), ensuring cross-platform compatibility and accessibility. It supports the latest versions of popular web browsers.
 
 ## LAUNCH
 
