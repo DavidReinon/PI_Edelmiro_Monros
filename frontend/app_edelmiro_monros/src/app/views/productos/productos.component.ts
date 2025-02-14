@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Productos } from '../../models/productos.interfaces';
 import { CardComponent } from '../../components/card/card.component';
 import { RouterLinkActive, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-productos',
   imports: [CardComponent, RouterModule,RouterLinkActive],
@@ -47,6 +48,7 @@ export class ProductosComponent {
   }
 
   eliminarNoticia(id: number) {
-    this.productos = this.productos.filter(producto => producto.id !== id);
+    //this.productos = this.productos.filter(producto => producto.id !== id);
+    console.log('funciona')
   }
 }
