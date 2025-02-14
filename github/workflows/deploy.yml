@@ -1,36 +1,27 @@
-name: Deploy Symfony 7 API with MySQL and Nginx
+name: Deploy Symfony API with MySQL and Nginx
 
 on:
     push:
         branches:
-            # Main
             - despliegueDocker
 
 jobs:
     build-and-push:
         runs-on: ubuntu-latest
         steps:
-            # Clonar el repositorio
             - name: Checkout código
               uses: actions/checkout@v4
 
-            # Iniciar sesión en DockerHub
             - name: Iniciar sesión en Docker Hub
               uses: docker/login-action@v2
               with:
                   username: ${{ secrets.DOCKER_USERNAME }}
                   password: ${{ secrets.DOCKER_PASSWORD }}
 
-            # Construir y subir imagen de la Base de Datos MySQL
-            - name: Construir y subir imagen MySQL
-              run: |
-                  docker build -t ${{ secrets.DOCKER_USERNAME }}/symfony-db:${{ github.sha }} -f docker/mysql.Dockerfile .
-                  docker push ${{ secrets.DOCKER_USERNAME }}/symfony-db:${{ github.sha }}
-
-            # Construir y subir imagen de la aplicación Symfony
+            # Construir y subir imagen Symfony + Nginx
             - name: Construir y subir imagen Symfony + Nginx
               run: |
-                  docker build -t ${{ secrets.DOCKER_USERNAME }}/symfony-app:${{ github.sha }} -f docker/php-nginx.Dockerfile .
+                  docker build -t ${{ secrets.DOCKER_USERNAME }}/symfony-app:${{ github.sha }} -f backend/EdelmiroMonros/docker/php.Dockerfile backend/EdelmiroMonros/
                   docker push ${{ secrets.DOCKER_USERNAME }}/symfony-app:${{ github.sha }}
 
     deploy:
@@ -43,25 +34,18 @@ jobs:
                   echo "${{ secrets.REMOTE_KEY }}" > ~/.ssh/id_rsa
                   chmod 600 ~/.ssh/id_rsa
 
-            # Transferir docker-compose.yml al servidor remoto
             - name: Transferir archivo docker-compose.yml
-              run: scp -o StrictHostKeyChecking=no docker-compose.yml ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}/docker-compose.yml
+              run: scp -o StrictHostKeyChecking=no backend/EdelmiroMonros/docker-compose.yml ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}/docker-compose.yml
 
-            # Desplegar la aplicación usando docker-compose en el servidor
             - name: Desplegar en servidor remoto
               run: |
                   ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << 'EOF'
                     docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-                    docker pull ${{ secrets.DOCKER_USERNAME }}/symfony-db:${{ github.sha }}
                     docker pull ${{ secrets.DOCKER_USERNAME }}/symfony-app:${{ github.sha }}
 
-                    # Detener y eliminar contenedores antiguos
                     docker-compose -f /home/${{ secrets.REMOTE_USER }}/docker-compose.yml down
-
-                    # Iniciar la nueva versión
                     docker-compose -f /home/${{ secrets.REMOTE_USER }}/docker-compose.yml up -d --force-recreate
 
-                    # Ejecutar migraciones de Symfony
-                    docker exec symfony_app php bin/console doctrine:migrations:migrate --no-interaction
+                    docker exec symfony_php php bin/console doctrine:migrations:migrate --no-interaction
                   EOF
