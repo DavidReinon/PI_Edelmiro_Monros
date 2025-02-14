@@ -34,13 +34,15 @@ jobs:
                   echo "${{ secrets.REMOTE_KEY }}" > ~/.ssh/id_rsa
                   chmod 600 ~/.ssh/id_rsa
 
-            - name: Verificar estructura de archivos
-              run: |
-                  echo "Directorio actual: $(pwd)"
-                  ls -R backend/EdelmiroMonros/
-
-            - name: Transferir archivo docker-compose.yml
-              run: scp -o StrictHostKeyChecking=no backend/EdelmiroMonros/docker-compose.yml ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}/docker-compose.yml
+            # Transferir el archivo compose.yml al servidor remoto
+            - name: Transferir el archivo compose.yml al servidor remoto
+              uses: appleboy/scp-action@master
+              with:
+                host: ${{ secrets.REMOTE_HOST }}
+                username: ${{ secrets.REMOTE_USER }}
+                key: ${{ secrets.REMOTE_KEY }}
+                source: ./backend/EdelmiroMonros/docker-compose.yml
+                target: ~/deploy/
 
             - name: Desplegar en servidor remoto
               run: |
