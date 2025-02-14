@@ -1,10 +1,16 @@
 <div class="container py-5">
-    <h1 class="mb-4 text-center">Descubre Nuestros Moños</h1>
-    <button  routerLink="/formularioProducto" routerLinkActive="active" class="btn btn-primary">Crear</button>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Descubre Nuestros Moños</h1>
+        @if (authService.getIsAdmin()) {
+            <button routerLink="/formularioProducto" routerLinkActive="active" class="btn btn-primary">
+                <i class="bi bi-plus-lg"></i> Añadir Producto
+            </button>
+        }
+    </div>
     <div class="row g-4">
         @for(item of content; track item; let i = $index) {
             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                <app-card [title]="item.title" [text]="item.text" [photo]="item.photo" [price]="item.price"></app-card>
+                <app-card [title]="item.title" [text]="item.text" [photo]="item.photo" [price]="item.price" [isAdmin]="authService.getIsAdmin()"></app-card>
             </div>
         }
     </div>

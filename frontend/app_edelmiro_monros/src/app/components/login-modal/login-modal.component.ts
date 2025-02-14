@@ -30,7 +30,7 @@ export class LoginModalComponent {
   }
 
   registrarse(event: Event) {
-    event.preventDefault(); // Evita el recargo de la página
+    event.preventDefault(); 
 
     if (this.email && this.password) {
       console.log('Usuario registrado con éxito:');

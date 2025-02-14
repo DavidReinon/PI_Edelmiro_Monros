@@ -13,6 +13,7 @@ export class CardComponent {
   @Input() text: string = '';
   @Input() photo: string = '';
   @Input() price: number = 0;
+  @Input() isAdmin: boolean = false;
   isExpanded: boolean = false;
 
   expand() {

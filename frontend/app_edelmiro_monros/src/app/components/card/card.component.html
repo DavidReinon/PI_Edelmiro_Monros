@@ -3,7 +3,19 @@
          [ngStyle]="{ 'background-image': 'url(' + photo + ')', 'background-size': 'cover', 'height': '400px' }">
     </div>
     <div class="card-body">
-        <h5 class="card-title" [title]="title">{{ title }}</h5>
+        <div class="d-flex justify-content-between align-items-start">
+            <h5 class="card-title" [title]="title">{{ title }}</h5>
+            @if (isAdmin) {
+                <div class="btn-group">
+                    <button class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+            }
+        </div>
    
         @if (isExpanded) {
             <div class="expanded-content mt-3">

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CardNoticiasComponent } from '../../components/card-noticias/card-noticias.component';
+import { AuthService } from '../../services/auth.service';
 
 interface Noticia {
   id: number;
@@ -56,7 +57,7 @@ export class NoticiasComponent {
     }
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, public authService: AuthService) {}
 
   agregarNoticia() {
     this.router.navigate(['/noticias/crear']);
@@ -64,5 +65,9 @@ export class NoticiasComponent {
 
   eliminarNoticia(id: number) {
     this.noticias = this.noticias.filter(noticia => noticia.id !== id);
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

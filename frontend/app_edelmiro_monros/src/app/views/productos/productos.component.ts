@@ -2,13 +2,17 @@ import { Component } from '@angular/core';
 import { Productos } from '../../models/productos.interfaces';
 import { CardComponent } from '../../components/card/card.component';
 import { RouterLinkActive, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+
 @Component({
   selector: 'app-productos',
-  imports: [CardComponent, RouterModule,RouterLinkActive],
+  imports: [CardComponent, RouterModule, RouterLinkActive],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css',
 })
 export class ProductosComponent {
+  constructor(public authService: AuthService) {}
+
   public content: Productos[] = [
     {
       title: 'Moño 1',

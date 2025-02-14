@@ -13,6 +13,7 @@ export class CardNoticiasComponent {
   @Input() descripcion: string = '';
   @Input() fecha: Date = new Date();
   @Input() foto: string | null = null;
+  @Input() isAdmin: boolean = false;
   @Output() onEliminar = new EventEmitter<void>();
 
   constructor(private router: Router) {}
