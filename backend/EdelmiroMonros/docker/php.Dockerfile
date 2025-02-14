@@ -16,9 +16,6 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo pdo_mysql zip gd intl opcache
 
-# Instala Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
 # Configuración de PHP para rendimiento en producción
 RUN echo "memory_limit=512M" > /usr/local/etc/php/conf.d/memory-limit.ini \
     && echo "upload_max_filesize=20M" > /usr/local/etc/php/conf.d/upload-max-filesize.ini \

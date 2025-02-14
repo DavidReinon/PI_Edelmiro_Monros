@@ -48,14 +48,17 @@ jobs:
                   target: ~/deploy/
 
             - name: Desplegar en servidor remoto
-              run: |
-                  ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << 'EOF'
-                    docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.REMOTE_HOST }}
+                  username: ${{ secrets.REMOTE_USER }}
+                  key: ${{ secrets.REMOTE_KEY }}
+                  script: |
+                      docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-                    docker pull ${{ secrets.DOCKER_USERNAME }}/symfony-app:${{ github.sha }}
+                      docker pull ${{ secrets.DOCKER_USERNAME }}/symfony-app:${{ github.sha }}
 
-                    docker-compose -f /home/${{ secrets.REMOTE_USER }}/compose.yml down
-                    docker-compose -f /home/${{ secrets.REMOTE_USER }}/compose.yml up -d --force-recreate
+                      docker-compose -f /home/${{ secrets.REMOTE_USER }}/deploy/compose.yml down
+                      docker-compose -f /home/${{ secrets.REMOTE_USER }}/deploy/compose.yml up -d --force-recreate
 
-                    docker exec symfony_php php bin/console doctrine:migrations:migrate --no-interaction
-                  EOF
+                      docker exec symfony_php php bin/console doctrine:migrations:migrate --no-interaction
