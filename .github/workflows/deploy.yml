@@ -46,6 +46,7 @@ jobs:
                   key: ${{ secrets.REMOTE_KEY }}
                   source: ${{ github.workspace }}/backend/EdelmiroMonros/compose.yml
                   target: ~/deploy/
+                  strip_components: 4
 
             - name: Desplegar en servidor remoto
               uses: appleboy/ssh-action@master
