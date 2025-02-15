@@ -2,28 +2,27 @@ version: '3.8'
 
 services:
   php:
-    build:
-      context: .
-      dockerfile: docker/php.Dockerfile
+    image: $DOCKER_USERNAME/symfony-app:$GITHUB_SHA
     container_name: symfony_php
     restart: always
     working_dir: /var/www/html
     volumes:
       - .:/var/www/html
     depends_on:
-      - database
+      database:
+        condition: service_healthy
 
   nginx:
-    image: nginx:latest
+    image: $DOCKER_USERNAME/symfony-nginx:$GITHUB_SHA
     container_name: symfony_nginx
     restart: always
     ports:
       - "80:80"
     volumes:
       - .:/var/www/html
-      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
-      - php
+      php:
+        condition: service_started
 
   database:
     image: mysql:8.0
@@ -38,6 +37,10 @@ services:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 3
 
 volumes:
   db_data:
