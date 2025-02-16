@@ -75,5 +75,5 @@ jobs:
                   username: ${{ secrets.REMOTE_USER }}
                   key: ${{ secrets.REMOTE_KEY }}
                   script: |
-                      docker exec symfony_php php bin/console doctrine:database:create --if-not-exists
-                      docker exec symfony_php php bin/console doctrine:migrations:migrate --no-interaction
+                      docker exec symfony_app php bin/console doctrine:database:create --if-not-exists
+                      docker exec symfony_app php bin/console doctrine:migrations:migrate --no-interaction
