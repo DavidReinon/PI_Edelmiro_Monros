@@ -68,4 +68,4 @@ jobs:
                       docker-compose -f /home/${{ secrets.REMOTE_USER }}/deploy/compose.yml down
                       docker-compose -f /home/${{ secrets.REMOTE_USER }}/deploy/compose.yml up -d --force-recreate
 
-                      docker exec symfony_php php bin/console doctrine:migrations:migrate --no-interaction
+                      docker exec symfony_app php bin/console doctrine:migrations:migrate --no-interaction
