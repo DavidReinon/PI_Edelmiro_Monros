@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   php:
-    image: $DOCKER_USERNAME/symfony-app:$GITHUB_SHA
+    image: davidreinon/symfony-app:latest
     container_name: symfony_php
     restart: always
     working_dir: /var/www/html
@@ -13,7 +13,7 @@ services:
         condition: service_healthy
 
   nginx:
-    image: $DOCKER_USERNAME/symfony-nginx:$GITHUB_SHA
+    image: davidreinon/symfony-nginx:latest
     container_name: symfony_nginx
     restart: always
     ports:
@@ -44,3 +44,6 @@ services:
 
 volumes:
   db_data:
+
+# env_file:
+#   - .env
