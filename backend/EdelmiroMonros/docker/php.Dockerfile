@@ -26,6 +26,9 @@ RUN echo "memory_limit=512M" > /usr/local/etc/php/conf.d/memory-limit.ini \
 WORKDIR /var/www/html
 COPY . .
 
+# Instala solo las dependencias de Symfony
+RUN composer install --no-dev --no-interaction --optimize-autoloader
+
 # Ajusta permisos
 RUN chown -R www-data:www-data /var/www/html
 
