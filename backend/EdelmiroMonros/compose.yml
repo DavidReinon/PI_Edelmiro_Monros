@@ -3,7 +3,7 @@ version: '3.8'
 services:
   php:
     image: davidreinon/symfony-app:latest
-    container_name: symfony_php
+    container_name: symfony_app
     restart: always
     working_dir: /var/www/html
     volumes:
