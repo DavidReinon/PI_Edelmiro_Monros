@@ -27,13 +27,13 @@ final class NoticiasController extends AbstractController
     public function create(Request $request, EntityManagerInterface $em): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-        var_dump($data);
 
         $titulo = $data['titulo'] ?? null;
         $descripcion = $data['descripcion'] ?? null;
         $fecha = $data['fecha'] ?? null;
         $usuarioId = $data['usuario'] ?? null;
         $imagenBase64 = $data['foto'] ?? null; 
+        var_dump($data);
 
         if (!$titulo || !$descripcion || !$fecha || !$usuarioId) {
             return new JsonResponse(['error' => 'Datos inválidos'], JsonResponse::HTTP_BAD_REQUEST);
@@ -66,8 +66,8 @@ final class NoticiasController extends AbstractController
                 }
 
                 file_put_contents($uploadDir . $fileName, $imageData);
-
-                $noticia->setFoto('/public/uploads/noticias/fallas.jpg');
+                echo $fileName;
+                $noticia->setFoto($fileName);
             } catch (\Exception $e) {
                 return new JsonResponse(['error' => 'Error al guardar la imagen'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
             }
