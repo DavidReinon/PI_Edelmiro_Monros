@@ -1,5 +1,5 @@
 import { NgClass, NgStyle } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output,EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-card-cliente',
@@ -13,7 +13,6 @@ export class CardClienteComponent {
   @Input() comentario: string = 'This is a description';
   @Input() valoracion: number = 5;
   @Input() fecha: Date = new Date(2005, 4, 12); 
-
 
 
 }

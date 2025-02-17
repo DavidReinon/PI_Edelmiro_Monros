@@ -7,7 +7,7 @@
   </div>
   <div class="row g-4">
     @for (noticia of noticias; track noticia.id) {
-      <div class="col-12 col-md-6">
+      <div class="col-12">
         <app-card-noticias
           [titulo]="noticia.titulo"
           [descripcion]="noticia.descripcion"
