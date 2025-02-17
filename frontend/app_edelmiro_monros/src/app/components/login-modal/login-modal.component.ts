@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login-modal',
-  imports: [FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './login-modal.component.html',
   styleUrl: './login-modal.component.css'
 })
 export class LoginModalComponent {
-  email: string = '';
-  password: string = '';
-
+  
   abrirModal() {
     const modal = document.getElementById('registroModal');
     if (modal) {
@@ -28,20 +27,37 @@ export class LoginModalComponent {
       document.body.classList.remove('modal-open');
     }
   }
+  
+  emailOrUsername: string = '';
+  password: string = '';
 
   registrarse(event: Event) {
-    event.preventDefault(); // Evita el recargo de la página
+    event.preventDefault();
 
-    if (this.email && this.password) {
-      console.log('Usuario registrado con éxito:');
-      console.log('Email:', this.email);
-      console.log('Contraseña:', this.password);
-      alert('Registro exitoso');
+    if (this.emailOrUsername && this.password) {
+      // Validación: comprobar si es un correo electrónico o un nombre de usuario
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const isEmail = emailRegex.test(this.emailOrUsername);
+
+      if (isEmail) {
+        console.log("Usuario registrado:");
+        console.log("Correo Electrónico:", this.emailOrUsername);
+      } else {
+        console.log("Usuario registrado:");
+        console.log("Nombre de Usuario:", this.emailOrUsername);
+      }
+
+      console.log("Contraseña:", this.password);
+      alert("Registro exitoso");
+
       this.cerrarModal();
-      this.email = '';
-      this.password = '';
+      this.emailOrUsername = "";
+      this.password = "";
     } else {
-      alert('Por favor, completa todos los campos');
+      alert("Por favor, completa todos los campos");
     }
   }
+
+  hover = false;
+
 }
