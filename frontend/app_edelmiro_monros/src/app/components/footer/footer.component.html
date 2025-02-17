@@ -1,14 +1,16 @@
-<div class="container-fluid">
+<div class="footer-container">
   <footer class="py-5 bg-body-tertiary">
     <div class="row">
       <div
         class="d-flex justify-content-center col-12 col-md-3 ms-md-5 mb-md-0 mb-3"
       >
-        <img
-          src="logos/Logo Corporativo.jpg"
-          alt="Logo Corporativo Edelmiro Monros"
-          width="180px"
-        />
+        <a href="#" routerLink="/inicio">
+          <img
+            src="logos/Logo Corporativo.jpg"
+            alt="Logo Corporativo Edelmiro Monros"
+            width="180px"
+          />
+        </a>
       </div>
       <div
         class="d-flex flex-column align-items-center col-12 col-md-3 offset-md-1 mb-3"
@@ -41,26 +43,29 @@
           >
         </p>
       </div>
-
-      <!-- TODO: Añadir navegacion a pantalla/views de seccion de Politicas -->
+      
       <div class="d-flex flex-column align-items-center col-12 col-md-2 mb-3">
         <h5>Politicas</h5>
         <ul class="nav flex-column text-center">
           <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">Aviso Legal</a>
+            <a href="#" routerLink="/aviso"
+             class="nav-link p-0 text-body-secondary">Aviso Legal</a>
           </li>
           <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary"
+            <a  href="#" routerLink="/privacidad"
+             class="nav-link p-0 text-body-secondary"
               >Política de privacidad</a
             >
           </li>
           <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary"
+            <a  href="#" routerLink="/cookies"
+            class="nav-link p-0 text-body-secondary"
               >Política de cookies</a
             >
           </li>
           <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary"
+            <a href="#" routerLink="/accesibilidad"
+             class="nav-link p-0 text-body-secondary"
               >Accesibilidad</a
             >
           </li>
@@ -87,9 +92,9 @@
         <p>© 2025 Edelmiro Monrós. Todos los derechos Reservados.</p>
       </div>
 
-      <div class="col-12 col-md-4 offset-md-2">
+      <div class="col-12 col-md-4 offset-md-1">
         <ul
-          class="list-unstyled d-flex justify-content-center justify-content-md-start"
+          class="list-unstyled d-flex justify-content-center me-md-3"
         >
           <li class="ms-3">
             <a

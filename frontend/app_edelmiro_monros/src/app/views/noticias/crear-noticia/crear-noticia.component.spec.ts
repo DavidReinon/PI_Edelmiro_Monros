@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CrearNoticiaComponent } from './crear-noticia.component';
 
-import { IndexComponent } from './index.component';
-
-describe('IndexComponent', () => {
-  let component: IndexComponent;
-  let fixture: ComponentFixture<IndexComponent>;
+describe('CrearNoticiaComponent', () => {
+  let component: CrearNoticiaComponent;
+  let fixture: ComponentFixture<CrearNoticiaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [IndexComponent]
+      imports: [CrearNoticiaComponent]
     })
     .compileComponents();
-
-    fixture = TestBed.createComponent(IndexComponent);
+    
+    fixture = TestBed.createComponent(CrearNoticiaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -20,4 +19,4 @@ describe('IndexComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
+}); 
