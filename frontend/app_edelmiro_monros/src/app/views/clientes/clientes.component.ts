@@ -41,8 +41,6 @@ export class ClientesComponent {
   actualizarValoracion(index: number, valor: number) {
     if (index >= 0 && index < this.personas.length) {
       this.personas[index].valoracion = valor;
-    } else {
-      console.error('Índice fuera de rango');
-    }
+    } 
   }
 }
