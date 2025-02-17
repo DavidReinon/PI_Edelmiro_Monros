@@ -1,10 +1,9 @@
 
 <div class="container-fluid mt-3">
     <div class="card" >
-      <img class="card-img-top"  [ngStyle]="{'background-image': 'url(' + photo + ')'}" alt="Card image">
       <div class="card-body">
         <h4 class="card-title">{{Nombre}}</h4>
-        <p class="card-text">{{valoracion}}</p>
+        <app-rating-star [rating]="valoracion"></app-rating-star>
         <p class="card-text">{{fecha}}</p>
         <p class="card-text">{{comentario}}</p>
       </div>
