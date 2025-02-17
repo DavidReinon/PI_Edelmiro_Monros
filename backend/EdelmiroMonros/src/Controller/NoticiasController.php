@@ -23,38 +23,32 @@ final class NoticiasController extends AbstractController
         ]);
     }
 
-    #[Route('/noticias', name: 'create', methods: ['POST'])]
+    #[Route('/api/noticias', name: 'create', methods: ['POST'])]
     public function create(Request $request, EntityManagerInterface $em): JsonResponse
     {
-        if (!$request->isMethod('POST')) {
-            return new JsonResponse(['error' => 'Método no permitido'], JsonResponse::HTTP_METHOD_NOT_ALLOWED);
-        }
-
-        // Asegurar que es multipart/form-data
-        if (!str_contains($request->headers->get('Content-Type') ?? '', 'multipart/form-data')) {
-            return new JsonResponse(['error' => 'Tipo de contenido no soportado'], JsonResponse::HTTP_UNSUPPORTED_MEDIA_TYPE);
-        }
-
+        
         $titulo = $request->request->get('titulo');
         $descripcion = $request->request->get('descripcion');
         $fecha = $request->request->get('fecha');
         $usuarioId = $request->request->get('usuario');
+        $fotoFile = $request->files->get('foto');
 
-        if (!$titulo || !$descripcion || !$fecha || !$usuarioId) {
+        /* if (!$titulo || !$descripcion || !$fecha || !$usuarioId) {
             return new JsonResponse(['error' => 'Datos inválidos'], JsonResponse::HTTP_BAD_REQUEST);
-        }
+        } */
 
         $usuario = $em->getRepository(Usuarios::class)->find($usuarioId);
-        if (!$usuario) {
+        /* if (!$usuario) {
             return new JsonResponse(['error' => 'Usuario no encontrado'], JsonResponse::HTTP_BAD_REQUEST);
-        }
+        } */
+        
 
         $noticia = new Noticias();
         $noticia->setTitulo($titulo);
         $noticia->setDescripcion($descripcion);
         $noticia->setFecha(\DateTime::createFromFormat('Y-m-d', $fecha));
         $noticia->setUsuario($usuario);
-
+        
         // Procesar la foto
         $fotoFile = $request->files->get('foto');
         if ($fotoFile) {
