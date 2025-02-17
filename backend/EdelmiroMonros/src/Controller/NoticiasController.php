@@ -26,35 +26,51 @@ final class NoticiasController extends AbstractController
     #[Route('/api/noticias', name: 'create', methods: ['POST'])]
     public function create(Request $request, EntityManagerInterface $em): JsonResponse
     {
-        
-        $titulo = $request->request->get('titulo');
-        $descripcion = $request->request->get('descripcion');
-        $fecha = $request->request->get('fecha');
-        $usuarioId = $request->request->get('usuario');
-        $fotoFile = $request->files->get('foto');
+        $data = json_decode($request->getContent(), true);
+        var_dump($data);
 
-        /* if (!$titulo || !$descripcion || !$fecha || !$usuarioId) {
+        $titulo = $data['titulo'] ?? null;
+        $descripcion = $data['descripcion'] ?? null;
+        $fecha = $data['fecha'] ?? null;
+        $usuarioId = $data['usuario'] ?? null;
+        $imagenBase64 = $data['foto'] ?? null; 
+
+        if (!$titulo || !$descripcion || !$fecha || !$usuarioId) {
             return new JsonResponse(['error' => 'Datos inválidos'], JsonResponse::HTTP_BAD_REQUEST);
-        } */
+        }
 
         $usuario = $em->getRepository(Usuarios::class)->find($usuarioId);
-        /* if (!$usuario) {
+        if (!$usuario) {
             return new JsonResponse(['error' => 'Usuario no encontrado'], JsonResponse::HTTP_BAD_REQUEST);
-        } */
-        
+        }
 
         $noticia = new Noticias();
         $noticia->setTitulo($titulo);
         $noticia->setDescripcion($descripcion);
         $noticia->setFecha(\DateTime::createFromFormat('Y-m-d', $fecha));
         $noticia->setUsuario($usuario);
-        
-        // Procesar la foto
-        $fotoFile = $request->files->get('foto');
-        if ($fotoFile) {
-            $fileName = uniqid('noticia_') . '.' . $fotoFile->guessExtension();
-            $fotoFile->move($this->getParameter('kernel.project_dir') . '/public/uploads/noticias', $fileName);
-            $noticia->setFoto($fileName);
+
+        if ($imagenBase64) {
+            try {
+                $imageData = base64_decode($imagenBase64);
+
+                if ($imageData === false) {
+                    return new JsonResponse(['error' => 'Error al decodificar la imagen'], JsonResponse::HTTP_BAD_REQUEST);
+                }
+
+                $fileName = uniqid('noticia_') . '.jpg'; 
+
+                $uploadDir = $this->getParameter('kernel.project_dir') . '/public/uploads/noticias/';
+                if (!file_exists($uploadDir)) {
+                    mkdir($uploadDir, 0777, true); 
+                }
+
+                file_put_contents($uploadDir . $fileName, $imageData);
+
+                $noticia->setFoto('/public/uploads/noticias/fallas.jpg');
+            } catch (\Exception $e) {
+                return new JsonResponse(['error' => 'Error al guardar la imagen'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+            }
         }
 
         $em->persist($noticia);

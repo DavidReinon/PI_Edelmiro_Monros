@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: NoticiasRepository::class)]
 #[ApiResource]
+
 class Noticias
 {
     #[ORM\Id]
@@ -25,7 +26,7 @@ class Noticias
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $fecha = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: TYPES::TEXT)]
     private ?string $foto;
 
     #[ORM\ManyToOne(inversedBy: 'noticias')]
