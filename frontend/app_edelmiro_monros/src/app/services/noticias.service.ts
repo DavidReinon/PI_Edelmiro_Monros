@@ -12,7 +12,7 @@ export class NoticiasService {
   crearNoticia(noticia: any) {
     console.log(JSON.stringify(noticia))
     const headers = new HttpHeaders({
-      'Content-Type': 'application/ld+json' // Cambia esto a 'application/ld+json'
+      'Content-Type': 'application/ld+json' 
     });
     return this.http.post(this.apiUrl, JSON.stringify(noticia), { headers });
   }
