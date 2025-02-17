@@ -36,10 +36,6 @@ export class ServiciosService {
             return this.http.post<Productos>(url, producto);
           }
         
-          public postResena(url: string, resena: Resena): Observable<Resena> {
-            return this.http.post<Resena>(url, resena);
-          }
-        
           public postUsuario(url: string, usuario: Usuario): Observable<Usuario> {
             return this.http.post<Usuario>(url, usuario);
           }
@@ -53,9 +49,6 @@ export class ServiciosService {
             return this.http.put<Productos>(`${url}/${id}`, producto);
           }
         
-          public putResena(url: string, id: number, resena: Resena): Observable<Resena> {
-            return this.http.put<Resena>(`${url}/${id}`, resena);
-          }
         
           public putUsuario(url: string, id: number, usuario: Usuario): Observable<Usuario> {
             return this.http.put<Usuario>(`${url}/${id}`, usuario);
@@ -70,9 +63,6 @@ export class ServiciosService {
             return this.http.patch<Productos>(`${url}/${id}`, producto);
           }
         
-          public patchResena(url: string, id: number, resena: Partial<Resena>): Observable<Resena> {
-            return this.http.patch<Resena>(`${url}/${id}`, resena);
-          }
         
           public patchUsuario(url: string, id: number, usuario: Partial<Usuario>): Observable<Usuario> {
             return this.http.patch<Usuario>(`${url}/${id}`, usuario);
@@ -87,9 +77,6 @@ export class ServiciosService {
             return this.http.delete<void>(`${url}/${id}`);
           }
         
-          public deleteResena(url: string, id: number): Observable<void> {
-            return this.http.delete<void>(`${url}/${id}`);
-          }
         
           public deleteUsuario(url: string, id: number): Observable<void> {
             return this.http.delete<void>(`${url}/${id}`);
