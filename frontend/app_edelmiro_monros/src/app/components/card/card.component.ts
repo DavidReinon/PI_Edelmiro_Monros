@@ -14,7 +14,7 @@ import { Router, RouterModule } from '@angular/router';
 export class CardComponent {
   public isAdmin$!: Observable<boolean>;
 
-  constructor(private authService: Auth) {}
+  constructor(private router: Router, private authService: Auth) {}
 
   ngOnInit() {
     this.isAdmin$ = this.authService.isAdmin$;
@@ -25,10 +25,8 @@ export class CardComponent {
   @Input() price: number = 0;
   @Input() isAdmin: Observable<boolean> | null = null;
   @Input() id: number = 0;
-  
-  isExpanded: boolean = false;
 
-  constructor(private router: Router) {}
+  isExpanded: boolean = false;
 
   expand() {
     this.isExpanded = !this.isExpanded;

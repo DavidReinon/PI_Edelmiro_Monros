@@ -15,53 +15,49 @@ import { CommonModule } from '@angular/common';
   styleUrl: './productos.component.css',
 })
 export class ProductosComponent implements OnInit {
-  isAdmin$: Observable<boolean>;
-  productos: Productos[] = [];
+  public isAdmin$!: Observable<boolean>;
 
   constructor(private router: Router, private authService: Auth) {}
+  productos: Productos[] = [
+    {
+      id: 1,
+      title: 'Moño 1',
+      text: 'Moño Fallera 1',
+      photo:
+        'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7974.jpg',
+      price: 100,
+    },
+    {
+      id: 2,
+      title: 'Moño 2',
+      text: 'Moño Fallera 2',
+      photo:
+        'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7545.jpg',
+      price: 200,
+    },
+    {
+      id: 3,
+      title: 'Moño 3',
+      text: 'Moño Fallera 3',
+      photo:
+        'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_1403.jpeg',
+      price: 300,
+    },
+    {
+      id: 4,
+      title: 'Moño 4',
+      text: 'Moño Fallera 4',
+      photo:
+        'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_2610.jpeg',
+      price: 400,
+    },
+  ];
 
   ngOnInit() {
     this.isAdmin$ = this.authService.isAdmin$;
-    this.isAdmin$.subscribe(isAdmin => {
+    this.isAdmin$.subscribe((isAdmin) => {
       console.log('isAdmin:', isAdmin);
     });
-  }
-
-  ngOnInit() {
-    this.productos = [
-      {
-        id: 1,
-        title: 'Moño 1',
-        text: 'Moño Fallera 1',
-        photo:
-          'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7974.jpg',
-        price: 100,
-      },
-      {
-        id: 2,
-        title: 'Moño 2',
-        text: 'Moño Fallera 2',
-        photo:
-          'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7545.jpg',
-        price: 200,
-      },
-      {
-        id: 3,
-        title: 'Moño 3',
-        text: 'Moño Fallera 3',
-        photo:
-          'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_1403.jpeg',
-        price: 300,
-      },
-      {
-        id: 4,
-        title: 'Moño 4',
-        text: 'Moño Fallera 4',
-        photo:
-          'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_2610.jpeg',
-        price: 400,
-      },
-    ];
   }
 
   agregarProducto() {
@@ -69,7 +65,7 @@ export class ProductosComponent implements OnInit {
   }
 
   eliminarProducto(id: number) {
-    this.productos = this.productos.filter(producto => producto.id !== id);
+    this.productos = this.productos.filter((producto) => producto.id !== id);
     console.log('funciona');
   }
 
