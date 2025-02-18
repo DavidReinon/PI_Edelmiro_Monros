@@ -5,17 +5,23 @@ import { RouterLinkActive, RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { Auth } from '../../services/auth.service';
 import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-productos',
-  imports: [CardComponent, RouterModule, RouterLinkActive],
+  imports: [CardComponent, RouterModule, RouterLinkActive, CommonModule],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css',
 })
 export class ProductosComponent {
   public isAdmin$!: Observable<boolean>;
 
-  constructor(private router: Router, private authService: Auth) {
+  constructor(private router: Router, private authService: Auth) {}
+
+  ngOnInit() {
     this.isAdmin$ = this.authService.isAdmin$;
+    this.isAdmin$.subscribe(isAdmin => {
+      console.log('isAdmin:', isAdmin);
+    });
   }
 
   public productos: Productos[] = [
