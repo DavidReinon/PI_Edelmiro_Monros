@@ -1,17 +1,48 @@
 import { Component } from '@angular/core';
 import { CardClienteComponent } from '../../components/card-cliente/card-cliente.component';
-import { Router } from '@angular/router';
+import { RatingStarComponent } from '../../rating-star/rating-star.component';
 
 @Component({
   selector: 'app-clientes',
-  imports: [CardClienteComponent],
+  standalone: true,
+  imports: [CardClienteComponent, RatingStarComponent],
   templateUrl: './clientes.component.html',
   styleUrl: './clientes.component.css'
 })
 export class ClientesComponent {
-  public photo: string = 'https://frutasolivar.com/wp-content/uploads/2019/02/rawpixel-603025-unsplash-e1579691765526.jpg';
-  public Nombre: string = 'Juan Pérez';
-  public fecha: Date = new Date(2005, 4, 12);
-  public comentario: string = 'Excelente servicio y atención.';
-  public valoracion: number = 5;
+
+
+  public personas: { Nombre: string; fecha: Date; comentario: string; valoracion: number }[] = [
+    {
+      Nombre: 'Juan Pérez',
+      fecha: new Date(2005, 4, 12),
+      comentario: 'Excelente servicio y atención.',
+      valoracion: 3
+    },
+    {
+      Nombre: 'María López',
+      fecha: new Date(1998, 10, 25),
+      comentario: 'Muy buena experiencia, recomendado.Muy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendado',
+      valoracion: 5
+    },
+    {
+      Nombre: 'Carlos Gómez',
+      fecha: new Date(2000, 6, 8),
+      comentario: 'El servicio fue bueno, pero podría mejorar.',
+      valoracion: 4.5
+    },
+    {
+      Nombre: 'Ana Torres',
+      fecha: new Date(1995, 1, 15),
+      comentario: 'No quedé satisfecha con la atención.',
+      valoracion: 2
+    }
+  ];
+
+  actualizarValoracion(index: number, valor: number) {
+    if (index >= 0 && index < this.personas.length) {
+      this.personas[index].valoracion = valor;
+    } 
+  }
+
 }
