@@ -74,9 +74,7 @@ final class NoticiasController extends AbstractController
         $em->flush();
 
         $response = new JsonResponse(['status' => 'Noticia creada'], JsonResponse::HTTP_CREATED);
-        $response->headers->set('Access-Control-Allow-Origin', '*');
-        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        
         return $response;
     }
 
@@ -91,7 +89,7 @@ final class NoticiasController extends AbstractController
                 'titulo' => $noticia->getTitulo(),
                 'descripcion' => $noticia->getDescripcion(),
                 'fecha' => $noticia->getFecha(),
-                'usuario' => $noticia->getUsuario(),
+                'usuario' => $noticia->getUsuario()->getId(),
                 'foto' => $noticia->getFoto()
             ];
         }
@@ -106,7 +104,7 @@ final class NoticiasController extends AbstractController
             'titulo' => $noticia->getTitulo(),
             'descripcion' => $noticia->getDescripcion(),
             'fecha' => $noticia->getFecha(),
-            'usuario' => $noticia->getUsuario(),
+            'usuario' => $noticia->getUsuario()->getId(),
             'foto' => $noticia->getFoto()
         ];
 
