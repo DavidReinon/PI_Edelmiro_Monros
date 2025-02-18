@@ -10,7 +10,7 @@ import { AvisoLegalComponent } from './views/aviso-legal/aviso-legal.component';
 import { AccesibilidadComponent } from './views/accesibilidad/accesibilidad.component';
 import { PoliticaCookiesComponent } from './views/politica-cookies/politica-cookies.component';
 import { PoliticaPrivacidadComponent } from './views/politica-privacidad/politica-privacidad.component';
-import { FormularioProductoComponent } from './views/formulario-producto/formulario-producto.component';
+import { FormularioProductoComponent } from './views/productos/formulario-producto/formulario-producto.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'inicio', pathMatch: 'full' },

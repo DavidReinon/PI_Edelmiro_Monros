@@ -5,7 +5,7 @@ import { RouterLinkActive, RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-productos',
-  imports: [CardComponent, RouterModule,RouterLinkActive],
+  imports: [CardComponent, RouterModule, RouterLinkActive],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css',
 })
@@ -40,7 +40,7 @@ export class ProductosComponent {
       price: 400,
     },
   ];
-  
+
   constructor(private router: Router) {}
 
   agregarNoticia() {
@@ -49,6 +49,6 @@ export class ProductosComponent {
 
   eliminarNoticia(id: number) {
     //this.productos = this.productos.filter(producto => producto.id !== id);
-    console.log('funciona')
+    console.log('funciona');
   }
 }
