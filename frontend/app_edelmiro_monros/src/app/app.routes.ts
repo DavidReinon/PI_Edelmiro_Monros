@@ -11,6 +11,7 @@ import { AccesibilidadComponent } from './views/accesibilidad/accesibilidad.comp
 import { PoliticaCookiesComponent } from './views/politica-cookies/politica-cookies.component';
 import { PoliticaPrivacidadComponent } from './views/politica-privacidad/politica-privacidad.component';
 import { FormularioProductoComponent } from './views/formulario-producto/formulario-producto.component';
+import { EditarProductoComponent } from './views/productos/editar-producto/editar-producto.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -25,7 +26,9 @@ export const routes: Routes = [
     {path: 'accesibilidad', component: AccesibilidadComponent},
     {path: 'cookies', component: PoliticaCookiesComponent},
     {path: 'privacidad', component: PoliticaPrivacidadComponent},
+    {path: 'formularioProducto/:id', component: FormularioProductoComponent},
     {path: 'formularioProducto', component: FormularioProductoComponent},
+    {path: 'editar-producto/:id', component: EditarProductoComponent},
 
 
 
