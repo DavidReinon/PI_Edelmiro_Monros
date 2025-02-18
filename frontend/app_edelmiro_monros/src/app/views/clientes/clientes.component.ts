@@ -5,7 +5,7 @@ import { RatingStarComponent } from '../../rating-star/rating-star.component';
 @Component({
   selector: 'app-clientes',
   standalone: true,
-  imports: [CardClienteComponent, RatingStarComponent],
+  imports: [CardClienteComponent,],
   templateUrl: './clientes.component.html',
   styleUrl: './clientes.component.css'
 })
