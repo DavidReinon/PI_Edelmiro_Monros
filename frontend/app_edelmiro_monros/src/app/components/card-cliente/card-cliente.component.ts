@@ -12,7 +12,7 @@ export class CardClienteComponent {
   @Input() Nombre: string = 'My title';
   @Input() comentario: string = 'This is a description';
   @Input() valoracion: number = 3;
-  @Input() fecha: Date = new Date(2005, 4, 12);  
+  @Input() fecha: string = '12/05/2005';  
 
   @Output() valoracionChange = new EventEmitter<number>(); 
 
