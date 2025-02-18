@@ -18,8 +18,13 @@ export class ProductosComponent implements OnInit {
   isAdmin$: Observable<boolean>;
   productos: Productos[] = [];
 
-  constructor(private router: Router, private authService: Auth) {
+  constructor(private router: Router, private authService: Auth) {}
+
+  ngOnInit() {
     this.isAdmin$ = this.authService.isAdmin$;
+    this.isAdmin$.subscribe(isAdmin => {
+      console.log('isAdmin:', isAdmin);
+    });
   }
 
   ngOnInit() {

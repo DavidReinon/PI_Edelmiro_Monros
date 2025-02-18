@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CardNoticiasComponent } from '../../components/card-noticias/card-noticias.component';
 import { Observable } from 'rxjs';
 import { Auth } from '../../services/auth.service';
+import { CommonModule } from '@angular/common';
 
 interface Noticia {
   id: number;
@@ -15,7 +16,7 @@ interface Noticia {
 @Component({
   selector: 'app-noticias',
   standalone: true,
-  imports: [CardNoticiasComponent],
+  imports: [CardNoticiasComponent, CommonModule],
   templateUrl: './noticias.component.html',
   styleUrl: './noticias.component.css',
 })
@@ -23,8 +24,13 @@ interface Noticia {
 export class NoticiasComponent {
   public isAdmin$!: Observable<boolean>;
 
-  constructor(private router: Router, private authService: Auth) {
+  constructor(private router: Router, private authService: Auth) {}
+
+  ngOnInit() {
     this.isAdmin$ = this.authService.isAdmin$;
+    this.isAdmin$.subscribe(isAdmin => {
+      console.log('isAdmin:', isAdmin);
+    });
   }
 
   noticias: Noticia[] = [

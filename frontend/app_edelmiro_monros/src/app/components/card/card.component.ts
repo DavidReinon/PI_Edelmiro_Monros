@@ -1,5 +1,6 @@
 import { NgStyle, NgIf, AsyncPipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { Auth } from '../../services/auth.service';
 import { Observable } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
 
@@ -8,9 +9,16 @@ import { Router, RouterModule } from '@angular/router';
   imports: [NgStyle, NgIf, AsyncPipe, RouterModule],
   templateUrl: './card.component.html',
   styleUrl: './card.component.css',
-  standalone: true
+  standalone: true,
 })
 export class CardComponent {
+  public isAdmin$!: Observable<boolean>;
+
+  constructor(private authService: Auth) {}
+
+  ngOnInit() {
+    this.isAdmin$ = this.authService.isAdmin$;
+  }
   @Input() title: string = '';
   @Input() text: string = '';
   @Input() photo: string = '';

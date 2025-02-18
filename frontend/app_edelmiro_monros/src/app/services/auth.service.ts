@@ -6,7 +6,8 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class Auth {
-  private isAdminSubject = new BehaviorSubject<boolean>(false);
+  //TODO: Cambiar a False en version final
+  private isAdminSubject = new BehaviorSubject<boolean>(true);
   isAdmin$ = this.isAdminSubject.asObservable();
 
   constructor() {}

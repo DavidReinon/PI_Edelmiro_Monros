@@ -1,9 +1,7 @@
 <div class="container py-5">
 
   <h1 class="mb-4 text-center">Descubre Nuestros Moños</h1>
-
-  @if(isAdmin$) {
-
+  @if(isAdmin$ | async) {
   <div class="d-flex justify-content-end mb-3">
 
     <button
@@ -15,9 +13,7 @@
       class="btn btn-primary"
 
     >
-
-      Crear Producto
-
+      <i class="bi bi-plus-lg"></i> Añadir Producto
     </button>
 
   </div>

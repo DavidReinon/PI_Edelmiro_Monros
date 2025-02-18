@@ -4,6 +4,8 @@
     </div>
     <div class="card-body">
         <h5 class="card-title" [title]="title">{{ title }}</h5>
+        <!--Añadir en los botones de admistrador de Editar y Eliminar:
+         @if(isAdmin$ | async) {} -->
    
         @if (isExpanded) {
             <div class="expanded-content mt-3">
