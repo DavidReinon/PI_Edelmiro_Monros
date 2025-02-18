@@ -3,16 +3,152 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Productos;
+use App\Entity\Usuarios;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
 
+#[Route('/api/productos', name: 'app_productos')]
 final class ProductosController extends AbstractController
 {
-    #[Route('/productos', name: 'app_productos')]
-    public function index(): Response
+    #[Route('', name: 'create', methods: ['POST'])]
+    public function create(Request $request, EntityManagerInterface $em): JsonResponse
     {
-        return $this->render('productos/index.html.twig', [
-            'controller_name' => 'ProductosController',
-        ]);
+        $data = json_decode($request->getContent(), true);
+
+        $nombre = $data['nombre'] ?? null;
+        $descripcion = $data['descripcion'] ?? null;
+        $precio = $data['precio'] ?? null;
+        $stock = $data['stock'] ?? null;
+        $usuarioId = $data['usuario'] ?? null;
+        $imagenBase64 = $data['foto'] ?? null;
+
+        if (!$nombre || $descripcion || !$usuarioId) {
+            return new JsonResponse(['error' => 'Datos inválidos'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
+        $usuario = $em->getRepository(Usuarios::class)->find($usuarioId);
+        if (!$usuario) {
+            return new JsonResponse(['error' => 'Usuario no encontrado'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
+        $producto = new Productos();
+        $producto->setNombre($nombre);
+        $producto->setDescripcion($descripcion);
+        $producto->setPrecio($precio);
+        $producto->setStock($stock);
+        $producto->setUsuarioProducto($usuario);
+
+        if ($imagenBase64) {
+            try {
+                $imageData = base64_decode($imagenBase64);
+                if ($imageData === false) {
+                    return new JsonResponse(['error' => 'Error al decodificar la imagen'], JsonResponse::HTTP_BAD_REQUEST);
+                }
+                $fileName = uniqid('producto_') . '.jpg';
+                $uploadDir = $this->getParameter('kernel.project_dir') . '/public/uploads/productos/';
+                if (!file_exists($uploadDir)) {
+                    mkdir($uploadDir, 0777, true);
+                }
+                file_put_contents($uploadDir . $fileName, $imageData);
+                $producto->setFoto('/uploads/productos/' . $fileName);
+            } catch (\Exception $e) {
+                return new JsonResponse(['error' => 'Error al guardar la imagen'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        $em->persist($producto);
+        $em->flush();
+
+        return new JsonResponse(['status' => 'Producto creado'], JsonResponse::HTTP_CREATED);
+    }
+
+    #[Route('', name: 'list', methods: ['GET'])]
+    public function list(EntityManagerInterface $em): JsonResponse
+    {
+        $productos = $em->getRepository(Productos::class)->findAll();
+        $data = [];
+        foreach ($productos as $producto) {
+            $data[] = [
+                'id' => $producto->getId(),
+                'nombre' => $producto->getNombre(),
+                'descripcion' => $producto->getDescripcion(),
+                'precio' => $producto->getPrecio(),
+                'stock' => $producto->getStock(),
+                'usuario' => $producto->getUsuarioProducto(),
+                'foto' => $producto->getFoto()
+            ];
+        }
+        return new JsonResponse($data);
+    }
+
+    #[Route('/{id}', name: 'show', methods: ['GET'])]
+    public function show(Productos $producto): JsonResponse
+    {
+        $data = [
+            'id' => $producto->getId(),
+            'nombre' => $producto->getNombre(),
+            'descripcion' => $producto->getDescripcion(),
+            'precio' => $producto->getPrecio(),
+            'stock' => $producto->getStock(),
+            'usuario' => $producto->getUsuarioProducto(),
+            'foto' => $producto->getFoto()
+        ];
+        return new JsonResponse($data);
+    }
+
+    #[Route('/{id}', name: 'update', methods: ['PUT'])]
+    public function update(Request $request, Productos $producto, EntityManagerInterface $em): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $producto->setNombre($data['nombre']);
+        $producto->setDescripcion($data['descripcion']);
+        $producto->setPrecio($data['precio']);
+        $producto->setStock($data['stock']);
+        $producto->setUsuarioProducto($data['usuario']);
+        $producto->setFoto($data['foto']);
+
+        $em->flush();
+        return new JsonResponse(['status' => 'Producto actualizado']);
+    }
+
+    #[Route('/{id}', name: 'partial_update', methods: ['PATCH'])]
+    public function partialUpdate(Request $request, Productos $producto, EntityManagerInterface $em): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        if (isset($data['nombre'])) {
+            $producto->setNombre($data['nombre']);
+        }
+        if (isset($data['descripcion'])) {
+            $producto->setDescripcion($data['descripcion']);
+        }
+        if (isset($data['precio'])) {
+            $producto->setPrecio($data['precio']);
+        }
+        if (isset($data['stock'])) {
+            $producto->setStock($data['stock']);
+        }
+        if (isset($data['usuario'])) {
+            $producto->setUsuarioProducto($data['usuario']);
+        }
+        if (isset($data['foto'])) {
+            $producto->setFoto($data['foto']);
+        }
+
+        $em->flush();
+        return new JsonResponse(['status' => 'Producto actualizado']);
+    }
+
+    #[Route('/{id}', name: 'delete', methods: ['DELETE'])]
+    public function delete(Productos $producto, EntityManagerInterface $em): JsonResponse
+    {
+        $em->remove($producto);
+        $em->flush();
+        return new JsonResponse(['status' => 'Producto eliminado']);
     }
 }
