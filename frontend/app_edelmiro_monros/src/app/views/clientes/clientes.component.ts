@@ -10,7 +10,7 @@ import { RatingStarComponent } from '../../rating-star/rating-star.component';
   styleUrl: './clientes.component.css'
 })
 export class ClientesComponent {
-<<<<<<< HEAD
+
   // Definir la estructura de los datos con una interfaz opcional
   public personas: { Nombre: string; fecha: Date; comentario: string; valoracion: number }[] = [
     {
