@@ -2,15 +2,25 @@ import { NgStyle, NgIf, AsyncPipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-card',
   imports: [NgStyle, NgIf, AsyncPipe, RouterModule],
   templateUrl: './card.component.html',
   styleUrl: './card.component.css',
-  standalone: true
+  standalone: true,
 })
 export class CardComponent {
+  public isAdmin$!: Observable<boolean>;
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+  ngOnInit() {
+    this.isAdmin$ = this.authService.isAdmin$;
+  }
   @Input() title: string = '';
   @Input() text: string = '';
   @Input() photo: string = '';
@@ -21,8 +31,7 @@ export class CardComponent {
   
   isExpanded: boolean = false;
 
-  constructor(private router: Router) {}
-
+ 
   expand() {
     this.isExpanded = !this.isExpanded;
   }

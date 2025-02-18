@@ -3,7 +3,7 @@ import { Productos } from '../../models/productos.interfaces';
 import { CardComponent } from '../../components/card/card.component';
 import { RouterLinkActive, RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
-import { Auth } from '../../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
@@ -15,14 +15,17 @@ import { CommonModule } from '@angular/common';
   styleUrl: './productos.component.css',
 })
 export class ProductosComponent implements OnInit {
-  isAdmin$: Observable<boolean>;
+  public isAdmin$!: Observable<boolean>;
   productos: Productos[] = [];
 
-  constructor(private router: Router, private authService: Auth) {
-    this.isAdmin$ = this.authService.isAdmin$;
-  }
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
+    this.isAdmin$ = this.authService.isAdmin$;
+    this.isAdmin$.subscribe(isAdmin => {
+      console.log('isAdmin:', isAdmin);
+    });
+
     this.productos = [
       {
         id: 1,
