@@ -64,7 +64,7 @@ final class NoticiasController extends AbstractController
 
                 file_put_contents($uploadDir . $fileName, $imageData);
 
-                $noticia->setFoto('/uploads/noticias' . $fileName);
+                $noticia->setFoto('/uploads/noticias/' . $fileName);
             } catch (\Exception $e) {
                 return new JsonResponse(['error' => 'Error al guardar la imagen'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
             }
@@ -214,6 +214,15 @@ final class NoticiasController extends AbstractController
     #[Route('/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(Noticias $noticia, EntityManagerInterface $em): JsonResponse
     {
+        if ($noticia->getFoto()) {
+            $uploadDir = $this->getParameter('kernel.project_dir') . '/public/uploads/noticias/';
+            $filePath = $uploadDir . basename($noticia->getFoto());
+
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+        }
+
         $em->remove($noticia);
         $em->flush();
         return new JsonResponse(['status' => 'Noticia eliminada']);
