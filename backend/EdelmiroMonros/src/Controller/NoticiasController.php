@@ -74,7 +74,7 @@ final class NoticiasController extends AbstractController
         $em->flush();
 
         $response = new JsonResponse(['status' => 'Noticia creada'], JsonResponse::HTTP_CREATED);
-        
+
         return $response;
     }
 
@@ -115,12 +115,46 @@ final class NoticiasController extends AbstractController
     public function update(Request $request, Noticias $noticia, EntityManagerInterface $em): JsonResponse
     {
         $data = json_decode($request->getContent(), associative: true);
+        $titulo = $data['titulo'] ?? null;
+        $descripcion = $data['descripcion'] ?? null;
+        $fecha = $data['fecha'] ?? null;
+        $usuarioId = $data['usuario'] ?? null;
+        $imagenBase64 = $data['foto'] ?? null;
 
-        $noticia->setTitulo($data['titulo']);
-        $noticia->setDescripcion($data['descripcion']);
-        $noticia->setFecha(\DateTime::createFromFormat('Y-m-d', $data['fecha']));
-        $noticia->setUsuario($data['usuario']);
-        $noticia->setFoto($data['foto']);
+        if ($imagenBase64) {
+            try {
+                $imageData = base64_decode($imagenBase64);
+
+                if ($imageData === false) {
+                    return new JsonResponse(['error' => 'Error al decodificar la imagen'], JsonResponse::HTTP_BAD_REQUEST);
+                }
+
+                $fileName = uniqid('noticia_') . '.jpg';
+
+                $uploadDir = $this->getParameter('kernel.project_dir') . '/public/uploads/noticias/';
+                if (!file_exists($uploadDir)) {
+                    mkdir($uploadDir, 0777, true);
+                }
+
+                file_put_contents($uploadDir . $fileName, $imageData);
+
+                $noticia->setFoto('/uploads/noticias' . $fileName);
+            } catch (\Exception $e) {
+                return new JsonResponse(['error' => 'Error al guardar la imagen'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        $usuario = $em->getRepository(Usuarios::class)->find($usuarioId);
+        if (!$usuario) {
+            return new JsonResponse(['error' => 'Usuario no encontrado'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
+
+        $noticia->setTitulo($titulo);
+        $noticia->setDescripcion($descripcion);
+        $noticia->setFecha(new \DateTime($fecha));
+        $noticia->setUsuario($usuario);
+
 
         $em->flush();
         return new JsonResponse(['status' => 'Noticia actualizada']);
@@ -138,13 +172,39 @@ final class NoticiasController extends AbstractController
             $noticia->setDescripcion($data['descripcion']);
         }
         if (isset($data['fecha'])) {
-            $noticia->setFecha(\DateTime::createFromFormat('Y-m-d', $data['fecha']));
+            $noticia->setFecha(new \DateTime($data['fecha']));
         }
         if (isset($data['usuario'])) {
-            $noticia->setUsuario($data['usuario']);
+            $usuario = $em->getRepository(Usuarios::class)->find($data['usuario']);
+            if (!$usuario) {
+                return new JsonResponse(['error' => 'Usuario no encontrado'], JsonResponse::HTTP_BAD_REQUEST);
+            }
+            $noticia->setUsuario($usuario);
         }
         if (isset($data['foto'])) {
-            $noticia->setFoto($data['foto']);
+            if ($data['foto']) {
+                try {
+                    $imageData = base64_decode($data['foto']);
+
+                    if ($imageData === false) {
+                        return new JsonResponse(['error' => 'Error al decodificar la imagen'], JsonResponse::HTTP_BAD_REQUEST);
+                    }
+
+                    $fileName = uniqid('noticia_') . '.jpg';
+
+                    $uploadDir = $this->getParameter('kernel.project_dir') . '/public/uploads/noticias/';
+                    if (!file_exists($uploadDir)) {
+                        mkdir($uploadDir, 0777, true);
+                    }
+
+                    file_put_contents($uploadDir . $fileName, $imageData);
+
+                    $noticia->setFoto('/uploads/noticias' . $fileName);
+                } catch (\Exception $e) {
+                    return new JsonResponse(['error' => 'Error al guardar la imagen'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+                }
+            }
+            $noticia->setFoto('/uploads/noticias' . $fileName);
         }
 
         $em->flush();
@@ -156,6 +216,6 @@ final class NoticiasController extends AbstractController
     {
         $em->remove($noticia);
         $em->flush();
-        return new JsonResponse(['status' => 'Noticias eliminado']);
+        return new JsonResponse(['status' => 'Noticia eliminada']);
     }
 }
