@@ -21,7 +21,6 @@ final class NoticiasController extends AbstractController
     public function create(Request $request, EntityManagerInterface $em): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-        var_dump($data);
 
         $titulo = $data['titulo'] ?? null;
         $descripcion = $data['descripcion'] ?? null;
@@ -41,7 +40,7 @@ final class NoticiasController extends AbstractController
         $noticia = new Noticias();
         $noticia->setTitulo($titulo);
         $noticia->setDescripcion($descripcion);
-        $fechaObject = \DateTime::createFromFormat('Y-m-d\TH:i:sP', $fecha);
+        $fechaObject = new \DateTime($fecha);
         if ($fechaObject === false) {
             return new JsonResponse(['error' => 'Formato de fecha inválido'], JsonResponse::HTTP_BAD_REQUEST);
         }
