@@ -2,11 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CardNoticiasComponent } from '../../components/card-noticias/card-noticias.component';
 import { Observable } from 'rxjs';
-<<<<<<< HEAD
 import { AuthService } from '../../services/auth.service';
-=======
-import { Auth } from '../../services/auth.service';
->>>>>>> 97f87e0fcc1f141f8efd3939d9cdff4680eee7c7
 import { CommonModule } from '@angular/common';
 
 interface Noticia {
@@ -28,11 +24,7 @@ interface Noticia {
 export class NoticiasComponent {
   public isAdmin$!: Observable<boolean>;
 
-<<<<<<< HEAD
   constructor(private router: Router, private authService: AuthService) {}
-=======
-  constructor(private router: Router, private authService: Auth) {}
->>>>>>> 97f87e0fcc1f141f8efd3939d9cdff4680eee7c7
 
   ngOnInit() {
     this.isAdmin$ = this.authService.isAdmin$;

@@ -1,11 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-<<<<<<< HEAD
 import { AuthService } from '../../services/auth.service';
-=======
-import { Auth } from '../../services/auth.service';
->>>>>>> 97f87e0fcc1f141f8efd3939d9cdff4680eee7c7
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -18,11 +14,7 @@ import { CommonModule } from '@angular/common';
 export class CardNoticiasComponent {
   public isAdmin$!: Observable<boolean>;
 
-<<<<<<< HEAD
   constructor(private router: Router, private authService: AuthService) {}
-=======
-  constructor(private router: Router, private authService: Auth) {}
->>>>>>> 97f87e0fcc1f141f8efd3939d9cdff4680eee7c7
 
   @Input() titulo: string = '';
   @Input() descripcion: string = '';
