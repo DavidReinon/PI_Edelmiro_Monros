@@ -43,4 +43,5 @@ export class ClientesComponent {
       this.personas[index].valoracion = valor;
     } 
   }
+
 }

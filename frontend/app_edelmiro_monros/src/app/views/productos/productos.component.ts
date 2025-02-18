@@ -3,13 +3,21 @@ import { Productos } from '../../models/productos.interfaces';
 import { CardComponent } from '../../components/card/card.component';
 import { RouterLinkActive, RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
+import { Auth } from '../../services/auth.service';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-productos',
-  imports: [CardComponent, RouterModule,RouterLinkActive],
+  imports: [CardComponent, RouterModule, RouterLinkActive],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css',
 })
 export class ProductosComponent {
+  public isAdmin$!: Observable<boolean>;
+
+  constructor(private router: Router, private authService: Auth) {
+    this.isAdmin$ = this.authService.isAdmin$;
+  }
+
   public productos: Productos[] = [
     {
       title: 'Moño 1',
@@ -40,8 +48,6 @@ export class ProductosComponent {
       price: 400,
     },
   ];
-  
-  constructor(private router: Router) {}
 
   agregarNoticia() {
     this.router.navigate(['/formularioProducto']);
@@ -49,6 +55,6 @@ export class ProductosComponent {
 
   eliminarNoticia(id: number) {
     //this.productos = this.productos.filter(producto => producto.id !== id);
-    console.log('funciona')
+    console.log('funciona');
   }
 }
