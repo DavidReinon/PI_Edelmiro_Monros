@@ -35,7 +35,7 @@
         [text]="item.text" 
         [photo]="item.photo" 
         [price]="item.price"
-        [id]="item.id"
+        (onEliminar)="eliminarProducto(item.id)">
       >
       </app-card>
 
