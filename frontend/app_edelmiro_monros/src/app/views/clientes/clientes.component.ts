@@ -14,7 +14,4 @@ export class ClientesComponent {
   public fecha: Date = new Date(2005, 4, 12);
   public comentario: string = 'Excelente servicio y atención.';
   public valoracion: number = 5;
-
-  
- 
 }
