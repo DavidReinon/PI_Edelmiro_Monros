@@ -3,12 +3,23 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Patch;
 use App\Repository\NoticiasRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: NoticiasRepository::class)]
-#[ApiResource]
+/* #[ApiResource (
+    operations: [
+        new Get(),
+        new Put(),
+        new Delete(),
+        new Patch()
+    ]
+)] */
 
 class Noticias
 {
