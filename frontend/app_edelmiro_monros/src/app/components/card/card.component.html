@@ -10,15 +10,20 @@
         @if (isExpanded) {
             <div class="expanded-content mt-3">
                 <p>{{ text }}</p>
-                <p>{{ price }}</p>
+                <p>{{ price }}€</p>
             </div>
         }
-        <button class="btn btn-primary" (click)="expand()">
-            @if (isExpanded) {
-                Ver menos
-            } @else {
-                Ver más
-            }
-        </button>
+        <div class="d-flex gap-2">
+            <button class="btn btn-primary" (click)="expand()">
+                @if (isExpanded) {
+                    Ver menos
+                } @else {
+                    Ver más
+                }
+            </button>
+            <button class="btn btn-outline-primary" (click)="editarProducto()">
+                Editar
+            </button>
+        </div>
     </div>
 </div>

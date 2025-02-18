@@ -11,29 +11,29 @@ import { RatingStarComponent } from '../../rating-star/rating-star.component';
 })
 export class ClientesComponent {
 
-  // Definir la estructura de los datos con una interfaz opcional
-  public personas: { Nombre: string; fecha: Date; comentario: string; valoracion: number }[] = [
+
+  public personas: { Nombre: string; fecha: string; comentario: string; valoracion: number }[] = [
     {
       Nombre: 'Juan Pérez',
-      fecha: new Date(2005, 4, 12),
+      fecha: '12/05/2005',
       comentario: 'Excelente servicio y atención.',
       valoracion: 3
     },
     {
       Nombre: 'María López',
-      fecha: new Date(1998, 10, 25),
-      comentario: 'Muy buena experiencia, recomendado.',
+      fecha: '19/03/1999',
+      comentario: 'Muy buena experiencia, recomendado.Muy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendado',
       valoracion: 5
     },
     {
       Nombre: 'Carlos Gómez',
-      fecha: new Date(2000, 6, 8),
+      fecha:  '08/06/2000' ,
       comentario: 'El servicio fue bueno, pero podría mejorar.',
       valoracion: 4.5
     },
     {
       Nombre: 'Ana Torres',
-      fecha: new Date(1995, 1, 15),
+      fecha: '15/01/1995',
       comentario: 'No quedé satisfecha con la atención.',
       valoracion: 2
     }

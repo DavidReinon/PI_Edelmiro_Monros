@@ -1,11 +1,10 @@
-
-<div class="container-fluid mt-3">
-    <div class="card" >
-      <div class="card-body">
-        <h4 class="card-title">{{Nombre}}</h4>
-        <app-rating-star [rating]="valoracion"></app-rating-star>
-        <p class="card-text">{{fecha}}</p>
-        <p class="card-text">{{comentario}}</p>
+<div class="vcard p-3 border rounded shadow-sm">
+  <div class="vcard-body">
+      <h4 class="fn">{{Nombre}}</h4>
+      <app-rating-star [rating]="valoracion"></app-rating-star>
+      <p class="bday text-muted">{{fecha}}</p>
+      <div class="note-container">
+          <p class="note">{{ comentario }}</p>
       </div>
-      </div>
-    </div>
+  </div>
+</div>
