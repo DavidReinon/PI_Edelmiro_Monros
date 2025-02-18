@@ -11,7 +11,7 @@ import { RatingStarComponent } from '../../rating-star/rating-star.component';
 })
 export class ClientesComponent {
 
-  // Definir la estructura de los datos con una interfaz opcional
+
   public personas: { Nombre: string; fecha: Date; comentario: string; valoracion: number }[] = [
     {
       Nombre: 'Juan Pérez',
@@ -22,7 +22,7 @@ export class ClientesComponent {
     {
       Nombre: 'María López',
       fecha: new Date(1998, 10, 25),
-      comentario: 'Muy buena experiencia, recomendado.',
+      comentario: 'Muy buena experiencia, recomendado.Muy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendadoMuy buena experiencia, recomendado',
       valoracion: 5
     },
     {

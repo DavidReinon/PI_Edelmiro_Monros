@@ -14,10 +14,10 @@ export class CardClienteComponent {
   @Input() valoracion: number = 3;
   @Input() fecha: Date = new Date(2005, 4, 12);  
 
-  @Output() valoracionChange = new EventEmitter<number>(); // Emite la valoración
+  @Output() valoracionChange = new EventEmitter<number>(); 
 
   ngOnInit() {
-    this.valoracionChange.emit(this.valoracion); // Enviar la valoración al iniciar
+    this.valoracionChange.emit(this.valoracion); 
   }
 
 }
