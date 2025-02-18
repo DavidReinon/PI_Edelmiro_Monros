@@ -1,4 +1,4 @@
-import { NgStyle, NgIf, AsyncPipe } from '@angular/common';
+import { NgStyle, NgIf, AsyncPipe, CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Auth } from '../../services/auth.service';
 import { Observable } from 'rxjs';
@@ -6,7 +6,7 @@ import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-card',
-  imports: [NgStyle, NgIf, AsyncPipe, RouterModule],
+  imports: [NgStyle, CommonModule, RouterModule],
   templateUrl: './card.component.html',
   styleUrl: './card.component.css',
   standalone: true,
