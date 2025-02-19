@@ -1,9 +1,6 @@
 # Usa la imagen oficial de PHP con FPM y las extensiones necesarias
 FROM php:8.2-fpm
 
-# Configurar entorno a producción
-ENV APP_ENV=prod
-ENV APP_DEBUG=0
 
 # Instala paquetes necesarios
 RUN apt-get update && apt-get install -y \
