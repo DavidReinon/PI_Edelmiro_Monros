@@ -1,0 +1,22 @@
+<div class="container py-5">
+  <h1 class="mb-4 text-center">Descubre Nuestros Moños</h1>
+  <button
+    routerLink="/formularioProducto"
+    routerLinkActive="active"
+    class="btn btn-primary"
+  >
+    Crear
+  </button>
+  <div class="row g-4">
+    @for(item of productos; track item; let i = $index) {
+    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+      <app-card
+        [title]="item.nombre"
+        [text]="item.descripcion"
+        [photo]="item.foto!"
+        [price]="item.precio!"
+      ></app-card>
+    </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<!-- Botón para abrir el modal -->
+<button class="btn" style="background-color: #FFA308;" (click)="abrirModal()">Login</button>
+
+<!-- Modal de Registro -->
+<div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="border-color: #FFA308;">
+      <div class="modal-header">
+        <h4 class="modal-title text-center w-100" id="registroModalLabel">Inicio <em style="color: #FFA308;">Sesion</em></h4>
+        <button type="button" class="btn-close" (click)="cerrarModal()" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <form (submit)="registrarse($event)">
+          <div class="mb-3">
+            <label for="emailOrUsername" class="form-label">Correo electrónico o Nombre de Usuario</label>
+            <input type="text" class="form-control" id="emailOrUsername" [(ngModel)]="emailOrUsername" name="emailOrUsername" placeholder="usuario@example.com o usuario123" required>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" placeholder="Ingresa tu contraseña" required>
+          </div>
+          <button type="submit" class="btn"(mouseenter)="hover = true" (mouseleave)="hover = false"[ngStyle]="{'background-color': hover ? '#f2f3f4' : '#FFA308'}"><span [ngStyle]="{'color': hover ? '#FFA308' : '#000000'}">Iniciar Sesión</span></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
