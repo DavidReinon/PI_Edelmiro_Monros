@@ -22,8 +22,8 @@ export class NoticiasService {
     return this.http.post<Noticias>(this.apiUrl, JSON.stringify(noticia));
   }
 
-  public getNoticias(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  public getNoticias(): Observable<Noticias[]> {
+    return this.http.get<Noticias[]>(this.apiUrl);
   }
 
   public putNoticia(id: number, noticia: Noticias): Observable<Noticias> {

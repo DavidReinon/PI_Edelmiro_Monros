@@ -8,7 +8,7 @@
         <div class="d-flex justify-content-between align-items-start">
           <h5 class="card-title">{{titulo}}</h5>
           <div class="btn-group">
-            <button class="btn btn-sm btn-outline-primary" (click)="editarNoticia()">
+            <button class="btn btn-sm btn-outline-primary" (click)="editarNoticia({ id, titulo, descripcion, fecha, usuario, foto })">
               <i class="bi bi-pencil"></i>
             </button>
             <button class="btn btn-sm btn-outline-danger" (click)="eliminarNoticia()">

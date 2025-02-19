@@ -4,6 +4,7 @@ import { CardNoticiasComponent } from '../../components/card-noticias/card-notic
 import { Observable } from 'rxjs';
 import { Auth } from '../../services/auth.service';
 import { NoticiasService } from '../../services/noticias.service';
+import { Noticias } from '../../models/noticias.interfaces';
 
 interface Noticia {
   id: number;
@@ -32,7 +33,6 @@ export class NoticiasComponent {
     this.noticias = []
     this.service.getNoticias().subscribe((response) => {
       this.noticias = response
-      console.log(response)
     });
   }
 
@@ -41,45 +41,50 @@ export class NoticiasComponent {
   }
 
 
-  noticias: Noticia[] = [
+  noticias: Noticias[] = [
     {
-      id: 1,
+      id: '1',
       titulo: 'Falla eléctrica deja sin luz a miles',
       descripcion:
         'Una avería en la red eléctrica ha provocado un apagón en varias ciudades, afectando a miles de hogares y comercios.',
-      fecha: new Date('2024-02-12'),
+      fecha: '2024-02-12',
+      usuario: '1',
       foto: 'imagen_apagon.jpg',
     },
     {
-      id: 2,
+      id: '2',
       titulo: 'Falla en servidores afecta servicios bancarios',
       descripcion:
         'Una interrupción en los servidores ha dejado a miles de clientes sin acceso a sus cuentas bancarias en línea.',
-      fecha: new Date('2024-02-11'),
+      fecha: '2024-02-11',
+      usuario: '1',
       foto: 'imagen_banco.jpg',
     },
     {
-      id: 3,
+      id: '3',
       titulo: 'Falla en el transporte público genera caos',
       descripcion:
         'Un desperfecto técnico en el metro ha causado retrasos y aglomeraciones en varias estaciones principales.',
-      fecha: new Date('2024-02-10'),
+      fecha: '2024-02-10',
+      usuario: '1',
       foto: 'imagen_metro.jpg',
     },
     {
-      id: 4,
+      id: '4',
       titulo: 'Falla en redes sociales afecta a millones',
       descripcion:
         'Usuarios de distintas partes del mundo reportan problemas para acceder a sus cuentas en redes sociales.',
-      fecha: new Date('2024-02-09'),
+      fecha: '2024-02-09',
+      usuario: '1',
       foto: 'imagen_redessociales.jpg',
     },
     {
-      id: 5,
+      id: '5',
       titulo: 'Falla en planta de agua deja sin servicio a la ciudad',
       descripcion:
         'Una avería en el sistema de bombeo ha interrumpido el suministro de agua en toda la ciudad, afectando a miles de personas.',
-      fecha: new Date('2024-02-08'),
+      fecha: '2024-02-08',
+      usuario: '1',
       foto: 'imagen_agua.jpg',
     },
   ];
@@ -88,7 +93,7 @@ export class NoticiasComponent {
     this.router.navigate(['/noticias/crear']);
   }
 
-  eliminarNoticia(id: number) {
-    this.noticias = this.noticias.filter((noticia) => noticia.id !== id);
+  eliminarNoticia(id: string | undefined) {
+    /* this.noticias = this.noticias.filter((noticia) => noticia.id !== id); */
   }
 }
