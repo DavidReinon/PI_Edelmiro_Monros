@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Noticias } from '../models/noticias.interfaces';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +11,30 @@ export class NoticiasService {
 
   constructor(private http: HttpClient) { }
 
-  crearNoticia(noticia: any) {
-    console.log(JSON.stringify(noticia))
+  /* public postNoticia(url: string, noticia: Noticias): Observable<Noticias> {
+    return this.http.post<Noticias>(url, noticia);
+  } */
+
+  public postNoticia(noticia: any) {
     const headers = new HttpHeaders({
-      'Content-Type': 'application/ld+json' 
+      'Content-Type': 'application/json'
     });
-    return this.http.post(this.apiUrl, JSON.stringify(noticia), { headers });
+    return this.http.post<Noticias>(this.apiUrl, JSON.stringify(noticia));
+  }
+
+  public getNoticias(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
+
+  public putNoticia(id: number, noticia: Noticias): Observable<Noticias> {
+    return this.http.put<Noticias>(`${this.apiUrl}/${id}`, noticia);
+  }
+
+  public patchNoticia(id: number, noticia: Partial<Noticias>): Observable<Noticias> {
+    return this.http.patch<Noticias>(`${this.apiUrl}/${id}`, noticia);
+  }
+
+  public deleteNoticia(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
