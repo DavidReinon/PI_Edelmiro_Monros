@@ -1,10 +1,10 @@
 # Usa la imagen oficial de PHP con FPM y las extensiones necesarias
 FROM php:8.2-fpm
 
-# Configurar entorno a producción
-# ENV APP_ENV=prod
-# ENV APP_DEBUG=0
-# ENV DATABASE_URL=mysql://edelmiro:edelmiro1324@database:3306/edelmiro_monros
+#Configurar entorno a producción
+ENV APP_ENV=prod
+ENV APP_DEBUG=0
+ENV DATABASE_URL=mysql://edelmiro:edelmiro1324@database:3306/edelmiro_monros
 
 ENV SYMFONY_DOTENV_VARS=1
 
