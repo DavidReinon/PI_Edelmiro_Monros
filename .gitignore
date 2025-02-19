@@ -47,6 +47,7 @@ backend/EdelmiroMonros/config/secrets/prod/prod.decrypt.private.php
 backend/EdelmiroMonros/public/bundles/
 backend/EdelmiroMonros/var/
 backend/EdelmiroMonros/vendor/
+backend/EdelmiroMonros/node_modules/
 
 ### PHPUnit ###
 backend/EdelmiroMonros/phpunit.xml
