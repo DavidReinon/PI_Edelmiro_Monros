@@ -19,14 +19,14 @@ final class ProductosController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        $nombre = $data['nombre'] ?? null;
-        $descripcion = $data['descripcion'] ?? null;
+        $nombre = $data['nombre'];
+        $descripcion = $data['descripcion'];
         $precio = $data['precio'] ?? null;
         $stock = $data['stock'] ?? null;
-        $usuarioId = $data['usuario'] ?? null;
+        $usuarioId = $data['usuarioId'];
         $imagenBase64 = $data['foto'] ?? null;
 
-        if (!$nombre || $descripcion || !$usuarioId) {
+        if (!$nombre || !$descripcion || !$usuarioId) {
             return new JsonResponse(['error' => 'Datos inválidos'], JsonResponse::HTTP_BAD_REQUEST);
         }
 
@@ -78,7 +78,7 @@ final class ProductosController extends AbstractController
                 'descripcion' => $producto->getDescripcion(),
                 'precio' => $producto->getPrecio(),
                 'stock' => $producto->getStock(),
-                'usuario' => $producto->getUsuarioProducto(),
+                'usuario' => $producto->getUsuarioProducto()->getId(),
                 'foto' => $producto->getFoto()
             ];
         }
@@ -94,7 +94,7 @@ final class ProductosController extends AbstractController
             'descripcion' => $producto->getDescripcion(),
             'precio' => $producto->getPrecio(),
             'stock' => $producto->getStock(),
-            'usuario' => $producto->getUsuarioProducto(),
+            'usuario' => $producto->getUsuarioProducto()->getId(),
             'foto' => $producto->getFoto()
         ];
         return new JsonResponse($data);
@@ -105,11 +105,16 @@ final class ProductosController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
+        $usuario = $em->getRepository(Usuarios::class)->find($data['usuarioId']);
+        if (!$usuario) {
+            return new JsonResponse(['error' => 'Usuario no encontrado'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
         $producto->setNombre($data['nombre']);
         $producto->setDescripcion($data['descripcion']);
         $producto->setPrecio($data['precio']);
         $producto->setStock($data['stock']);
-        $producto->setUsuarioProducto($data['usuario']);
+        $producto->setUsuarioProducto($usuario);
         $producto->setFoto($data['foto']);
 
         $em->flush();
@@ -133,8 +138,8 @@ final class ProductosController extends AbstractController
         if (isset($data['stock'])) {
             $producto->setStock($data['stock']);
         }
-        if (isset($data['usuario'])) {
-            $producto->setUsuarioProducto($data['usuario']);
+        if (isset($data['usuarioId'])) {
+            $producto->setUsuarioProducto($data['usuarioId']);
         }
         if (isset($data['foto'])) {
             $producto->setFoto($data['foto']);
