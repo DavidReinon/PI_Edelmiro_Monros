@@ -3,16 +3,18 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-card-noticias',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ConfirmModalComponent],
   templateUrl: './card-noticias.component.html',
   styleUrl: './card-noticias.component.css',
 })
 export class CardNoticiasComponent {
   public isAdmin$!: Observable<boolean>;
+  showConfirmModal: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) {}
 
@@ -33,8 +35,17 @@ export class CardNoticiasComponent {
     this.router.navigate(['/noticias/editar']);
   }
 
+  confirmarEliminar() {
+    this.showConfirmModal = true;
+  }
+
   eliminarNoticia() {
     this.onEliminar.emit();
+    this.showConfirmModal = false;
+  }
+
+  cancelarEliminar() {
+    this.showConfirmModal = false;
   }
 
   formatearFecha(fecha: Date): string {

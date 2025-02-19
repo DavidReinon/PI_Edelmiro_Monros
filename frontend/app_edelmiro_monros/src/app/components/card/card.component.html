@@ -4,8 +4,16 @@
     </div>
     <div class="card-body">
         <h5 class="card-title" [title]="title">{{ title }}</h5>
-        <!--Añadir en los botones de admistrador de Editar y Eliminar:
-         @if(isAdmin$ | async) {} -->
+        @if (isAdmin$ | async) {
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-primary" (click)="editarProducto()">
+                    <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-outline-danger" (click)="confirmarEliminar()">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+        }
    
         @if (isExpanded) {
             <div class="expanded-content mt-3">
@@ -13,20 +21,18 @@
                 <p>{{ price }}€</p>
             </div>
         }
-        <div class="d-flex gap-2">
-            <button class="btn btn-primary" (click)="expand()">
-                @if (isExpanded) {
-                    Ver menos
-                } @else {
-                    Ver más
-                }
-            </button>
-            <button class="btn btn-outline-primary" (click)="editarProducto()">
-                <i class="bi bi-pencil"></i>
-            </button>
-            <button class="btn btn-sm btn-outline-danger" (click)="eliminarProducto()">
-                <i class="bi bi-trash"></i>
-              </button>
-        </div>
+        <button class="btn btn-primary mt-2" (click)="expand()">
+            @if (isExpanded) {
+                Ver menos
+            } @else {
+                Ver más
+            }
+        </button>
     </div>
 </div>
+
+<app-confirm-modal
+    [showModal]="showConfirmModal"
+    (onConfirm)="eliminarProducto()"
+    (onCancel)="cancelarEliminar()">
+</app-confirm-modal>

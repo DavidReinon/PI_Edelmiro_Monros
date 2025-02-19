@@ -3,16 +3,18 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
+import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-card',
-  imports: [NgStyle, NgIf, AsyncPipe, RouterModule],
+  imports: [NgStyle, NgIf, AsyncPipe, RouterModule, ConfirmModalComponent],
   templateUrl: './card.component.html',
   styleUrl: './card.component.css',
   standalone: true,
 })
 export class CardComponent {
   public isAdmin$!: Observable<boolean>;
+  showConfirmModal: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -41,7 +43,16 @@ export class CardComponent {
     this.router.navigate(['editar-producto', this.id]);
   }
 
+  confirmarEliminar() {
+    this.showConfirmModal = true;
+  }
+
   eliminarProducto() {
     this.onEliminar.emit();
+    this.showConfirmModal = false;
+  }
+
+  cancelarEliminar() {
+    this.showConfirmModal = false;
   }
 }
