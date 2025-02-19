@@ -1,7 +1,7 @@
 export interface Usuario {
     id:         number;
     nombre:     string;
-    contraseña: string;
+    contrasenya: string;
+    email:      string;
     admin:      boolean;
-    gmail:      string;
 }
