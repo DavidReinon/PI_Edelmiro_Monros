@@ -1,7 +1,7 @@
 # Usa la imagen oficial de PHP con FPM y las extensiones necesarias
 FROM php:8.2-fpm
 
-ENV SYMFONY_DOTENV_VARS=1
+COPY .env .env
 
 # Instala paquetes necesarios
 RUN apt-get update && apt-get install -y \
