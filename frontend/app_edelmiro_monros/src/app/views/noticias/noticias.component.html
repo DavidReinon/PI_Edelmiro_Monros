@@ -11,6 +11,7 @@
     @for (noticia of noticias; track noticia.id) {
     <div class="col-12">
       <app-card-noticias
+        [id]="noticia.id"
         [titulo]="noticia.titulo"
         [descripcion]="noticia.descripcion"
         [foto]="noticia.foto"

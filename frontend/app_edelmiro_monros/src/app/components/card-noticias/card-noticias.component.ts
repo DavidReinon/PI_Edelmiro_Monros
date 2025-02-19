@@ -22,6 +22,7 @@ export class CardNoticiasComponent {
   @Input() descripcion: string = '';
   @Input() fecha: Date = new Date();
   @Input() foto: string | null = null;
+  @Input() id: number = 0;
   @Output() onEliminar = new EventEmitter<void>();
 
   ngOnInit() {
@@ -32,7 +33,7 @@ export class CardNoticiasComponent {
   }
 
   editarNoticia() {
-    this.router.navigate(['/noticias/editar']);
+    this.router.navigate(['/noticias/editar', this.id]);
   }
 
   confirmarEliminar() {

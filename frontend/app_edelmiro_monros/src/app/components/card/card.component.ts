@@ -21,10 +21,6 @@ export class CardComponent {
     private router: Router
   ) {}
 
-  ngOnInit() {
-    this.isAdmin$ = this.authService.isAdmin$;
-  }
-
   @Input() title: string = '';
   @Input() text: string = '';
   @Input() photo: string = '';
@@ -34,13 +30,17 @@ export class CardComponent {
   
   isExpanded: boolean = false;
 
+  ngOnInit() {
+    this.isAdmin$ = this.authService.isAdmin$;
+  }
+
   expand() {
     this.isExpanded = !this.isExpanded;
   }
 
   editarProducto() {
     console.log('Editando producto con id:', this.id);
-    this.router.navigate(['editar-producto', this.id]);
+    this.router.navigate(['/editar-producto', this.id]);
   }
 
   confirmarEliminar() {

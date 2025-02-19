@@ -16,50 +16,41 @@ import { CommonModule } from '@angular/common';
 })
 export class ProductosComponent implements OnInit {
   public isAdmin$!: Observable<boolean>;
-  productos: Productos[] = [];
+  productos: Productos[] = [
+    {
+      id: 1,
+      title: 'Moño 1',
+      text: 'Moño Fallera 1',
+      photo: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7974.jpg',
+      price: 100,
+    },
+    {
+      id: 2,
+      title: 'Moño 2',
+      text: 'Moño Fallera 2',
+      photo: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7545.jpg',
+      price: 200,
+    },
+    {
+      id: 3,
+      title: 'Moño 3',
+      text: 'Moño Fallera 3',
+      photo: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_1403.jpeg',
+      price: 300,
+    },
+    {
+      id: 4,
+      title: 'Moño 4',
+      text: 'Moño Fallera 4',
+      photo: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_2610.jpeg',
+      price: 400,
+    }
+  ];
 
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
     this.isAdmin$ = this.authService.isAdmin$;
-    this.isAdmin$.subscribe(isAdmin => {
-      console.log('isAdmin:', isAdmin);
-    });
-
-    this.productos = [
-      {
-        id: 1,
-        title: 'Moño 1',
-        text: 'Moño Fallera 1',
-        photo:
-          'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7974.jpg',
-        price: 100,
-      },
-      {
-        id: 2,
-        title: 'Moño 2',
-        text: 'Moño Fallera 2',
-        photo:
-          'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7545.jpg',
-        price: 200,
-      },
-      {
-        id: 3,
-        title: 'Moño 3',
-        text: 'Moño Fallera 3',
-        photo:
-          'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_1403.jpeg',
-        price: 300,
-      },
-      {
-        id: 4,
-        title: 'Moño 4',
-        text: 'Moño Fallera 4',
-        photo:
-          'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_2610.jpeg',
-        price: 400,
-      },
-    ];
   }
 
   agregarProducto() {
@@ -67,11 +58,7 @@ export class ProductosComponent implements OnInit {
   }
 
   eliminarProducto(id: number) {
+    console.log('Eliminando producto con id:', id);
     this.productos = this.productos.filter((producto) => producto.id !== id);
-    console.log('funciona');
-  }
-
-  editarProducto(id: number) {
-    this.router.navigate(['/editarProducto', id]);
   }
 }
