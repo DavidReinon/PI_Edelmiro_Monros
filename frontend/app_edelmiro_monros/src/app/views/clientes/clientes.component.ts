@@ -44,9 +44,10 @@ export class ClientesComponent {
 
     });
   }
-  public personaje(): void {
-    this.getResena('http://44.214.111.49/api/Resena');
+  public ngOnInit(): void {
+    this.getResena('http://44.214.111.49/api/resena');
   }
+  
 
   actualizarValoracion(index: number, valor: number) {
     if (index >= 0 && index < this.personas.length) {
