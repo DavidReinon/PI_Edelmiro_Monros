@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { format, parse } from "@formkit/tempo";
 import { CardClienteComponent } from '../../components/card-cliente/card-cliente.component';
-import { RatingStarComponent } from '../../rating-star/rating-star.component';
+import { ResenaService } from '../../services/resena.service';
 
 @Component({
   selector: 'app-clientes',
@@ -11,6 +11,7 @@ import { RatingStarComponent } from '../../rating-star/rating-star.component';
   styleUrl: './clientes.component.css'
 })
 export class ClientesComponent {
+  public constructor(public service: ResenaService) {}
   public personas: { Nombre: string; fecha: string; comentario: string; valoracion: number }[] = [
     {
       Nombre: 'Juan Pérez',
@@ -37,6 +38,15 @@ export class ClientesComponent {
       valoracion: 2
     }
   ];
+  public getResena(url: string): void {
+    this.service.getResena(url).subscribe((response) => {
+      console.log(response);
+
+    });
+  }
+  public personaje(): void {
+    this.getResena('http://44.214.111.49/api/Resena');
+  }
 
   actualizarValoracion(index: number, valor: number) {
     if (index >= 0 && index < this.personas.length) {
