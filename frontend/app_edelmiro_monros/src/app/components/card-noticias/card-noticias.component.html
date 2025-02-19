@@ -24,7 +24,7 @@
             <button
               title="Eliminar Noticia"
               class="btn btn-sm btn-outline-danger"
-              (click)="eliminarNoticia()"
+              (click)="confirmarEliminar()"
             >
               <i class="bi bi-trash"></i>
             </button>
@@ -39,3 +39,9 @@
     </div>
   </div>
 </div>
+
+<app-confirm-modal
+  [showModal]="showConfirmModal"
+  (onConfirm)="eliminarNoticia()"
+  (onCancel)="cancelarEliminar()">
+</app-confirm-modal>
