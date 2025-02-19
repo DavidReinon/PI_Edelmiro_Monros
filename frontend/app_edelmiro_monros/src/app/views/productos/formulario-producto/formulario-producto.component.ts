@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import {
-  FormControl,
   FormGroup,
+  FormControl,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ProductoService } from '../../../services/producto.service';
 import { CommonModule } from '@angular/common';
+import { Productos } from '../../../models/productos.interfaces';
 
 @Component({
   selector: 'app-formulario-producto',
@@ -16,11 +17,11 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./formulario-producto.component.css'],
 })
 export class FormularioProductoComponent {
-  productoForm: FormGroup = new FormGroup({
-    nombre: new FormControl('', Validators.required),
-    descripcion: new FormControl(''),
-    precio: new FormControl('', [Validators.required, Validators.min(0)]),
-    stock: new FormControl('', [Validators.required, Validators.min(0)]),
+  productoForm = new FormGroup({
+    nombre: new FormControl('', { nonNullable: true }),
+    descripcion: new FormControl('', { nonNullable: true }),
+    precio: new FormControl(null, Validators.min(0)),
+    stock: new FormControl(null, Validators.min(0)),
     foto: new FormControl(''),
   });
 
@@ -29,45 +30,48 @@ export class FormularioProductoComponent {
     private productoService: ProductoService
   ) {}
 
-  public onSubmit() {
-    if (this.productoForm.valid) {
-      console.log('Formulario válido:', this.productoForm.value);
-      const formData: FormData = this.createFormData(this.productoForm.value);
-      this.createProducto(formData);
+  public onFileChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      const reader = new FileReader();
+
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const base64String = reader.result as string;
+        this.productoForm.patchValue({ foto: base64String.split(',')[1] });
+      };
+      reader.onerror = (error) => {
+        console.error('Error al leer la imagen:', error);
+      };
     }
   }
+
+  public onSubmit() {
+    const rawValue = this.productoForm.getRawValue();
+
+    const payload: Productos = {
+      nombre: rawValue.nombre,
+      descripcion: rawValue.descripcion,
+      precio: rawValue.precio,
+      stock: rawValue.stock,
+      usuarioId: 1,
+      foto: rawValue.foto ? rawValue.foto : null,
+    };
+    console.log(payload);
+
+    this.productoService.createProducto(payload).subscribe({
+      next: (response) => {
+        console.log('Producto creado', response);
+        this.router.navigate(['/productos']);
+      },
+      error: (error) => {
+        console.error('Error al crear producto', error);
+      },
+    });
+  }
+
   public cancelar() {
     this.router.navigate(['/productos']);
-  }
-
-  private createFormData(formValues: any): FormData {
-    const formData = new FormData();
-    formData.append('nombre', formValues.nombre || '');
-    formData.append('descripcion', formValues.descripcion || '');
-    formData.append('precio', formValues.precio || '');
-    formData.append('stock', formValues.stock || '');
-
-    const fileInput = formValues.foto;
-    if (fileInput) {
-      formData.append('foto', fileInput);
-    }
-
-    // TODO: Cambiar el usuario por el usuario logeado que estará en el archivo auth.service.ts
-    formData.append('usuario', '1');
-
-    return formData;
-  }
-
-  private createProducto(formData: FormData) {
-    try {
-      this.productoService.createProducto(formData).subscribe((response) => {
-        console.log('Producto creado:', response);
-        alert('Producto creado correctamente');
-
-        this.router.navigate(['/productos']);
-      });
-    } catch (error) {
-      console.log('Error al crear el producto:', error);
-    }
   }
 }

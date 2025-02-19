@@ -51,9 +51,11 @@
               <label for="foto" class="form-label">Foto</label>
               <input
                 type="file"
+                (change)="onFileChange($event)"
                 class="form-control"
                 id="foto"
                 formControlName="foto"
+                accept="image/*"
               />
             </div>
 

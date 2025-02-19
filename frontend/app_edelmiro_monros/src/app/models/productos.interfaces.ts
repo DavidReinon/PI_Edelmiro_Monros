@@ -1,6 +1,8 @@
 export interface Productos { 
-    title: string; 
-    photo: string; 
-    text: string;
-    price: number;
+    nombre: string; 
+    descripcion: string; 
+    precio: number | null;
+    stock: number | null;
+    usuarioId: number;
+    foto: string | null;
 };
