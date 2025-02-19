@@ -41,6 +41,7 @@ Thumbs.db
 
 ### Symfony ###
 backend/EdelmiroMonros/.env.local
+backend/EdelmiroMonros/.env
 backend/EdelmiroMonros/.env.local.php
 backend/EdelmiroMonros/.env.*.local
 backend/EdelmiroMonros/config/secrets/prod/prod.decrypt.private.php
