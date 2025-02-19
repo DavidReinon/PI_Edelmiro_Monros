@@ -8,10 +8,6 @@ services:
     working_dir: /var/www/html
     # volumes:
     #   - .:/var/www/html
-    environment:
-      APP_ENV: prod
-      APP_DEBUG: 0
-      DATABASE_URL: "mysql://edelmiro:edelmiro1324@database:3306/edelmiro_monros"
     depends_on:
       database:
         condition: service_healthy

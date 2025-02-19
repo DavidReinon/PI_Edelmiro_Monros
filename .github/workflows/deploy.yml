@@ -68,6 +68,17 @@ jobs:
                       docker-compose -f /home/${{ secrets.REMOTE_USER }}/deploy/compose.yml down
                       docker-compose -f /home/${{ secrets.REMOTE_USER }}/deploy/compose.yml up -d --force-recreate
 
+            - name: Crear archivo .env en el contenedor Symfony
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.REMOTE_HOST }}
+                  username: ${{ secrets.REMOTE_USER }}
+                  key: ${{ secrets.REMOTE_KEY }}
+                  script: |
+                      docker exec symfony_app sh -c 'echo "APP_ENV=prod" > /var/www/html/.env'
+                      docker exec symfony_app sh -c 'echo "APP_DEBUG=0" >> /var/www/html/.env'
+                      docker exec symfony_app sh -c 'echo "DATABASE_URL=${{ secrets.DATABASE_URL}}" >> /var/www/html/.env'
+
             - name: Crear la base de datos si no existe y ejecutar migraciones
               uses: appleboy/ssh-action@master
               with:
