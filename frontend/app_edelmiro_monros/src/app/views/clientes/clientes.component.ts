@@ -13,19 +13,24 @@ import { Member } from '../../models/resena.interfaces';
 })
 export class ClientesComponent {
   public constructor(public service: ResenaService) {}
-  public personas: Member[]=[]
-  
+
+  public personas: Member[] = [];
+  public vista: number = 8; 
+
   public getResena(): void {
     this.service.getResena().subscribe((response) => {
-        this.personas = response.member;
-        console.log(this.personas);
-
+      this.personas = response.member;
+      console.log(this.personas);
     });
   }
+
   public ngOnInit(): void {
     this.getResena();
   }
-  
+
+  public cargarMasResenas(): void {
+    this.vista += 8; 
+  }
 
   actualizarValoracion(index: number, valor: number): void {
     if (index >= 0 && index < this.personas.length) {
@@ -34,6 +39,7 @@ export class ClientesComponent {
       );
     }
   }
+
 
   
   private formatFecha(fecha: string): string {
