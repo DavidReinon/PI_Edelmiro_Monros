@@ -77,7 +77,10 @@ jobs:
                   script: |
                       docker exec symfony_app sh -c 'echo "APP_ENV=prod" > /var/www/html/.env'
                       docker exec symfony_app sh -c 'echo "APP_DEBUG=0" >> /var/www/html/.env'
-                      docker exec symfony_app sh -c 'echo "DATABASE_URL=${{ secrets.DATABASE_URL}}" >> /var/www/html/.env'
+                      docker exec symfony_app sh -c 'echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> /var/www/html/.env'
+                      docker exec symfony_app sh -c 'echo "CORS_ALLOW_ORIGIN=*" >> /var/www/html/.env'
+                      docker exec symfony_app sh -c 'echo "MAILER_DSN=null://null" >> /var/www/html/.env'
+                      docker exec symfony_app sh -c 'echo "MESSENGER_TRANSPORT_DSN=doctrine://default?auto_setup=0" >> /var/www/html/.env'
 
             - name: Crear la base de datos si no existe y ejecutar migraciones
               uses: appleboy/ssh-action@master

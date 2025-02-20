@@ -16,6 +16,11 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo pdo_mysql zip gd intl opcache
 
+# Depenedencias para nodejs
+RUN apt-get update && apt-get install -y nodejs npm \
+    && npm install --legacy-peer-deps \
+    && npm run build
+
 # Configura el directorio de trabajo y copia el código
 WORKDIR /var/www/html
 COPY . .

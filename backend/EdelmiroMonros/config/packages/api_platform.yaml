@@ -2,6 +2,10 @@ api_platform:
     title: Hello API Platform
     version: 1.0.0
     defaults:
+        cors:
+            allow_origin: ["*"]
+            allow_methods: ["GET", "POST", "PUT", "DELETE"]
+            allow_headers: ["Content-Type", "Authorization"]
         stateless: false
         cache_headers:
-            vary: ['Content-Type', 'Authorization', 'Origin']
+            vary: ["Content-Type", "Authorization", "Origin"]
