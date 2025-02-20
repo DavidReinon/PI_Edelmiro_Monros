@@ -16,13 +16,14 @@
 
 <div class="container py-5">
   <div class="row">
-    @for (persona of personas; track persona.Nombre) {
+    @for (persona of personas; track persona.autor) {
       <div class="col-md-3"> 
         <app-card-cliente
-          [Nombre]="persona.Nombre" 
+          [Nombre]="persona.autor" 
           [comentario]="persona.comentario" 
-          [valoracion]="persona.valoracion" 
-          [fecha]="persona.fecha"
+          [valoracion]="persona.calificacion" 
+          [fecha]="persona.fecha "
+          
           (valoracionChange)="actualizarValoracion($index, $event)">
         </app-card-cliente>
       </div>

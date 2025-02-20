@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { format, parse } from "@formkit/tempo";
 import { CardClienteComponent } from '../../components/card-cliente/card-cliente.component';
 import { ResenaService } from '../../services/resena.service';
+import { Member } from '../../models/resena.interfaces';
 
 @Component({
   selector: 'app-clientes',
@@ -12,49 +13,29 @@ import { ResenaService } from '../../services/resena.service';
 })
 export class ClientesComponent {
   public constructor(public service: ResenaService) {}
-  public personas: { Nombre: string; fecha: string; comentario: string; valoracion: number }[] = [
-    {
-      Nombre: 'Juan Pérez',
-      fecha: this.formatFecha('2009-05-12'),
-      comentario: 'Excelente servicio y atención.',
-      valoracion: 3
-    },
-    {
-      Nombre: 'María López',
-      fecha: this.formatFecha('1999-03-19'),
-      comentario: 'Muy buena experiencia, recomendado.',
-      valoracion: 5
-    },
-    {
-      Nombre: 'Carlos Gómez',
-      fecha: this.formatFecha('2000-06-08'),
-      comentario: 'El servicio fue bueno, pero podría mejorar.',
-      valoracion: 4.5
-    },
-    {
-      Nombre: 'Ana Torres',
-      fecha: this.formatFecha('1995-01-15'),
-      comentario: 'No quedé satisfecha con la atención.',
-      valoracion: 2
-    }
-  ];
-  public getResena(url: string): void {
-    this.service.getResena(url).subscribe((response) => {
-      console.log(response);
+  public personas: Member[]=[]
+  
+  public getResena(): void {
+    this.service.getResena().subscribe((response) => {
+        this.personas = response.member;
+        console.log(this.personas);
 
     });
   }
   public ngOnInit(): void {
-    this.getResena('http://44.214.111.49/api/resena');
+    this.getResena();
   }
   
 
-  actualizarValoracion(index: number, valor: number) {
+  actualizarValoracion(index: number, valor: number): void {
     if (index >= 0 && index < this.personas.length) {
-      this.personas[index].valoracion = valor;
+      this.personas = this.personas.map((persona, i) =>
+        i === index ? { ...persona, valoracion: valor } : persona
+      );
     }
   }
 
+  
   private formatFecha(fecha: string): string {
     const parsedDate = parse(fecha, 'YYYY-MM-DD');
     return format(parsedDate, 'DD/MM/YYYY');
