@@ -1,10 +1,21 @@
 export interface Resena {
-    resenas: ResenaElement[];
+    "@context": string;
+    "@id":      string;
+    "@type":    string;
+    totalItems: number;
+    member:     Member[];
 }
 
-export interface ResenaElement {
+export interface Member {
+    "@id":        string;
+    "@type":      Type;
+    id:           number;
     autor:        string;
     calificacion: number;
-    fecha:        string;
+    fecha:        Date;
     comentario:   string;
+}
+
+export enum Type {
+    Resenas = "Resenas",
 }
