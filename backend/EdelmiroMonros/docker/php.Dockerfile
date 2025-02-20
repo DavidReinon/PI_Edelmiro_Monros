@@ -16,13 +16,18 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo pdo_mysql zip gd intl opcache
 
-# Depenedencias para nodejs
+# Configura el directorio de trabajo antes de instalar Node.js
+WORKDIR /var/www/html
+
+# Copia solo los archivos de Node.js antes de ejecutar npm install
+COPY package.json package-lock.json* ./
+
+# Instala Node.js y dependencias
 RUN apt-get update && apt-get install -y nodejs npm \
     && npm install --legacy-peer-deps \
     && npm run build
 
-# Configura el directorio de trabajo y copia el código
-WORKDIR /var/www/html
+# Luego copia el resto del código
 COPY . .
 
 # Instala Composer y dependencias sin ejecutar auto-scripts
