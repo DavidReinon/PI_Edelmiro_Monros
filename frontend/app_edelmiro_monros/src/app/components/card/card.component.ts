@@ -1,4 +1,4 @@
-import { NgStyle, NgIf, AsyncPipe } from '@angular/common';
+import { NgStyle, AsyncPipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -7,7 +7,7 @@ import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component'
 
 @Component({
   selector: 'app-card',
-  imports: [NgStyle, NgIf, AsyncPipe, RouterModule, ConfirmModalComponent],
+  imports: [NgStyle, AsyncPipe, RouterModule, ConfirmModalComponent],
   templateUrl: './card.component.html',
   styleUrl: './card.component.css',
   standalone: true,
@@ -15,6 +15,8 @@ import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component'
 export class CardComponent {
   public isAdmin$!: Observable<boolean>;
   showConfirmModal: boolean = false;
+   @Input() expandedCards: { [key: string]: boolean } = {};
+  
 
   constructor(
     private authService: AuthService,
@@ -34,8 +36,8 @@ export class CardComponent {
     this.isAdmin$ = this.authService.isAdmin$;
   }
 
-  expand() {
-    this.isExpanded = !this.isExpanded;
+  expand(title: string) {
+    this.expandedCards[title] = !this.expandedCards[title]; 
   }
 
   editarProducto() {

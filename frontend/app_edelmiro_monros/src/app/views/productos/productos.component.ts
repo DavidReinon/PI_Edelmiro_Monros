@@ -53,6 +53,11 @@ export class ProductosComponent implements OnInit {
 
 
   constructor(private router: Router, private authService: AuthService) {}
+  expandedCardId: number | null = null; 
+
+  toggleExpand(id: number) {
+    this.expandedCardId = this.expandedCardId === id ? null : id; 
+  }
 
   ngOnInit() {
     this.isAdmin$ = this.authService.isAdmin$;

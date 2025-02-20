@@ -15,14 +15,14 @@
             </div>
         }
    
-        @if (isExpanded) {
+        @if (expandedCards[title]) {
             <div class="expanded-content mt-3">
                 <p>{{ text }}</p>
                 <p>{{ price }}€</p>
             </div>
         }
-        <button class="btn btn-primary mt-2" (click)="expand()">
-            @if (isExpanded) {
+        <button class="btn btn-primary mt-2" (click)="expand(title)">
+            @if (expandedCards[title]) {
                 Ver menos
             } @else {
                 Ver más
