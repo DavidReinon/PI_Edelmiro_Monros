@@ -84,11 +84,13 @@ final class NoticiasController extends AbstractController
         $noticias = $em->getRepository(Noticias::class)->findAll();
         $data = [];
         foreach ($noticias as $noticia) {
+            $fecha = $noticia->getFecha();
+            $fechaFormateada = $fecha ? $fecha->format('Y-m-d') : null;
             $data[] = [
                 'id' => $noticia->getId(),
                 'titulo' => $noticia->getTitulo(),
                 'descripcion' => $noticia->getDescripcion(),
-                'fecha' => $noticia->getFecha(),
+                'fecha' => $fechaFormateada,
                 'usuario' => $noticia->getUsuario()->getId(),
                 'foto' => $noticia->getFoto()
             ];
@@ -123,6 +125,14 @@ final class NoticiasController extends AbstractController
 
         if ($imagenBase64) {
             try {
+                if ($noticia->getFoto()) {
+                    $uploadDir = $this->getParameter('kernel.project_dir') . '/public/uploads/noticias/';
+                    $filePath = $uploadDir . basename($noticia->getFoto());
+
+                    if (file_exists($filePath)) {
+                        unlink($filePath);
+                    }
+                }
                 $imageData = base64_decode($imagenBase64);
 
                 if ($imageData === false) {
@@ -138,7 +148,7 @@ final class NoticiasController extends AbstractController
 
                 file_put_contents($uploadDir . $fileName, $imageData);
 
-                $noticia->setFoto('/uploads/noticias' . $fileName);
+                $noticia->setFoto('/uploads/noticias/' . $fileName);
             } catch (\Exception $e) {
                 return new JsonResponse(['error' => 'Error al guardar la imagen'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
             }
@@ -182,6 +192,14 @@ final class NoticiasController extends AbstractController
             $noticia->setUsuario($usuario);
         }
         if (isset($data['foto'])) {
+            if ($noticia->getFoto()) {
+                $uploadDir = $this->getParameter('kernel.project_dir') . '/public/uploads/noticias/';
+                $filePath = $uploadDir . basename($noticia->getFoto());
+
+                if (file_exists($filePath)) {
+                    unlink($filePath);
+                }
+            }
             if ($data['foto']) {
                 try {
                     $imageData = base64_decode($data['foto']);
@@ -199,12 +217,12 @@ final class NoticiasController extends AbstractController
 
                     file_put_contents($uploadDir . $fileName, $imageData);
 
-                    $noticia->setFoto('/uploads/noticias' . $fileName);
+                    $noticia->setFoto('/uploads/noticias/' . $fileName);
                 } catch (\Exception $e) {
                     return new JsonResponse(['error' => 'Error al guardar la imagen'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
                 }
             }
-            $noticia->setFoto('/uploads/noticias' . $fileName);
+            $noticia->setFoto('/uploads/noticias/' . $fileName);
         }
 
         $em->flush();
