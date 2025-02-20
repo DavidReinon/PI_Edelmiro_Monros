@@ -1,15 +1,26 @@
-<div class="container py-5">
-  <h1 class="mb-4 text-center">Descubre Nuestros Moños</h1>
-  @if(isAdmin$ | async) {
-  <div class="d-flex justify-content-end mb-3">
-    <button
-      routerLink="/formularioProducto"
-      routerLinkActive="active"
-      class="btn btn-primary"
-    >
-      <i class="bi bi-plus-lg"></i> Añadir Producto
-    </button>
+<div class="jumbotron bg-dark text-white py-3">
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-8">
+        <h1 class="display-4 mb-2">Nuestros Productos</h1>
+        <p class="lead mx-auto mb-2">
+          Descubre nuestra colección de moños y complementos tradicionales valencianos, elaborados artesanalmente con la más alta calidad.
+        </p>
+        <div class="mb-1">
+          <i class="bi bi-box-seam display-3 text-muted"></i>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
+
+<div class="container mt-5">
+  @if(isAdmin$ | async) {
+    <div class="d-flex justify-content-end mb-4">
+      <button routerLink="/formularioProducto" class="btn btn-primary">
+        <i class="bi bi-plus-lg me-2"></i>Añadir Producto
+      </button>
+    </div>
   }
 
   <div class="row g-4">

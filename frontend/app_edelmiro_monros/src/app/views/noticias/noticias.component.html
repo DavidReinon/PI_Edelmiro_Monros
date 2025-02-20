@@ -1,25 +1,41 @@
-<div class="container mt-4">
-  <h1 class="text-center">Noticias</h1>
-  @if (isAdmin$ | async) {
-  <div class="d-flex justify-content-end mb-3">
-    <button class="btn btn-primary" (click)="agregarNoticia()">
-      <i class="bi bi-plus-lg"></i> Añadir Noticia
-    </button>
+<div class="jumbotron bg-dark text-white py-3">
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-8">
+        <h1 class="display-4 mb-2">Noticias</h1>
+        <p class="lead mx-auto mb-2">
+          Mantente al día con las últimas novedades y eventos del mundo de las fallas y la indumentaria valenciana.
+        </p>
+        <div class="mb-1">
+          <i class="bi bi-newspaper display-3 text-muted"></i>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
+
+<div class="container mt-5">
+  @if (isAdmin$ | async) {
+    <div class="d-flex justify-content-end mb-4">
+      <button class="btn btn-primary" (click)="agregarNoticia()">
+        <i class="bi bi-plus-lg me-2"></i>Añadir Noticia
+      </button>
+    </div>
   }
+  
   <div class="row g-4">
     @for (noticia of noticias; track noticia.id) {
-    <div class="col-12">
-      <app-card-noticias
-        [id]="noticia.id"
-        [titulo]="noticia.titulo"
-        [descripcion]="noticia.descripcion"
-        [foto]="noticia.foto"
-        [fecha]="noticia.fecha"
-        (onEliminar)="eliminarNoticia(noticia.id)"
-      >
-      </app-card-noticias>
-    </div>
+      <div class="col-12 noticia-item">
+        <app-card-noticias
+          [id]="noticia.id"
+          [titulo]="noticia.titulo"
+          [descripcion]="noticia.descripcion"
+          [foto]="noticia.foto"
+          [fecha]="noticia.fecha"
+          (onEliminar)="eliminarNoticia(noticia.id)"
+        >
+        </app-card-noticias>
+      </div>
     }
   </div>
 </div>
