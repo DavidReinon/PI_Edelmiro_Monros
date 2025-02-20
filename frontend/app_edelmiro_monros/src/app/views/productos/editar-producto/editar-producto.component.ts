@@ -12,40 +12,51 @@ import { Productos } from '../../../models/productos.interfaces';
 })
 export class EditarProductoComponent implements OnInit {
   productoForm = new FormGroup({
-    title: new FormControl(''),
-    text: new FormControl(''),
-    photo: new FormControl(''),
-    price: new FormControl(0)
+    id: new FormControl<number | null>(null),
+    nombre: new FormControl<string>(''),
+    descripcion: new FormControl<string>(''),
+    precio: new FormControl<number | null>(null),
+    stock: new FormControl<number | null>(null),
+    usuarioId: new FormControl<number>(0),
+    foto: new FormControl<string | null>(null)
   });
 
   productos: Productos[] = [
     {
       id: 1,
-      title: 'Moño 1',
-      text: 'Moño Fallera 1',
-      photo: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7974.jpg',
-      price: 100,
+      nombre: 'Moño 1',
+      descripcion: 'Moño Fallera 1',
+      foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7974.jpg',
+      precio: 100,
+      stock: 10,
+      usuarioId: 1
     },
     {
       id: 2,
-      title: 'Moño 2',
-      text: 'Moño Fallera 2',
-      photo: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7545.jpg',
-      price: 200,
+      nombre: 'Moño 2',
+      descripcion: 'Moño Fallera 2',
+      foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7545.jpg',
+      precio: 200,
+      stock: 20,
+      usuarioId: 2
     },
     {
       id: 3,
-      title: 'Moño 3',
-      text: 'Moño Fallera 3',
-      photo: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_1403.jpeg',
-      price: 300,
+      nombre: 'Moño 3',
+      descripcion: 'Moño Fallera 3',
+      foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_1403.jpeg',
+      precio: 300,
+      stock: 30,
+      usuarioId: 3
     },
     {
       id: 4,
-      title: 'Moño 4',
-      text: 'Moño Fallera 4',
-      photo: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_2610.jpeg',
-      price: 400,
+      nombre: 'Moño 4',
+      descripcion: 'Moño Fallera 4',
+      foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_2610.jpeg',
+      precio: 400,
+      stock: 40,
+      usuarioId: 4
     }
   ];
 
@@ -62,10 +73,13 @@ export class EditarProductoComponent implements OnInit {
     
     if (producto) {
       this.productoForm.patchValue({
-        title: producto.title,
-        text: producto.text,
-        photo: producto.photo,
-        price: producto.price
+        id: producto.id,
+        nombre: producto.nombre,
+        descripcion: producto.descripcion,
+        precio: producto.precio,
+        stock: producto.stock,
+        usuarioId: producto.usuarioId,
+        foto: producto.foto
       });
     }
   }
