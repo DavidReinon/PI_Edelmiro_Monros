@@ -4,7 +4,7 @@ export interface Noticias {
     descripcion: string;
     fecha: string;
     usuario: string
-    foto: string | null;
+    foto?: string | null;
 }
 
 

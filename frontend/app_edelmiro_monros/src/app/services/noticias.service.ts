@@ -8,12 +8,9 @@ import { Observable } from 'rxjs';
 })
 export class NoticiasService {
   private apiUrl = 'http://127.0.0.1:8000/api/noticias';
+  /* private apiUrl = 'http://44.214.111.49/api/noticias'; */
 
   constructor(private http: HttpClient) { }
-
-  /* public postNoticia(url: string, noticia: Noticias): Observable<Noticias> {
-    return this.http.post<Noticias>(url, noticia);
-  } */
 
   public postNoticia(noticia: any) {
     const headers = new HttpHeaders({
@@ -26,15 +23,15 @@ export class NoticiasService {
     return this.http.get<Noticias[]>(this.apiUrl);
   }
 
-  public putNoticia(id: number, noticia: Noticias): Observable<Noticias> {
+  public putNoticia(id: string, noticia: Noticias): Observable<Noticias> {
     return this.http.put<Noticias>(`${this.apiUrl}/${id}`, noticia);
   }
 
-  public patchNoticia(id: number, noticia: Partial<Noticias>): Observable<Noticias> {
+  public patchNoticia(id: string, noticia: Partial<Noticias>): Observable<Noticias> {
     return this.http.patch<Noticias>(`${this.apiUrl}/${id}`, noticia);
   }
 
-  public deleteNoticia(id: number): Observable<void> {
+  public deleteNoticia(id: string | undefined): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

@@ -14,7 +14,7 @@
           [foto]="noticia.foto"
           [fecha]="noticia.fecha"
           [id]="noticia.id"
-          (onEliminar)="eliminarNoticia(noticia.id)">
+          (onEliminar)="eliminarNoticia($event)">
         </app-card-noticias>
       </div>
     }

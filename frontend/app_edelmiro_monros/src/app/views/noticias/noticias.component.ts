@@ -6,14 +6,6 @@ import { Auth } from '../../services/auth.service';
 import { NoticiasService } from '../../services/noticias.service';
 import { Noticias } from '../../models/noticias.interfaces';
 
-interface Noticia {
-  id: number;
-  titulo: string;
-  descripcion: string;
-  fecha: Date;
-  foto: string | null;
-}
-
 @Component({
   selector: 'app-noticias',
   standalone: true,
@@ -41,59 +33,15 @@ export class NoticiasComponent {
   }
 
 
-  noticias: Noticias[] = [
-    {
-      id: '1',
-      titulo: 'Falla eléctrica deja sin luz a miles',
-      descripcion:
-        'Una avería en la red eléctrica ha provocado un apagón en varias ciudades, afectando a miles de hogares y comercios.',
-      fecha: '2024-02-12',
-      usuario: '1',
-      foto: 'imagen_apagon.jpg',
-    },
-    {
-      id: '2',
-      titulo: 'Falla en servidores afecta servicios bancarios',
-      descripcion:
-        'Una interrupción en los servidores ha dejado a miles de clientes sin acceso a sus cuentas bancarias en línea.',
-      fecha: '2024-02-11',
-      usuario: '1',
-      foto: 'imagen_banco.jpg',
-    },
-    {
-      id: '3',
-      titulo: 'Falla en el transporte público genera caos',
-      descripcion:
-        'Un desperfecto técnico en el metro ha causado retrasos y aglomeraciones en varias estaciones principales.',
-      fecha: '2024-02-10',
-      usuario: '1',
-      foto: 'imagen_metro.jpg',
-    },
-    {
-      id: '4',
-      titulo: 'Falla en redes sociales afecta a millones',
-      descripcion:
-        'Usuarios de distintas partes del mundo reportan problemas para acceder a sus cuentas en redes sociales.',
-      fecha: '2024-02-09',
-      usuario: '1',
-      foto: 'imagen_redessociales.jpg',
-    },
-    {
-      id: '5',
-      titulo: 'Falla en planta de agua deja sin servicio a la ciudad',
-      descripcion:
-        'Una avería en el sistema de bombeo ha interrumpido el suministro de agua en toda la ciudad, afectando a miles de personas.',
-      fecha: '2024-02-08',
-      usuario: '1',
-      foto: 'imagen_agua.jpg',
-    },
-  ];
+  noticias: Noticias[] = []
 
   agregarNoticia() {
     this.router.navigate(['/noticias/crear']);
   }
 
-  eliminarNoticia(id: string | undefined) {
-    /* this.noticias = this.noticias.filter((noticia) => noticia.id !== id); */
+  public eliminarNoticia(id: string): void {
+    this.service.deleteNoticia(id).subscribe(() => {
+      this.noticias = this.noticias.filter(noticia => noticia.id !== id);
+    });
   }
 }
