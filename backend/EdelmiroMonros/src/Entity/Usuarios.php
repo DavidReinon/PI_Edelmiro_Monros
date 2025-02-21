@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+//hola
 use App\Repository\UsuariosRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
