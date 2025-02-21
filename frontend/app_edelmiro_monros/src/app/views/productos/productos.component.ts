@@ -4,71 +4,86 @@ import { CardComponent } from '../../components/card/card.component';
 import { RouterLinkActive, RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { Observable } from 'rxjs';
+import { Observable, firstValueFrom } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { LoadingService } from '../../services/loading.service';
+import { LoadingComponent } from '../../components/loading/loading.component';
+import { ProductoService } from '../../services/producto.service';
 
 @Component({
   selector: 'app-productos',
   standalone: true,
-  imports: [CardComponent, RouterModule,  RouterLinkActive, CommonModule],
+  imports: [CardComponent, RouterModule, RouterLinkActive, CommonModule, LoadingComponent],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css',
 })
 export class ProductosComponent implements OnInit {
+  // Propiedades públicas
   public isAdmin$!: Observable<boolean>;
-  productos: Productos[] = [
-    {
-      nombre: 'Moño 1',
-      descripcion: 'Moño Fallera 1',
-      foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7974.jpg',
-      precio: 100,
-      stock: null,
-      usuarioId: 1,
-    },
-    {
-      nombre: 'Moño 2',
-      descripcion: 'Moño Fallera 2',
-      foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7545.jpg',
-      precio: 200,
-      stock: null,
-      usuarioId: 1,
-    },
-    {
-      nombre: 'Moño 3',
-      descripcion: 'Moño Fallera 3',
-      foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_1403.jpeg',
-      precio: 300,
-      stock: null,
-      usuarioId: 1,
-    },
-    {
-      nombre: 'Moño 4',
-      descripcion: 'Moño Fallera 4',
-      foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_2610.jpeg',
-      precio: 400,
-      stock: null,
-      usuarioId: 1,
-    },
-  ];
+  public productos: Productos[] = [];
+  public expandedCardId: number | null = null;
+  public isLoading$: Observable<boolean>;
 
-
-  constructor(private router: Router, private authService: AuthService) {}
-  expandedCardId: number | null = null; 
-
-  toggleExpand(id: number) {
-    this.expandedCardId = this.expandedCardId === id ? null : id; 
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private loadingService: LoadingService,
+    private productoService: ProductoService
+  ) {
+    // Inicializamos isLoading$ en el constructor
+    this.isLoading$ = this.loadingService.isLoading$;
   }
 
   ngOnInit() {
     this.isAdmin$ = this.authService.isAdmin$;
+    this.cargarProductos();
   }
 
-  agregarProducto() {
-    this.router.navigate(['/formularioProducto']);
+  // Métodos privados de utilidad
+  private async handleOperation<T>(operation: () => Promise<T>): Promise<T | null> {
+    try {
+      this.loadingService.show();
+      return await operation();
+    } catch (error) {
+      console.error('Error en la operación:', error);
+      return null;
+    } finally {
+      this.loadingService.hide();
+    }
   }
 
-  eliminarProducto(id: number) {
-    console.log('Eliminando producto con id:', id);
-    this.productos = this.productos.filter((producto) => producto.id !== id);
+  // Métodos públicos
+  public async cargarProductos(): Promise<void> {
+    await this.handleOperation(async () => {
+      const productos = await firstValueFrom(this.productoService.getProductos());
+      this.productos = productos;
+    });
+  }
+
+  public toggleExpand(id: number): void {
+    this.expandedCardId = this.expandedCardId === id ? null : id;
+  }
+
+  public async eliminarProducto(id: number): Promise<void> {
+    if (!confirm('¿Estás seguro de que deseas eliminar este producto?')) {
+      return;
+    }
+    
+    await this.handleOperation(async () => {
+      await this.productoService.deleteProducto(id);
+      await this.cargarProductos();
+    });
+  }
+
+  public async agregarProducto(): Promise<void> {
+    await this.handleOperation(async () => {
+      await this.router.navigate(['/formularioProducto']);
+    });
+  }
+
+  public async editarProducto(id: number): Promise<void> {
+    await this.handleOperation(async () => {
+      await this.router.navigate(['/editar-producto', id]);
+    });
   }
 }

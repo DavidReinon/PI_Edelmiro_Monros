@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { LoadingService } from './loading.service';
+import { firstValueFrom, Observable } from 'rxjs';
 import { Productos } from '../models/productos.interfaces';
 
 @Injectable({
@@ -9,10 +10,21 @@ import { Productos } from '../models/productos.interfaces';
 export class ProductoService {
   private apiUrl = 'http://44.214.111.49/api/productos';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private loadingService: LoadingService
+  ) {}
 
-  createProducto(productoData: Productos): Observable<Productos> {
-    return this.http.post<Productos>(this.apiUrl, productoData);
+  async createProducto(producto: Productos): Promise<any> {
+    try {
+      this.loadingService.show();
+      // Convertir el Observable a Promise
+      return await firstValueFrom(
+        this.http.post<Productos>(this.apiUrl, producto)
+      );
+    } finally {
+      this.loadingService.hide();
+    }
   }
 
   getProductos(): Observable<any[]> {
@@ -23,11 +35,25 @@ export class ProductoService {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
-  updateProducto(id: number, productoData: FormData): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}`, productoData);
+  async updateProducto(id: number, productoData: FormData): Promise<any> {
+    try {
+      this.loadingService.show();
+      return await firstValueFrom(
+        this.http.put<any>(`${this.apiUrl}/${id}`, productoData)
+      );
+    } finally {
+      this.loadingService.hide();
+    }
   }
 
-  deleteProducto(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  async deleteProducto(id: number): Promise<any> {
+    try {
+      this.loadingService.show();
+      return await firstValueFrom(
+        this.http.delete<any>(`${this.apiUrl}/${id}`)
+      );
+    } finally {
+      this.loadingService.hide();
+    }
   }
 }
