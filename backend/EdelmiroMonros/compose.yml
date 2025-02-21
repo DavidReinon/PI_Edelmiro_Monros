@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  php:
+    image: davidreinon/symfony-app:latest
+    container_name: symfony_app
+    restart: always
+    working_dir: /var/www/html
+    # volumes:
+    #   - .:/var/www/html
+    depends_on:
+      database:
+        condition: service_healthy
+
+  nginx:
+    image: davidreinon/symfony-nginx:latest
+    container_name: symfony_nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      php:
+        condition: service_started
+
+  database:
+    image: mysql:8.0
+    container_name: symfony_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: FloridaRoot1324
+      MYSQL_DATABASE: edelmiro_monros
+      MYSQL_USER: edelmiro
+      MYSQL_PASSWORD: edelmiro1324
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 3
+
+volumes:
+  db_data:

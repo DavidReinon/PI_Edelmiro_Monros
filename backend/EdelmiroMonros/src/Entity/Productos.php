@@ -5,10 +5,9 @@ namespace App\Entity;
 use App\Repository\ProductosRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Metadata\ApiResource;
+// use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: ProductosRepository::class)]
-#[ApiResource]
 class Productos
 {
     #[ORM\Id]
@@ -22,7 +21,7 @@ class Productos
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $descripcion = null;
 
-    #[ORM\Column(type: Types::BLOB, nullable: true)]
+    #[ORM\Column(type: TYPES::TEXT, nullable: true)]
     private $foto;
 
     #[ORM\Column(nullable: true)]
@@ -37,13 +36,6 @@ class Productos
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function setId(int $id): static
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     public function getNombre(): ?string
@@ -70,7 +62,7 @@ class Productos
         return $this;
     }
 
-    public function getFoto()
+    public function getFoto(): string|null
     {
         return $this->foto;
     }

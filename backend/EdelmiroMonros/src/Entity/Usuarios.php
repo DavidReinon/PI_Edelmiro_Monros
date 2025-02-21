@@ -7,8 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: UsuariosRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'Este email ya está registrado.')]
+#[UniqueEntity(fields: ['nombre'], message: 'Este nombre de usuario ya está en uso.')]
 #[ApiResource]
 class Usuarios
 {
@@ -23,11 +26,12 @@ class Usuarios
     #[ORM\Column(length: 255)]
     private ?string $contraseña = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
+
     #[ORM\Column]
     private ?bool $admin = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $gmail = null;
 
     /**
      * @var Collection<int, Noticias>
@@ -95,14 +99,14 @@ class Usuarios
         return $this;
     }
 
-    public function getGmail(): ?string
+    public function getEmail(): ?string
     {
-        return $this->gmail;
+        return $this->email;
     }
 
-    public function setGmail(string $gmail): static
+    public function setEmail(string $email): static
     {
-        $this->gmail = $gmail;
+        $this->email = $email;
 
         return $this;
     }

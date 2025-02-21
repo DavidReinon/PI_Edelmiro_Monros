@@ -1,0 +1,19 @@
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch; 
+}
+.vcard {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.vcard-body {
+    flex-grow: 1;
+}
+
+.note-container {
+    max-height: 70px;
+    overflow-y: auto;
+    
+}

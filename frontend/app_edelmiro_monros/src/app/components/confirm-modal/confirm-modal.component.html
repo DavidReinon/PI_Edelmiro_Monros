@@ -1,0 +1,14 @@
+@if (showModal) {
+  <div class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-content">
+        <h4>Confirmar eliminación</h4>
+        <p>¿Estás seguro que quieres eliminarlo?</p>
+        <div class="modal-actions">
+          <button class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+          <button class="btn btn-danger" (click)="confirm()">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+} 
