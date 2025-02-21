@@ -23,7 +23,7 @@ COPY . .
 # Instala Composer y dependencias sin ejecutar auto-scripts
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN composer install --no-dev --no-interaction --optimize-autoloader --no-scripts
+RUN composer install
 
 # Ejecuta cache:clear manualmente en entorno prod
 RUN php bin/console cache:clear --env=prod || true
