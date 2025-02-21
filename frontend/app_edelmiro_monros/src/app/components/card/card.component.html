@@ -6,10 +6,10 @@
         <h5 class="card-title" [title]="title">{{ title }}</h5>
         @if (isAdmin) {
             <div class="d-flex gap-2">
-                <button class="btn btn-outline-primary" (click)="editarProducto()">
+                <button title="Editar Producto" class="btn btn-outline-primary" (click)="editarProducto()">
                     <i class="bi bi-pencil"></i>
                 </button>
-                <button class="btn btn-outline-danger" (click)="confirmarEliminar()">
+                <button title="Borrar Producto" class="btn btn-outline-danger" (click)="confirmarEliminar()">
                     <i class="bi bi-trash"></i>
                 </button>
             </div>

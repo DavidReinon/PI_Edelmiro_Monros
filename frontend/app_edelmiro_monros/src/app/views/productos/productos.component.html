@@ -31,9 +31,9 @@
           [text]="producto.descripcion"
           [photo]="producto.foto!"
           [price]="producto.precio!"
-          [id]="producto.id"
+          [id]="producto.id!"
           [isAdmin]="(isAdmin$ | async) ?? false"
-          (onEliminar)="eliminarProducto(producto.id)">
+          (onEliminar)="eliminarProducto(producto.id!)">
         </app-card>
       </div>
     }

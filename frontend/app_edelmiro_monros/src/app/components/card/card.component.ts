@@ -1,4 +1,4 @@
-import { NgStyle, AsyncPipe } from '@angular/common';
+import { NgStyle, AsyncPipe, CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -7,7 +7,7 @@ import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component'
 
 @Component({
   selector: 'app-card',
-  imports: [NgStyle, AsyncPipe, RouterModule, ConfirmModalComponent],
+  imports: [NgStyle, CommonModule, RouterModule, ConfirmModalComponent],
   templateUrl: './card.component.html',
   styleUrl: './card.component.css',
   standalone: true,
