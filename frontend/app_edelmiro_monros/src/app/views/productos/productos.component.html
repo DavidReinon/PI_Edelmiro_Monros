@@ -15,7 +15,7 @@
 </div>
 
 <div class="container mt-5">
-  @if(isAdmin$ | async) {
+  @if (isAdmin$ | async) {
     <div class="d-flex justify-content-end mb-4">
       <button routerLink="/formularioProducto" class="btn btn-primary">
         <i class="bi bi-plus-lg me-2"></i>Añadir Producto
@@ -24,16 +24,18 @@
   }
 
   <div class="row g-4">
-    @for(item of productos; track item; let i = $index) {
-    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-      <app-card
-        [title]="item.nombre"
-        [text]="item.descripcion"
-        [photo]="item.foto!"
-        [price]="item.precio!"
-      ></app-card>
-      <!-- [id]="item.id" [expandedCards]="expandedCardId === item.id"   -->
-    </div>
+    @for (producto of productos; track producto.id) {
+      <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+        <app-card
+          [title]="producto.nombre"
+          [text]="producto.descripcion"
+          [photo]="producto.foto!"
+          [price]="producto.precio!"
+          [id]="producto.id"
+          [isAdmin]="(isAdmin$ | async) ?? false"
+          (onEliminar)="eliminarProducto(producto.id)">
+        </app-card>
+      </div>
     }
   </div>
 </div>
