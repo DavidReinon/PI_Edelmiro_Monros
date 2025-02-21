@@ -20,7 +20,7 @@ export const routes: Routes = [
   { path: 'clientes', component: ClientesComponent },
   { path: 'noticias', component: NoticiasComponent },
   { path: 'noticias/crear', component: CrearNoticiaComponent },
-  { path: 'noticias/editar/:id', component: EditarNoticiaComponent },
+  { path: 'noticias/editar', component: EditarNoticiaComponent },
   { path: 'productos', component: ProductosComponent },
   { path: 'aviso', component: AvisoLegalComponent },
   { path: 'accesibilidad', component: AccesibilidadComponent },

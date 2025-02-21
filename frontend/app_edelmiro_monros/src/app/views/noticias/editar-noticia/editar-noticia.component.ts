@@ -34,7 +34,8 @@ export class EditarNoticiaComponent implements OnInit {
   constructor(
     private router: Router,
     public noticiasService: NoticiasService,
-    public stateService: NoticiasStateService
+    public stateService: NoticiasStateService,
+    private route: ActivatedRoute
   ) { }
 
   public ngOnInit(): void {

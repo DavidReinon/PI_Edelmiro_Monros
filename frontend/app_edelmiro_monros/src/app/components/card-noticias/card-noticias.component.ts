@@ -40,10 +40,14 @@ export class CardNoticiasComponent {
   }
 
   public eliminarNoticia(id: string | undefined): void {
-    this.router.navigate(['/noticias/']);
     this.service.deleteNoticia(id)
     this.onEliminar.emit(id)
     this.showConfirmModal = false;
+    this.router.navigate(['/noticias/']);
+  }
+
+  public confirmarEliminar() {
+    this.showConfirmModal = true;
   }
 
 
@@ -66,11 +70,9 @@ export class CardNoticiasComponent {
     });
   }
 
-  confirmarEliminar() {
-    this.showConfirmModal = true;
-  }
 
-  cancelarEliminar() {
+
+  public cancelarEliminar() {
     this.showConfirmModal = false;
   }
 
