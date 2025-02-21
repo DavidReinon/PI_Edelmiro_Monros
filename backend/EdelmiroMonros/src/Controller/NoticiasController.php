@@ -27,8 +27,17 @@ final class NoticiasController extends AbstractController
         $usuarioId = $data['usuario'] ?? null;
         $imagenBase64 = $data['foto'] ?? null;
 
-        if (!$titulo || !$descripcion || !$fecha || !$usuarioId) {
-            return new JsonResponse(['error' => 'Datos inválidos'], JsonResponse::HTTP_BAD_REQUEST);
+        if (!$titulo) {
+            return new JsonResponse(['error' => 'El título es obligatorio'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+        if (!$descripcion) {
+            return new JsonResponse(['error' => 'La descripción es obligatoria'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+        if (!$fecha) {
+            return new JsonResponse(['error' => 'La fecha es obligatoria'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+        if (!$usuarioId) {
+            return new JsonResponse(['error' => 'El ID del usuario es obligatorio'], JsonResponse::HTTP_BAD_REQUEST);
         }
 
         $usuario = $em->getRepository(Usuarios::class)->find($usuarioId);

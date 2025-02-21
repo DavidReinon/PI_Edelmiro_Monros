@@ -26,8 +26,14 @@ final class ProductosController extends AbstractController
         $usuarioId = $data['usuario'];
         $imagenBase64 = $data['foto'] ?? null;
 
-        if (!$nombre || !$descripcion || !$usuarioId) {
-            return new JsonResponse(['error' => 'Datos inválidos'], JsonResponse::HTTP_BAD_REQUEST);
+        if (!$nombre) {
+            return new JsonResponse(['error' => 'Nombre es requerido'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+        if (!$descripcion) {
+            return new JsonResponse(['error' => 'Descripción es requerida'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+        if (!$usuarioId) {
+            return new JsonResponse(['error' => 'El ID del Usuario es requerido'], JsonResponse::HTTP_BAD_REQUEST);
         }
 
         $usuario = $em->getRepository(Usuarios::class)->find($usuarioId);
