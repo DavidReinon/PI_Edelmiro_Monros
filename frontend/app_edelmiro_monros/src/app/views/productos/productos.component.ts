@@ -16,40 +16,7 @@ import { CommonModule } from '@angular/common';
 })
 export class ProductosComponent implements OnInit {
   public isAdmin$!: Observable<boolean>;
-  productos: Productos[] = [
-    {
-      nombre: 'Moño 1',
-      descripcion: 'Moño Fallera 1',
-      foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7974.jpg',
-      precio: 100,
-      stock: null,
-      usuarioId: 1,
-    },
-    {
-      nombre: 'Moño 2',
-      descripcion: 'Moño Fallera 2',
-      foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7545.jpg',
-      precio: 200,
-      stock: null,
-      usuarioId: 1,
-    },
-    {
-      nombre: 'Moño 3',
-      descripcion: 'Moño Fallera 3',
-      foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_1403.jpeg',
-      precio: 300,
-      stock: null,
-      usuarioId: 1,
-    },
-    {
-      nombre: 'Moño 4',
-      descripcion: 'Moño Fallera 4',
-      foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_2610.jpeg',
-      precio: 400,
-      stock: null,
-      usuarioId: 1,
-    },
-  ];
+  productos: Productos[] = [];
 
 
   constructor(private router: Router, private authService: AuthService) {}
