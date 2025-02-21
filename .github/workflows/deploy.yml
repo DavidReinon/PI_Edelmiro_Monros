@@ -82,6 +82,16 @@ jobs:
                       docker exec symfony_app sh -c 'echo "MAILER_DSN=null://null" >> /var/www/html/.env'
                       docker exec symfony_app sh -c 'echo "MESSENGER_TRANSPORT_DSN=doctrine://default?auto_setup=0" >> /var/www/html/.env'
 
+            - name: Ejecutar post-install-cmd en el contenedor Symfony
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.REMOTE_HOST }}
+                  username: ${{ secrets.REMOTE_USER }}
+                  key: ${{ secrets.REMOTE_KEY }}
+                  script: |
+                      docker exec symfony_app composer run-script post-install-cmd
+                      docker exec symfony_app php bin/console cache:clear --env=prod
+
             - name: Crear la base de datos si no existe y ejecutar migraciones
               uses: appleboy/ssh-action@master
               with:
