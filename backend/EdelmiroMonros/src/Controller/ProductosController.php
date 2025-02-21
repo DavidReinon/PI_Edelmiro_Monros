@@ -23,11 +23,17 @@ final class ProductosController extends AbstractController
         $descripcion = $data['descripcion'];
         $precio = $data['precio'] ?? null;
         $stock = $data['stock'] ?? null;
-        $usuarioId = $data['usuarioId'];
+        $usuarioId = $data['usuario'];
         $imagenBase64 = $data['foto'] ?? null;
 
-        if (!$nombre || !$descripcion || !$usuarioId) {
-            return new JsonResponse(['error' => 'Datos inválidos'], JsonResponse::HTTP_BAD_REQUEST);
+        if (!$nombre) {
+            return new JsonResponse(['error' => 'Nombre es requerido'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+        if (!$descripcion) {
+            return new JsonResponse(['error' => 'Descripción es requerida'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+        if (!$usuarioId) {
+            return new JsonResponse(['error' => 'El ID del Usuario es requerido'], JsonResponse::HTTP_BAD_REQUEST);
         }
 
         $usuario = $em->getRepository(Usuarios::class)->find($usuarioId);
@@ -94,8 +100,9 @@ final class ProductosController extends AbstractController
     public function update(Request $request, Productos $producto, EntityManagerInterface $em): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
+
         $imagenBase64 = $data['foto'] ?? null;
-        $usuario = $em->getRepository(Usuarios::class)->find($data['usuarioId']);
+        $usuario = $em->getRepository(Usuarios::class)->find($data['usuario']);
         if (!$usuario) {
             return new JsonResponse(['error' => 'Usuario no encontrado'], JsonResponse::HTTP_BAD_REQUEST);
         }
@@ -158,8 +165,8 @@ final class ProductosController extends AbstractController
         if (isset($data['stock'])) {
             $producto->setStock($data['stock']);
         }
-        if (isset($data['usuarioId'])) {
-            $usuario = $em->getRepository(Usuarios::class)->find($data['usuarioId']);
+        if (isset($data['usuario'])) {
+            $usuario = $em->getRepository(Usuarios::class)->find($data['usuario']);
             if (!$usuario) {
                 return new JsonResponse(['error' => 'Usuario no encontrado'], JsonResponse::HTTP_BAD_REQUEST);
             }
