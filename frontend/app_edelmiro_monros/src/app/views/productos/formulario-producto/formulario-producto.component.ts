@@ -55,7 +55,7 @@ export class FormularioProductoComponent {
       descripcion: rawValue.descripcion,
       precio: rawValue.precio,
       stock: rawValue.stock,
-      usuarioId: 1,
+      usuario: 1,
       foto: rawValue.foto ? rawValue.foto : null,
     };
     console.log(payload);

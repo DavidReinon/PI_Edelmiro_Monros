@@ -17,7 +17,7 @@ export class EditarProductoComponent implements OnInit {
     descripcion: new FormControl<string>(''),
     precio: new FormControl<number | null>(null),
     stock: new FormControl<number | null>(null),
-    usuarioId: new FormControl<number>(0),
+    usuario: new FormControl<number>(0),
     foto: new FormControl<string | null>(null)
   });
 
@@ -29,7 +29,7 @@ export class EditarProductoComponent implements OnInit {
       foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7974.jpg',
       precio: 100,
       stock: 10,
-      usuarioId: 1
+      usuario: 1
     },
     {
       id: 2,
@@ -38,7 +38,7 @@ export class EditarProductoComponent implements OnInit {
       foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7545.jpg',
       precio: 200,
       stock: 20,
-      usuarioId: 2
+      usuario: 2
     },
     {
       id: 3,
@@ -47,7 +47,7 @@ export class EditarProductoComponent implements OnInit {
       foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_1403.jpeg',
       precio: 300,
       stock: 30,
-      usuarioId: 3
+      usuario: 3
     },
     {
       id: 4,
@@ -56,7 +56,7 @@ export class EditarProductoComponent implements OnInit {
       foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_2610.jpeg',
       precio: 400,
       stock: 40,
-      usuarioId: 4
+      usuario: 4
     }
   ];
 
@@ -78,7 +78,7 @@ export class EditarProductoComponent implements OnInit {
         descripcion: producto.descripcion,
         precio: producto.precio,
         stock: producto.stock,
-        usuarioId: producto.usuarioId,
+        usuario: producto.usuario,
         foto: producto.foto
       });
     }

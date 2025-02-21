@@ -23,7 +23,7 @@ export class ProductosComponent implements OnInit {
       foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7974.jpg',
       precio: 100,
       stock: null,
-      usuarioId: 1,
+      usuario: 1,
     },
     {
       nombre: 'Moño 2',
@@ -31,7 +31,7 @@ export class ProductosComponent implements OnInit {
       foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7545.jpg',
       precio: 200,
       stock: null,
-      usuarioId: 1,
+      usuario: 1,
     },
     {
       nombre: 'Moño 3',
@@ -39,7 +39,7 @@ export class ProductosComponent implements OnInit {
       foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_1403.jpeg',
       precio: 300,
       stock: null,
-      usuarioId: 1,
+      usuario: 1,
     },
     {
       nombre: 'Moño 4',
@@ -47,7 +47,7 @@ export class ProductosComponent implements OnInit {
       foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_2610.jpeg',
       precio: 400,
       stock: null,
-      usuarioId: 1,
+      usuario: 1,
     },
   ];
 
