@@ -46,9 +46,10 @@
   opacity: 0.3;
 }
 
-.btn-primary {
+.btn {
   padding: 0.5rem 1rem;
   font-weight: 500;
+  background-color: #FFA308;
 }
 
 .btn-primary i {
