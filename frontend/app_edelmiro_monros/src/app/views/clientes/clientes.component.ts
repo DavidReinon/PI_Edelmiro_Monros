@@ -19,7 +19,10 @@ export class ClientesComponent {
 
   public getResena(): void {
     this.service.getResena().subscribe((response) => {
-      this.personas = response.member;
+      this.personas = response.member.map(persona => ({
+        ...persona,
+        fecha: this.formatFecha(persona.fecha) 
+      }));
       console.log(this.personas);
     });
   }
@@ -28,9 +31,7 @@ export class ClientesComponent {
     this.getResena();
   }
 
-  public cargarMasResenas(): void {
-    this.vista += 8; 
-  }
+  
 
   actualizarValoracion(index: number, valor: number): void {
     if (index >= 0 && index < this.personas.length) {

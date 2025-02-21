@@ -12,7 +12,7 @@ export interface Member {
     id:           number;
     autor:        string;
     calificacion: number;
-    fecha:        Date;
+    fecha:        string;
     comentario:   string;
 }
 
