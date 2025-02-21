@@ -4,15 +4,25 @@
     </div>
     <div class="card-body">
         <h5 class="card-title" [title]="title">{{ title }}</h5>
-   
-        @if (isExpanded) {
-            <div class="expanded-content mt-3">
-                <p>{{ text }}</p>
-                <p>{{ price }}</p>
+        @if (isAdmin$ | async) {
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-primary" (click)="editarProducto()">
+                    <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-outline-danger" (click)="confirmarEliminar()">
+                    <i class="bi bi-trash"></i>
+                </button>
             </div>
         }
-        <button class="btn btn-primary" (click)="expand()">
-            @if (isExpanded) {
+   
+        @if (expandedCards[title]) {
+            <div class="expanded-content mt-3">
+                <p>{{ text }}</p>
+                <p>{{ price }}€</p>
+            </div>
+        }
+        <button class="btn btn-primary mt-2" (click)="expand(title)">
+            @if (expandedCards[title]) {
                 Ver menos
             } @else {
                 Ver más
@@ -20,3 +30,9 @@
         </button>
     </div>
 </div>
+
+<app-confirm-modal
+    [showModal]="showConfirmModal"
+    (onConfirm)="eliminarProducto()"
+    (onCancel)="cancelarEliminar()">
+</app-confirm-modal>

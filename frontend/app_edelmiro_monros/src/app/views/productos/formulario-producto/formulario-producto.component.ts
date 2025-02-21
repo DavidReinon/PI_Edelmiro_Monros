@@ -24,11 +24,12 @@ export class FormularioProductoComponent {
     stock: new FormControl(null, Validators.min(0)),
     foto: new FormControl(''),
   });
+  public newFoto: string = ''
 
   constructor(
     private router: Router,
     private productoService: ProductoService
-  ) {}
+  ) { }
 
   public onFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -39,7 +40,7 @@ export class FormularioProductoComponent {
       reader.readAsDataURL(file);
       reader.onload = () => {
         const base64String = reader.result as string;
-        this.productoForm.patchValue({ foto: base64String.split(',')[1] });
+        this.newFoto = base64String.split(',')[1]
       };
       reader.onerror = (error) => {
         console.error('Error al leer la imagen:', error);
@@ -56,7 +57,7 @@ export class FormularioProductoComponent {
       precio: rawValue.precio,
       stock: rawValue.stock,
       usuarioId: 1,
-      foto: rawValue.foto ? rawValue.foto : null,
+      foto: this.newFoto
     };
     console.log(payload);
 

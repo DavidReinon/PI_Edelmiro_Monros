@@ -1,7 +1,10 @@
 export interface Noticias {
-    id:          number;
-    titulo:      string;
+    id?: string;
+    titulo: string;
     descripcion: string;
-    fecha:       Date;
-    foto:        string;
+    fecha: string;
+    usuario: string
+    foto?: string | null;
 }
+
+
