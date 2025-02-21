@@ -45,13 +45,14 @@ h1 {
   opacity: 0.9;
 }
 
-.btn-primary {
+.btn {
   padding: 0.5rem 1rem;
+  background-color: rgb(255, 170, 0) ;
   font-weight: 500;
   transition: all 0.3s ease;
 }
 
-.btn-primary:hover {
+.btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
