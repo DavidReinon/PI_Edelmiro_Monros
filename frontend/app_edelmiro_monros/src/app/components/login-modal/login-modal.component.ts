@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UsuariosService } from '../../services/usuarios.service';
-import { Usuarios } from '../../models/usuario.interfaz';
 
 @Component({
   selector: 'app-login-modal',
@@ -17,7 +16,7 @@ export class LoginModalComponent {
 
   constructor(private usuariosService: UsuariosService) {}
 
-  abrirModal() {
+  public abrirModal() {
     const modal = document.getElementById('registroModal');
     if (modal) {
       modal.classList.add('show'); 
@@ -26,7 +25,7 @@ export class LoginModalComponent {
     }
   }
 
-  cerrarModal() {
+  public cerrarModal() {
     const modal = document.getElementById('registroModal');
     if (modal) {
       modal.classList.remove('show'); 
@@ -35,7 +34,7 @@ export class LoginModalComponent {
     }
   }
   
-  registrarse(event: Event) {
+  public registrarse(event: Event) {
     event.preventDefault();
 
     if (!this.emailOrUsername || !this.password) {
@@ -43,7 +42,6 @@ export class LoginModalComponent {
       return;
     }
 
-    // URL de la API (ajustar según tu backend)
     const apiUrl = 'http://44.214.111.49/api/usuarios';
 
     this.usuariosService.getUsuarios(apiUrl).subscribe((usuario) => {
@@ -57,7 +55,6 @@ export class LoginModalComponent {
         if (usuarioEncontrado.admin) {
           alert("Bienvenido, Administrador");
           console.log("Inicio de sesión como ADMIN");
-          // Aquí podrías redirigirlo a un panel de admin o cambiar la interfaz
         } else {
           alert("Inicio de sesión exitoso");
           console.log("Inicio de sesión como usuario normal");
