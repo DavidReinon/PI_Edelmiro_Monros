@@ -23,7 +23,7 @@ class Noticias
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $fecha = null;
 
-    #[ORM\Column(type: TYPES::TEXT)]
+    #[ORM\Column(type: TYPES::TEXT, nullable: true)]
     private ?string $foto;
 
     #[ORM\ManyToOne(inversedBy: 'noticias')]
