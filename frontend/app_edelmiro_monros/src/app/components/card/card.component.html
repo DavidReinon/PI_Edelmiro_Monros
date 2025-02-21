@@ -4,7 +4,7 @@
     </div>
     <div class="card-body">
         <h5 class="card-title" [title]="title">{{ title }}</h5>
-        @if (isAdmin$ | async) {
+        @if (isAdmin) {
             <div class="d-flex gap-2">
                 <button class="btn btn-outline-primary" (click)="editarProducto()">
                     <i class="bi bi-pencil"></i>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UsuariosService } from '../../services/usuarios.service';
 import { Usuarios } from '../../models/usuario.interfaz';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login-modal',
@@ -15,7 +16,7 @@ export class LoginModalComponent {
   emailOrUsername: string = '';
   password: string = '';
 
-  constructor(private usuariosService: UsuariosService) {}
+  constructor(private usuariosService: UsuariosService, private authService: AuthService) {}
 
   abrirModal() {
     const modal = document.getElementById('registroModal');
@@ -57,10 +58,11 @@ export class LoginModalComponent {
         if (usuarioEncontrado.admin) {
           alert("Bienvenido, Administrador");
           console.log("Inicio de sesión como ADMIN");
-          // Aquí podrías redirigirlo a un panel de admin o cambiar la interfaz
+          this.authService.login(true);
         } else {
           alert("Inicio de sesión exitoso");
           console.log("Inicio de sesión como usuario normal");
+          this.authService.login(false);
         }
 
         this.cerrarModal();

@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-productos',
   standalone: true,
-  imports: [CardComponent, RouterModule,  RouterLinkActive, CommonModule],
+  imports: [CardComponent, RouterModule, RouterLinkActive, CommonModule],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css',
 })
@@ -18,6 +18,7 @@ export class ProductosComponent implements OnInit {
   public isAdmin$!: Observable<boolean>;
   productos: Productos[] = [
     {
+      id: 1,
       nombre: 'Moño 1',
       descripcion: 'Moño Fallera 1',
       foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7974.jpg',
@@ -26,6 +27,7 @@ export class ProductosComponent implements OnInit {
       usuarioId: 1,
     },
     {
+      id: 2,
       nombre: 'Moño 2',
       descripcion: 'Moño Fallera 2',
       foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7545.jpg',
@@ -34,6 +36,7 @@ export class ProductosComponent implements OnInit {
       usuarioId: 1,
     },
     {
+      id: 3,
       nombre: 'Moño 3',
       descripcion: 'Moño Fallera 3',
       foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_1403.jpeg',
@@ -42,6 +45,7 @@ export class ProductosComponent implements OnInit {
       usuarioId: 1,
     },
     {
+      id: 4,
       nombre: 'Moño 4',
       descripcion: 'Moño Fallera 4',
       foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_2610.jpeg',
@@ -50,7 +54,6 @@ export class ProductosComponent implements OnInit {
       usuarioId: 1,
     },
   ];
-
 
   constructor(private router: Router, private authService: AuthService) {}
   expandedCardId: number | null = null; 
@@ -61,6 +64,9 @@ export class ProductosComponent implements OnInit {
 
   ngOnInit() {
     this.isAdmin$ = this.authService.isAdmin$;
+    this.isAdmin$.subscribe(isAdmin => {
+      console.log('Estado de admin:', isAdmin);
+    });
   }
 
   agregarProducto() {
@@ -68,7 +74,6 @@ export class ProductosComponent implements OnInit {
   }
 
   eliminarProducto(id: number) {
-    console.log('Eliminando producto con id:', id);
     this.productos = this.productos.filter((producto) => producto.id !== id);
   }
 }

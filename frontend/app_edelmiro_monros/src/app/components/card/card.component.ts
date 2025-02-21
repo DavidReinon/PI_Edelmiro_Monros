@@ -13,28 +13,19 @@ import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component'
   standalone: true,
 })
 export class CardComponent {
-  public isAdmin$!: Observable<boolean>;
   showConfirmModal: boolean = false;
-   @Input() expandedCards: { [key: string]: boolean } = {};
-  
-
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
-
+  @Input() expandedCards: { [key: string]: boolean } = {};
   @Input() title: string = '';
   @Input() text: string = '';
   @Input() photo: string = '';
   @Input() price: number = 0;
   @Input() id: number = 0;
+  @Input() isAdmin: boolean = false;
   @Output() onEliminar = new EventEmitter<void>();
   
   isExpanded: boolean = false;
 
-  ngOnInit() {
-    this.isAdmin$ = this.authService.isAdmin$;
-  }
+  constructor(private router: Router) {}
 
   expand(title: string) {
     this.expandedCards[title] = !this.expandedCards[title]; 
