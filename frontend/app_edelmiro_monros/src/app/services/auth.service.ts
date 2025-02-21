@@ -1,21 +1,18 @@
 // src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class Auth {
-  private isAdminSubject = new BehaviorSubject<boolean>(false);
+export class AuthService {
+  private isAdminSubject = new BehaviorSubject<boolean>(true);
   isAdmin$ = this.isAdminSubject.asObservable();
 
   constructor() {}
 
-  setAdminState(isAdmin: boolean) {
+  // Métodos para manejar el estado de administrador
+  setAdminStatus(isAdmin: boolean) {
     this.isAdminSubject.next(isAdmin);
-  }
-
-  getAdminState(): boolean {
-    return this.isAdminSubject.value;
   }
 }

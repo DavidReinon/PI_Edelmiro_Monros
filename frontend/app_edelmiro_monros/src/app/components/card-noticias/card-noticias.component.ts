@@ -3,16 +3,27 @@ import { Router } from '@angular/router';
 import { NoticiasStateService } from '../../services/noticias-state.service';
 import { Noticias } from '../../models/noticias.interfaces';
 import { NoticiasService } from '../../services/noticias.service';
+import { Observable } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
+import { CommonModule } from '@angular/common';
+import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-card-noticias',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, ConfirmModalComponent],
   templateUrl: './card-noticias.component.html',
-  styleUrl: './card-noticias.component.css'
+  styleUrl: './card-noticias.component.css',
 })
 export class CardNoticiasComponent {
-  constructor(private router: Router, public stateService: NoticiasStateService, public service: NoticiasService) { }
+  constructor(private router: Router,
+    public stateService: NoticiasStateService,
+    public service: NoticiasService,
+    private authService: AuthService
+  ) { }
+
+  public isAdmin$!: Observable<boolean>;
+  showConfirmModal: boolean = false;
 
   public apiUrl: string = 'http://127.0.0.1:8000';
   @Input() titulo: string = '';
@@ -32,6 +43,7 @@ export class CardNoticiasComponent {
     this.router.navigate(['/noticias/']);
     this.service.deleteNoticia(id)
     this.onEliminar.emit(id)
+    this.showConfirmModal = false;
   }
 
 
@@ -45,4 +57,21 @@ export class CardNoticiasComponent {
 
     return fecha.toLocaleDateString("es-ES", opciones);
   }
+
+
+  ngOnInit() {
+    this.isAdmin$ = this.authService.isAdmin$;
+    this.isAdmin$.subscribe((isAdmin) => {
+      console.log('isAdmin:', isAdmin);
+    });
+  }
+
+  confirmarEliminar() {
+    this.showConfirmModal = true;
+  }
+
+  cancelarEliminar() {
+    this.showConfirmModal = false;
+  }
+
 }

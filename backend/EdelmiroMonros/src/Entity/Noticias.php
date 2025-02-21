@@ -78,7 +78,7 @@ class Noticias
         return $this;
     }
 
-    public function getFoto()
+    public function getFoto(): string|null
     {
         return $this->foto;
     }

@@ -2,22 +2,32 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CardNoticiasComponent } from '../../components/card-noticias/card-noticias.component';
 import { Observable } from 'rxjs';
-import { Auth } from '../../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { NoticiasService } from '../../services/noticias.service';
 import { Noticias } from '../../models/noticias.interfaces';
+import { CommonModule } from '@angular/common';
+
+interface Noticia {
+  id: number;
+  titulo: string;
+  descripcion: string;
+  fecha: Date;
+  foto: string | null;
+}
 
 @Component({
   selector: 'app-noticias',
   standalone: true,
-  imports: [CardNoticiasComponent],
+  imports: [CardNoticiasComponent, CommonModule],
   templateUrl: './noticias.component.html',
   styleUrl: './noticias.component.css',
 })
 
 export class NoticiasComponent {
   public isAdmin$!: Observable<boolean>;
+  public noticias: Noticias[] = []
 
-  constructor(private router: Router, private authService: Auth, public service: NoticiasService) {
+  constructor(private router: Router, private authService: AuthService, public service: NoticiasService) {
     this.isAdmin$ = this.authService.isAdmin$;
   }
 
@@ -28,12 +38,13 @@ export class NoticiasComponent {
     });
   }
 
-  public ngOnInit(): void {
+  ngOnInit() {
     this.getNoticias();
+    this.isAdmin$ = this.authService.isAdmin$;
+    this.isAdmin$.subscribe(isAdmin => {
+      console.log('isAdmin:', isAdmin);
+    });
   }
-
-
-  noticias: Noticias[] = []
 
   agregarNoticia() {
     this.router.navigate(['/noticias/crear']);

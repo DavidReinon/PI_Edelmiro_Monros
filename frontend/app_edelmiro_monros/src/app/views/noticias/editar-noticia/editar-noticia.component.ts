@@ -1,9 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { NoticiasService } from '../../../services/noticias.service';
 import { NoticiasStateService } from '../../../services/noticias-state.service';
 import { Noticias } from '../../../models/noticias.interfaces';
+
+interface Noticia {
+  id: number;
+  titulo: string;
+  descripcion: string;
+  fecha: Date;
+  foto: string | null;
+}
 
 @Component({
   selector: 'app-editar-noticia',
