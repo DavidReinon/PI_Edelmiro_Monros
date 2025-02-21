@@ -11,22 +11,22 @@ import { AccesibilidadComponent } from './views/accesibilidad/accesibilidad.comp
 import { PoliticaCookiesComponent } from './views/politica-cookies/politica-cookies.component';
 import { PoliticaPrivacidadComponent } from './views/politica-privacidad/politica-privacidad.component';
 import { FormularioProductoComponent } from './views/productos/formulario-producto/formulario-producto.component';
+import { EditarProductoComponent } from './views/productos/editar-producto/editar-producto.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'inicio', pathMatch: 'full' },
-    { path: 'inicio', component: InicioComponent },
-    { path: 'contacto', component: ContactoComponent },
-    { path: 'clientes', component: ClientesComponent },
-    { path: 'noticias', component: NoticiasComponent },
-    { path: 'noticias/crear', component: CrearNoticiaComponent },
-    { path: 'noticias/editar', component: EditarNoticiaComponent },
-    { path: 'productos', component: ProductosComponent },
-    {path: 'aviso', component: AvisoLegalComponent},
-    {path: 'accesibilidad', component: AccesibilidadComponent},
-    {path: 'cookies', component: PoliticaCookiesComponent},
-    {path: 'privacidad', component: PoliticaPrivacidadComponent},
-    {path: 'formularioProducto', component: FormularioProductoComponent},
-
-
-
+  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+  { path: 'inicio', component: InicioComponent },
+  { path: 'contacto', component: ContactoComponent },
+  { path: 'clientes', component: ClientesComponent },
+  { path: 'noticias', component: NoticiasComponent },
+  { path: 'noticias/crear', component: CrearNoticiaComponent },
+  { path: 'noticias/editar', component: EditarNoticiaComponent },
+  { path: 'productos', component: ProductosComponent },
+  { path: 'aviso', component: AvisoLegalComponent },
+  { path: 'accesibilidad', component: AccesibilidadComponent },
+  { path: 'cookies', component: PoliticaCookiesComponent },
+  { path: 'privacidad', component: PoliticaPrivacidadComponent },
+  { path: 'formularioProducto/:id', component: FormularioProductoComponent },
+  { path: 'formularioProducto', component: FormularioProductoComponent },
+  { path: 'editar-producto/:id', component: EditarProductoComponent },
 ];

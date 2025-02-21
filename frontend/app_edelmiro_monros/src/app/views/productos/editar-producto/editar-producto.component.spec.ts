@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MapComponent } from './map.component';
+import { EditarProductoComponent } from './editar-producto.component';
 
-describe('MapComponent', () => {
-  let component: MapComponent;
-  let fixture: ComponentFixture<MapComponent>;
+describe('EditarProductoComponent', () => {
+  let component: EditarProductoComponent;
+  let fixture: ComponentFixture<EditarProductoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MapComponent]
+      imports: [EditarProductoComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MapComponent);
+    fixture = TestBed.createComponent(EditarProductoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

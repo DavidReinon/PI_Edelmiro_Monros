@@ -2,9 +2,9 @@
 <button class="btn" style="background-color: #FFA308;" (click)="abrirModal()">Login</button>
 
 <!-- Modal de Registro -->
-<div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModalLabel" aria-hidden="true">
+<div class="modal fade" style="background: rgba(0, 0, 0, 0.5);" id="registroModal" tabindex="-1">
   <div class="modal-dialog">
-    <div class="modal-content" style="border-color: #FFA308;">
+    <div class="modal-content" style="border-color: #FFA308; border-width: 5px;">
       <div class="modal-header">
         <h4 class="modal-title text-center w-100" id="registroModalLabel">Inicio <em style="color: #FFA308;">Sesion</em></h4>
         <button type="button" class="btn-close" (click)="cerrarModal()" aria-label="Cerrar"></button>
@@ -19,7 +19,7 @@
             <label for="password" class="form-label">Contraseña</label>
             <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" placeholder="Ingresa tu contraseña" required>
           </div>
-          <button type="submit" class="btn"(mouseenter)="hover = true" (mouseleave)="hover = false"[ngStyle]="{'background-color': hover ? '#f2f3f4' : '#FFA308'}"><span [ngStyle]="{'color': hover ? '#FFA308' : '#000000'}">Iniciar Sesión</span></button>
+          <button type="submit" class="btn" [disabled]="!emailOrUsername || !password" (mouseenter)="hover = true" (mouseleave)="hover = false" [ngStyle]="{'background-color': hover ? '#f2f3f4' : '#FFA308'}"><span [ngStyle]="{'color': hover ? '#FFA308' : '#000000'}">Iniciar Sesión</span></button>
         </form>
       </div>
     </div>
