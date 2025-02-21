@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { UsuariosService } from '../../services/usuarios.service';
+import { Usuarios } from '../../models/usuario.interfaz';
 
 @Component({
   selector: 'app-login-modal',
@@ -10,6 +12,11 @@ import { FormsModule } from '@angular/forms';
 })
 export class LoginModalComponent {
   
+  emailOrUsername: string = '';
+  password: string = '';
+
+  constructor(private usuariosService: UsuariosService) {}
+
   abrirModal() {
     const modal = document.getElementById('registroModal');
     if (modal) {
@@ -28,36 +35,43 @@ export class LoginModalComponent {
     }
   }
   
-  emailOrUsername: string = '';
-  password: string = '';
-
   registrarse(event: Event) {
     event.preventDefault();
 
-    if (this.emailOrUsername && this.password) {
-      // Validación: comprobar si es un correo electrónico o un nombre de usuario
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const isEmail = emailRegex.test(this.emailOrUsername);
-
-      if (isEmail) {
-        console.log("Usuario registrado:");
-        console.log("Correo Electrónico:", this.emailOrUsername);
-      } else {
-        console.log("Usuario registrado:");
-        console.log("Nombre de Usuario:", this.emailOrUsername);
-      }
-
-      console.log("Contraseña:", this.password);
-      alert("Registro exitoso");
-
-      this.cerrarModal();
-      this.emailOrUsername = "";
-      this.password = "";
-    } else {
+    if (!this.emailOrUsername || !this.password) {
       alert("Por favor, completa todos los campos");
+      return;
     }
-  }
 
+    // URL de la API (ajustar según tu backend)
+    const apiUrl = 'http://44.214.111.49/api/usuarios';
+
+    this.usuariosService.getUsuarios(apiUrl).subscribe((usuario) => {
+      const usuarioEncontrado = usuario.member.find(
+        (u) =>
+          (u.email === this.emailOrUsername || u.nombre === this.emailOrUsername) &&
+          u.contraseña === this.password
+      );
+
+      if (usuarioEncontrado) {
+        if (usuarioEncontrado.admin) {
+          alert("Bienvenido, Administrador");
+          console.log("Inicio de sesión como ADMIN");
+          // Aquí podrías redirigirlo a un panel de admin o cambiar la interfaz
+        } else {
+          alert("Inicio de sesión exitoso");
+          console.log("Inicio de sesión como usuario normal");
+        }
+
+        this.cerrarModal();
+        this.emailOrUsername = '';
+        this.password = '';
+      } else {
+        alert("Usuario o contraseña incorrectos");
+      }
+    });
+  }
+  
   hover = false;
 
 }

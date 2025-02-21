@@ -1,9 +1,14 @@
 # TITLE
-Edelmiro Monrós.
-
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/e4c99de4-a1b3-4ce8-8897-b8bcc6a0695a" alt="Logo Corporativo Edelmiro Monros" width="200"/>
+</p>
 
 ## OBJECTIVE
-
+- In this project we have decided to create a new proposal for the website of the workshop specialized in making fallera meshes, Edelmiro Monrós. 
+- Our objective is to modernize the digital presence of the workshop, allowing clients to learn about the services and products offered and obtain information about the tradition in the elaboration of these typical hairstyles of Valencian clothing. 
+- In addition, we seek to make it easier for the owner to manage the different elements of the website, optimizing its administration and usability. 
+- In addition, the project has a social and environmental commitment, promoting the preservation of Valencian culture, support for local artisans and the responsible use of digital resources. 
+- With this initiative, the aim is to digitize a traditional sector without losing its essence, facilitating its access to new generations and ensuring its continuity over time.
 
 ## Languages used / versions
 The app is developed using Git, HTML, CSS, Bootstrap, JavaScript (Angular 7), and PHP (Symfony 7), ensuring cross-platform compatibility and accessibility. It supports the latest versions of popular web browsers.
