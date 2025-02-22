@@ -75,3 +75,6 @@
     </div>
   </div>
 </div>
+@if (showToast) {
+  <app-toast [message]="toastMessage" [showToast]="showToast"></app-toast>
+}

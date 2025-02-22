@@ -9,11 +9,12 @@ import {
 import { ProductoService } from '../../../services/producto.service';
 import { CommonModule } from '@angular/common';
 import { Productos } from '../../../models/productos.interfaces';
+import { ToastComponent } from '../../../components/toast/toast.component';
 
 @Component({
   selector: 'app-formulario-producto',
   templateUrl: './formulario-producto.component.html',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ToastComponent],
   styleUrls: ['./formulario-producto.component.css'],
 })
 export class FormularioProductoComponent {
@@ -30,6 +31,9 @@ export class FormularioProductoComponent {
     private router: Router,
     private productoService: ProductoService
   ) {}
+
+  toastMessage: string = '';
+  showToast: boolean = false;
 
   public onFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -78,5 +82,13 @@ export class FormularioProductoComponent {
 
   public cancelar() {
     this.router.navigate(['/productos']);
+  }
+  private showToastMessage(message: string) {
+    this.toastMessage = message;
+    this.showToast = true;
+    setTimeout(() => {
+      this.showToast = false;
+      this.toastMessage = '';
+    }, 3000);
   }
 }
