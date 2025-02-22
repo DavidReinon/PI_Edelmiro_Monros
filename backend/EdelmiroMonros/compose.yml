@@ -6,8 +6,8 @@ services:
     container_name: symfony_app
     restart: always
     working_dir: /var/www/html
-    # volumes:
-    #   - .:/var/www/html
+    volumes:
+      - uploads_data:/var/www/html/public/uploads
     depends_on:
       database:
         condition: service_healthy
@@ -19,7 +19,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - .:/var/www/html
+      - uploads_data:/var/www/html/public/uploads
     depends_on:
       php:
         condition: service_started
