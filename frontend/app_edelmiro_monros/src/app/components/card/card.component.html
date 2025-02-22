@@ -1,12 +1,12 @@
 <div class="card h-100">
-    <div class="card-img-top" [title]="title" 
-         [ngStyle]="{ 'background-image': 'url(' + photo + ')', 'background-size': 'cover', 'height': '400px' }">
+    <div class="card-img-top" [title]="title"
+         [ngStyle]="{ 'background-image': 'url(' + apiUrl + photo + ')', 'background-size': 'cover', 'height': '400px' }">
     </div>
     <div class="card-body">
         <h5 class="card-title" [title]="title">{{ title }}</h5>
         @if (isAdmin) {
             <div class="d-flex gap-2">
-                <button title="Editar Producto" class="btn btn-outline-primary" (click)="editarProducto()">
+                <button title="Editar Producto" class="btn btn-outline-primary" (click)="editarProducto({ id, nombre: title, descripcion: text, foto: photo, precio: price, stock: stock, usuario: usuario })">
                     <i class="bi bi-pencil"></i>
                 </button>
                 <button title="Borrar Producto" class="btn btn-outline-danger" (click)="confirmarEliminar()">
@@ -14,7 +14,7 @@
                 </button>
             </div>
         }
-   
+
         @if (expandedCards[title]) {
             <div class="expanded-content mt-3">
                 <p>{{ text }}</p>

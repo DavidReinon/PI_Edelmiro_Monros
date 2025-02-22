@@ -25,7 +25,7 @@ export class CardNoticiasComponent {
   public isAdmin$!: Observable<boolean>;
   showConfirmModal: boolean = false;
 
-  public apiUrl: string = 'http://127.0.0.1:8000';
+  public apiUrl: string = 'http://44.214.111.49' /* 'http://127.0.0.1:8000' */;
   @Input() titulo: string = '';
   @Input() descripcion: string = '';
   @Input() fecha: string = '';

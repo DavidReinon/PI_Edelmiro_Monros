@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { NoticiasService } from '../../services/noticias.service';
 import { Noticias } from '../../models/noticias.interfaces';
 import { CommonModule } from '@angular/common';
+import { of } from 'rxjs';
 
 interface Noticia {
   id: number;
@@ -29,6 +30,8 @@ export class NoticiasComponent {
 
   constructor(private router: Router, private authService: AuthService, public service: NoticiasService) {
     this.isAdmin$ = this.authService.isAdmin$;
+    console.log(this.authService)
+    /* this.isAdmin$ = of(true) */
   }
 
   public getNoticias(): void {
@@ -38,7 +41,7 @@ export class NoticiasComponent {
     });
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.getNoticias();
     this.isAdmin$ = this.authService.isAdmin$;
     this.isAdmin$.subscribe(isAdmin => {
@@ -46,7 +49,7 @@ export class NoticiasComponent {
     });
   }
 
-  agregarNoticia() {
+  public agregarNoticia() {
     this.router.navigate(['/noticias/crear']);
   }
 

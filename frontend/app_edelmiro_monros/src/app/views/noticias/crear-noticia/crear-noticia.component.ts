@@ -47,7 +47,7 @@ export class CrearNoticiaComponent {
       titulo: rawValue.titulo,
       descripcion: rawValue.descripcion,
       fecha: fechaISO,
-      usuario: '1',
+      usuario: 1,
       foto: rawValue.foto ? rawValue.foto : null
     };
     console.log(payload)
@@ -59,6 +59,9 @@ export class CrearNoticiaComponent {
       },
       error: (error) => {
         console.error('Error al crear noticia', error);
+        if (error.status === 400) {
+          console.log('Detalles del error:', error.error); // Aquí puedes obtener el detalle del error enviado por el servidor
+        }
       }
     });
   }

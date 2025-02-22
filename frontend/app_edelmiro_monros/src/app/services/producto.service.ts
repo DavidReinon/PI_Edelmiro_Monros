@@ -9,16 +9,17 @@ import { tap, catchError } from 'rxjs/operators';
 })
 export class ProductoService {
   private apiUrl = 'http://44.214.111.49/api/productos'; // URL de tu API
+  /* private apiUrl = 'http://127.0.0.1:8000/api/productos'; */
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  createProducto(producto: Productos): Observable<any> {
+  public createProducto(producto: Productos): Observable<any> {
     const payload = {
       nombre: producto.nombre,
       descripcion: producto.descripcion,
       precio: producto.precio,
       stock: producto.stock,
-      id_usuario: 1,  // Forzamos el id_usuario a 1 para probar
+      usuario: 1,  // Forzamos el id_usuario a 1 para probar
       foto: producto.foto
     };
 
@@ -42,7 +43,11 @@ export class ProductoService {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
-  updateProducto(id: number, producto: Productos): Observable<any> {
+  putProducto(id: number | undefined, producto: Productos): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, producto);
+  }
+
+  patchProducto(id: number | undefined, producto: Partial<Productos>): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/${id}`, producto);
   }
 }

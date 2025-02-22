@@ -5,13 +5,6 @@ import { NoticiasService } from '../../../services/noticias.service';
 import { NoticiasStateService } from '../../../services/noticias-state.service';
 import { Noticias } from '../../../models/noticias.interfaces';
 
-interface Noticia {
-  id: number;
-  titulo: string;
-  descripcion: string;
-  fecha: Date;
-  foto: string | null;
-}
 
 @Component({
   selector: 'app-editar-noticia',
@@ -128,7 +121,7 @@ export class EditarNoticiaComponent implements OnInit {
       }
     }
 
-    if (rawValue.foto !== noticia.foto) {
+    if (this.newFoto && this.newFoto !== noticia.foto) {
       cambios.foto = this.newFoto;
     }
 
@@ -157,4 +150,4 @@ export class EditarNoticiaComponent implements OnInit {
   public cancelar(): void {
     this.router.navigate(['/noticias']);
   }
-} 
+}

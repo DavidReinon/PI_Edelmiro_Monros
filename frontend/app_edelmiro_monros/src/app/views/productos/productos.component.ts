@@ -6,18 +6,19 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { ProductoService } from '../../services/producto.service';
 
 @Component({
   selector: 'app-productos',
   standalone: true,
-  imports: [CardComponent, RouterModule, RouterLinkActive, CommonModule],
+  imports: [CardComponent, RouterModule, CommonModule],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css',
 })
 export class ProductosComponent implements OnInit {
   public isAdmin$!: Observable<boolean>;
   productos: Productos[] = [
-    {
+    /* {
       id: 1,
       nombre: 'Moño 1',
       descripcion: 'Moño Fallera 1',
@@ -52,28 +53,44 @@ export class ProductosComponent implements OnInit {
       precio: 400,
       stock: null,
       usuario: 1,
-    },
+    }, */
   ];
 
-  constructor(private router: Router, private authService: AuthService) {}
-  expandedCardId: number | null = null; 
+  constructor(private router: Router, private authService: AuthService, public service: ProductoService) { }
+  expandedCardId: number | null = null;
 
-  toggleExpand(id: number) {
-    this.expandedCardId = this.expandedCardId === id ? null : id; 
+  public toggleExpand(id: number) {
+    this.expandedCardId = this.expandedCardId === id ? null : id;
   }
 
-  ngOnInit() {
+  public ngOnInit() {
+    this.getProductos()
     this.isAdmin$ = this.authService.isAdmin$;
     this.isAdmin$.subscribe(isAdmin => {
       console.log('Estado de admin:', isAdmin);
     });
   }
 
-  agregarProducto() {
+  public getProductos(): void {
+    this.productos = []
+    this.service.getProductos().subscribe((response) => {
+      this.productos = response
+    });
+  }
+
+  public agregarProducto() {
     this.router.navigate(['/formularioProducto']);
   }
 
-  eliminarProducto(id: number) {
+  public eliminarProducto(id: number) {
+    this.isAdmin$ = this.authService.isAdmin$;
+    this.isAdmin$.subscribe(isAdmin => {
+      console.log('Estado de admin:', isAdmin);
+    });
     this.productos = this.productos.filter((producto) => producto.id !== id);
+    this.service.deleteProducto(id).subscribe(() => {
+      this.productos = this.productos.filter(producto => producto.id !== id);
+    });
   }
+
 }
