@@ -10,7 +10,7 @@ use ApiPlatform\Metadata\ApiResource;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: UsuariosRepository::class)]
-#[UniqueEntity(fields: ['gmail'], message: 'Este gmail ya está registrado.')]
+#[UniqueEntity(fields: ['email'], message: 'Este email ya está registrado.')]
 #[UniqueEntity(fields: ['nombre'], message: 'Este nombre de usuario ya está en uso.')]
 #[ApiResource]
 class Usuarios
@@ -27,7 +27,7 @@ class Usuarios
     private ?string $contraseña = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $gmail = null;
+    private ?string $email = null;
 
     #[ORM\Column]
     private ?bool $admin = null;
@@ -101,12 +101,12 @@ class Usuarios
 
     public function getEmail(): ?string
     {
-        return $this->gmail;
+        return $this->email;
     }
 
-    public function setEmail(string $gmail): static
+    public function setEmail(string $email): static
     {
-        $this->gmail = $gmail;
+        $this->email = $email;
 
         return $this;
     }
