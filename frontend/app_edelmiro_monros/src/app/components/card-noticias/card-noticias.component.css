@@ -1,0 +1,13 @@
+.card {
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.img-fluid {
+    height: 100%;
+    object-fit: cover;
+}
