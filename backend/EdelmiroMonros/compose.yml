@@ -19,6 +19,7 @@ services:
     ports:
       - "80:80"
     volumes:
+      - .:/var/www/html
       - uploads_data:/var/www/html/public/uploads
     depends_on:
       php:
@@ -44,3 +45,4 @@ services:
 
 volumes:
   db_data:
+  uploads_data:
