@@ -13,13 +13,33 @@
         <form (submit)="registrarse($event)">
           <div class="mb-3">
             <label for="emailOrUsername" class="form-label">Correo electrónico o Nombre de Usuario</label>
-            <input type="text" class="form-control" id="emailOrUsername" [ngClass]="{'is-invalid': usuarioInvalido}" [(ngModel)]="emailOrUsername" name="emailOrUsername" placeholder="usuario@example.com o usuario123" required>
+            <input type="text" class="form-control" id="emailOrUsername" [ngClass]="{'is-invalid': usuarioInvalido || emailOrUsernameVacio}" [(ngModel)]="emailOrUsername" name="emailOrUsername" placeholder="usuario@example.com o usuario123" required>
+            @if (emailOrUsernameVacio) {
+              <div class="invalid-feedback">
+                Este campo es obligatorio.
+              </div>
+            }
+            @if (usuarioInvalido) {
+              <div class="invalid-feedback">
+                Usuario no encontrado. Verifica tu correo electrónico o nombre de usuario.
+              </div>
+            }
           </div>
           <div class="mb-3">
             <label for="password" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="password" [ngClass]="{'is-invalid': passwordInvalida}" [(ngModel)]="password" name="password" placeholder="Ingresa tu contraseña" required>
+            <input type="password" class="form-control" id="password" [ngClass]="{'is-invalid': passwordInvalida || passwordVacio}" [(ngModel)]="password" name="password" placeholder="Ingresa tu contraseña" required>
+            @if (passwordVacio) {
+              <div class="invalid-feedback">
+                Este campo es obligatorio.
+              </div>
+            }
+            @if (passwordInvalida) {
+              <div class="invalid-feedback">
+                La contraseña es incorrecta. Inténtalo de nuevo.
+              </div>
+            }
           </div>
-          <button type="submit" class="btn" [disabled]="!emailOrUsername || !password" (mouseenter)="hover = true" (mouseleave)="hover = false" [ngStyle]="{'background-color': hover ? '#f2f3f4' : '#FFA308'}"><span [ngStyle]="{'color': hover ? '#FFA308' : '#000000'}">Iniciar Sesión</span></button>
+          <button type="submit" class="btn" (mouseenter)="hover = true" (mouseleave)="hover = false" [ngStyle]="{'background-color': hover ? '#f2f3f4' : '#FFA308'}"><span [ngStyle]="{'color': hover ? '#FFA308' : '#000000'}">Iniciar Sesión</span></button>
         </form>
       </div>
     </div>

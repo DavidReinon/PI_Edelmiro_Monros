@@ -18,6 +18,9 @@ export class LoginModalComponent {
   usuarioInvalido: boolean = false;
   passwordInvalida: boolean = false;
 
+  emailOrUsernameVacio: boolean = false;
+  passwordVacio: boolean = false;
+
   constructor(
     private usuariosService: UsuariosService,
     private authService: AuthService
@@ -47,20 +50,23 @@ export class LoginModalComponent {
     this.usuarioInvalido = false;
     this.passwordInvalida = false;
 
-    if (!this.emailOrUsername || !this.password) {
-      alert('Por favor, completa todos los campos');
-      return;
-    }
+    this.emailOrUsernameVacio = !this.emailOrUsername;
+    this.passwordVacio = !this.password;
+
+    if (this.emailOrUsernameVacio || this.passwordVacio) return;
 
     this.usuariosService.getUsuarios().subscribe((usuario) => {
       const usuarioEncontrado = usuario.member.find(
-        (u) =>
-          (u.email === this.emailOrUsername ||
-            u.nombre === this.emailOrUsername) &&
-          u.contraseña === this.password
+        (u) =>(u.email === this.emailOrUsername || u.nombre === this.emailOrUsername)
       );
 
       if (!usuarioEncontrado) {
+        this.usuarioInvalido = true; // Marcar usuario como inválido
+        return;
+      }
+  
+      if (usuarioEncontrado.contraseña !== this.password) {
+        this.passwordInvalida = true; // Marcar contraseña como inválida
         return;
       }
 
