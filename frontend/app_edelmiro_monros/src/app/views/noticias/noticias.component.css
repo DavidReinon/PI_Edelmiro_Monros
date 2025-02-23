@@ -55,3 +55,31 @@
 .btn-primary i {
   font-size: 1.1rem;
 }
+
+.noticia-item {
+  margin-bottom: 3rem;
+}
+
+.card {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Asegurar que las cards de noticias tengan el mismo ancho */
+app-card-noticias {
+  display: block;
+  width: 100%;
+}
+
+/* Ajustar el espacio entre las noticias */
+.row {
+  margin-bottom: 3rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .noticia-item {
+    margin-bottom: 1.5rem;
+  }
+}
