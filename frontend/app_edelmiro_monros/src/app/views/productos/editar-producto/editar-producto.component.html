@@ -23,6 +23,11 @@
             </div>
 
             <div class="mb-3">
+              <label for="stock" class="form-label">Stock</label>
+              <input type="number" class="form-control" id="stock" formControlName="stock">
+            </div>
+
+            <div class="mb-3">
               <label for="photo" class="form-label">Foto</label>
               <input type="file" (change)="onFileChange($event)" class="form-control" id="photo" formControlName="foto">
             </div>

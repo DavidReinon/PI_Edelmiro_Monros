@@ -31,6 +31,7 @@
         [text]="producto.descripcion"
         [photo]="producto.foto!"
         [price]="producto.precio!"
+        [stock]="producto.stock!"
         [id]="producto.id!"
         [isAdmin]="(isAdmin$ | async) ?? false"
         (onEliminar)="eliminarProducto(producto.id!)"

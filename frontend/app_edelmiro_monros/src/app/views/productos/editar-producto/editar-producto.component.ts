@@ -17,6 +17,7 @@ export class EditarProductoComponent implements OnInit {
     nombre: new FormControl(''),
     descripcion: new FormControl(''),
     precio: new FormControl<number | null>(null),
+    stock: new FormControl<number | null>(null),
     foto: new FormControl('')
   });
 
@@ -37,6 +38,7 @@ export class EditarProductoComponent implements OnInit {
         nombre: producto.nombre,
         descripcion: producto.descripcion,
         precio: producto.precio ?? 0,
+        stock: producto.stock ?? 0,
         foto: null
       });
       this.productoId = producto.id;
@@ -45,6 +47,7 @@ export class EditarProductoComponent implements OnInit {
         nombre: 'Título de ejemplo',
         descripcion: 'Descripción de ejemplo',
         precio: 0,
+        stock: 0,
         foto: ''
       });
     }
@@ -74,13 +77,14 @@ export class EditarProductoComponent implements OnInit {
     const nombre = rawValue.nombre || producto.nombre;
     const descripcion = rawValue.descripcion || producto.descripcion;
     const precio = rawValue.precio !== null ? Number(rawValue.precio) : producto.precio;
+    const stock = rawValue.stock !== null ? Number(rawValue.stock) : producto.stock;
 
     const payload: Productos = {
       nombre: nombre,
       descripcion: descripcion,
       precio: precio,
       foto: this.newFoto,
-      stock: producto.stock,
+      stock: stock,
       usuario: null
     };
 
@@ -96,6 +100,10 @@ export class EditarProductoComponent implements OnInit {
 
     if (rawValue.precio !== null && Number(rawValue.precio) !== producto.precio) {
       cambios.precio = Number(rawValue.precio);
+    }
+
+    if (rawValue.stock !== null && Number(rawValue.stock) !== producto.stock) {
+      cambios.stock = Number(rawValue.stock);
     }
 
     if (this.newFoto) {
