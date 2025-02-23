@@ -18,12 +18,12 @@ import { Productos } from '../../../models/productos.interfaces';
 })
 export class FormularioProductoComponent {
   productoForm = new FormGroup({
-    nombre: new FormControl<string>(''),
-    descripcion: new FormControl<string>(''),
+    nombre: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
+    descripcion: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     precio: new FormControl<number | null>(null),
     stock: new FormControl<number | null>(null),
-    usuario: new FormControl<number>(1),
-    foto: new FormControl<string | null>(null),
+    usuario: new FormControl<number>(1, { nonNullable: true, validators: [Validators.required] }),
+    foto: new FormControl<string | null>(null, { nonNullable: true, validators: [Validators.required] }),
   });
 
   constructor(
