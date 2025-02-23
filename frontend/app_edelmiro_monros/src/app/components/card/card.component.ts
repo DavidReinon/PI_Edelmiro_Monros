@@ -27,8 +27,7 @@ export class CardComponent {
   @Input() usuario: number = 0;
   @Input() isAdmin: boolean = false;
   @Output() onEliminar = new EventEmitter<void>();
-  @Input() expanded: boolean = false;
-  @Output() onExpand = new EventEmitter<number>();
+  
 
  
 

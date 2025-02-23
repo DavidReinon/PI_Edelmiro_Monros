@@ -60,11 +60,7 @@ export class ProductosComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService, public service: ProductoService) { }
 
 
-  expandedCardId: number | null = null;
-
-  toggleExpand(id: number) {
-    this.expandedCardId = this.expandedCardId === id ? null : id;
-  }
+  
 
   public ngOnInit() {
     this.getProductos()

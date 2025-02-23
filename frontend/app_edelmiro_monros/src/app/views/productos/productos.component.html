@@ -34,8 +34,7 @@
         [id]="producto.id!"
         [isAdmin]="(isAdmin$ | async) ?? false"
         (onEliminar)="eliminarProducto(producto.id!)"
-        [expanded]="expandedCardId === producto.id"
-        (onExpand)="toggleExpand(producto.id!)" >
+         >
       </app-card>
       </div>
     }
