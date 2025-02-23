@@ -98,7 +98,7 @@ export class EditarProductoComponent implements OnInit {
       cambios.precio = Number(rawValue.precio);
     }
 
-    if (this.newFoto && this.newFoto !== producto.foto) {
+    if (this.newFoto) {
       cambios.foto = this.newFoto;
     }
 
