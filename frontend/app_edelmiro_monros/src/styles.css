@@ -19,7 +19,7 @@
 }
 
 .text-muted {
-  color: var(--primary-color) !important;
+  color: var(--primary-color);
   opacity: 0.3;
 }
 
@@ -27,15 +27,15 @@
 .btn,
 button[type="submit"],
 .btn-custom {
-  background-color: var(--primary-color) !important;
-  color: var(--text-on-primary) !important;
-  border-color: var(--primary-color) !important;
+  background-color: var(--primary-color);
+  color: var(--text-on-primary);
+  border-color: var(--primary-color);
 }
 
 .btn:hover,
 button[type="submit"]:hover,
 .btn-custom:hover {
-  background-color: var(--primary-hover) !important;
+  background-color: var(--primary-hover);
   border-color: var(--primary-hover) !important;
 }
 
