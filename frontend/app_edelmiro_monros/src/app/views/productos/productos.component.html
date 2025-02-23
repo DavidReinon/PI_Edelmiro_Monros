@@ -25,16 +25,18 @@
 
   <div class="row g-4">
     @for (producto of productos; track producto.id) {
-      <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+      <div class="col-lg-3 col-md-3 col-sm-12 col-12">
         <app-card
-          [title]="producto.nombre"
-          [text]="producto.descripcion"
-          [photo]="producto.foto!"
-          [price]="producto.precio!"
-          [id]="producto.id!"
-          [isAdmin]="(isAdmin$ | async) ?? false"
-          (onEliminar)="eliminarProducto(producto.id!)">
-        </app-card>
+        [title]="producto.nombre"
+        [text]="producto.descripcion"
+        [photo]="producto.foto!"
+        [price]="producto.precio!"
+        [id]="producto.id!"
+        [isAdmin]="(isAdmin$ | async) ?? false"
+        (onEliminar)="eliminarProducto(producto.id!)"
+        [expanded]="expandedCardId === producto.id"
+        (onExpand)="toggleExpand(producto.id!)" >
+      </app-card>
       </div>
     }
   </div>

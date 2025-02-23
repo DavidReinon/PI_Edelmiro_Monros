@@ -16,6 +16,7 @@ import { Productos } from '../../models/productos.interfaces';
 })
 export class CardComponent {
   showConfirmModal: boolean = false;
+
   @Input() expandedCards: { [key: string]: boolean } = {};
   @Input() title: string = '';
   @Input() text: string = '';
@@ -26,16 +27,16 @@ export class CardComponent {
   @Input() usuario: number = 0;
   @Input() isAdmin: boolean = false;
   @Output() onEliminar = new EventEmitter<void>();
+  @Input() expanded: boolean = false;
+  @Output() onExpand = new EventEmitter<number>();
 
-  public isExpanded: boolean = false;
+ 
 
   public apiUrl: string = 'http://44.214.111.49' /* 'http://127.0.0.1:8000' */;
 
   constructor(private router: Router, public service: ProductosStateService) { }
 
-  public expand(title: string) {
-    this.expandedCards[title] = !this.expandedCards[title];
-  }
+  
 
   public editarProducto(producto: Productos) {
     console.log('Editando producto con id:', this.id);
