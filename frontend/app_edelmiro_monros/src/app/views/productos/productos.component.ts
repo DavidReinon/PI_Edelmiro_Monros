@@ -17,50 +17,9 @@ import { ProductoService } from '../../services/producto.service';
 })
 export class ProductosComponent implements OnInit {
   public isAdmin$!: Observable<boolean>;
-  productos: Productos[] = [
-    /* {
-      id: 1,
-      nombre: 'Moño 1',
-      descripcion: 'Moño Fallera 1',
-      foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7974.jpg',
-      precio: 100,
-      stock: null,
-      usuario: 1,
-    },
-    {
-      id: 2,
-      nombre: 'Moño 2',
-      descripcion: 'Moño Fallera 2',
-      foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_7545.jpg',
-      precio: 200,
-      stock: null,
-      usuario: 1,
-    },
-    {
-      id: 3,
-      nombre: 'Moño 3',
-      descripcion: 'Moño Fallera 3',
-      foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_1403.jpeg',
-      precio: 300,
-      stock: null,
-      usuario: 1,
-    },
-    {
-      id: 4,
-      nombre: 'Moño 4',
-      descripcion: 'Moño Fallera 4',
-      foto: 'https://edelmiromonros.com/img/cms/nuestros%20trabajos/optimiz/IMG_2610.jpeg',
-      precio: 400,
-      stock: null,
-      usuario: 1,
-    }, */
-  ];
-
+  productos: Productos[] = [];
 
   constructor(private router: Router, private authService: AuthService, public service: ProductoService) { }
-
-
-  
 
   public ngOnInit() {
     this.getProductos()
