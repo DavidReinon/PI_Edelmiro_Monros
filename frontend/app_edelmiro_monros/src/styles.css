@@ -66,3 +66,8 @@ textarea.form-control:focus {
   outline: none;
   box-shadow: 0 0 5px rgba(255, 163, 8, 0.4);
 }
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}

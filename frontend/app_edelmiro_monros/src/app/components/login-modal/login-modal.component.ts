@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UsuariosService } from '../../services/usuarios.service';
-import { Usuarios } from '../../models/usuario.interfaz';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -17,14 +16,16 @@ export class LoginModalComponent {
 
   usuarioInvalido: boolean = false;
   passwordInvalida: boolean = false;
-
-  emailOrUsernameVacio: boolean = false;
-  passwordVacio: boolean = false;
+  isLoggedIn: boolean = false;
 
   constructor(
     private usuariosService: UsuariosService,
     private authService: AuthService
-  ) {}
+  ) {
+    this.authService.isLoggedIn$.subscribe((loggedIn) => {
+      this.isLoggedIn = loggedIn;
+    });
+  }
 
   abrirModal() {
     const modal = document.getElementById('registroModal');
@@ -50,21 +51,19 @@ export class LoginModalComponent {
     this.usuarioInvalido = false;
     this.passwordInvalida = false;
 
-    this.emailOrUsernameVacio = !this.emailOrUsername;
-    this.passwordVacio = !this.password;
-
-    if (this.emailOrUsernameVacio || this.passwordVacio) return;
+    if (!this.emailOrUsername || !this.password) return;
 
     this.usuariosService.getUsuarios().subscribe((usuario) => {
       const usuarioEncontrado = usuario.member.find(
-        (u) =>(u.email === this.emailOrUsername || u.nombre === this.emailOrUsername)
+        (u) =>
+          u.email === this.emailOrUsername || u.nombre === this.emailOrUsername
       );
 
       if (!usuarioEncontrado) {
         this.usuarioInvalido = true; // Marcar usuario como inválido
         return;
       }
-  
+
       if (usuarioEncontrado.contraseña !== this.password) {
         this.passwordInvalida = true; // Marcar contraseña como inválida
         return;
@@ -84,6 +83,11 @@ export class LoginModalComponent {
       this.emailOrUsername = '';
       this.password = '';
     });
+  }
+
+  logout() {
+    this.authService.logout();
+    alert('Sesión cerrada');
   }
 
   hover = false;
