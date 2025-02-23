@@ -1,6 +1,6 @@
 .jumbotron {
     background-color: #000000;
-    min-height: 100vh;
+    min-height: 90vh;
     display: flex;
     align-items: center;
     margin-bottom: 0;
@@ -38,10 +38,6 @@ video {
     width: 100%;
     display: block;
     border-radius: 8px;
-}
-
-.video-section {
-    background-color: #f8f9fa;
 }
 
 .circular-image {

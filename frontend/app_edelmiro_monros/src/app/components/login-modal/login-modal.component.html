@@ -1,7 +1,7 @@
 <!-- Botón para abrir el modal o cerrar sesión -->
 <button
   class="btn"
-  [ngStyle]="{ 'background-color': isLoggedIn ? '#ff1414' : '#ffa308' }"
+  [ngStyle]="{ 'background-color': isLoggedIn ? '#ff483a' : '#ffa308' }"
   (click)="isLoggedIn ? logout() : abrirModal()"
 >
   {{ isLoggedIn ? 'Log out' : 'Log in' }}
