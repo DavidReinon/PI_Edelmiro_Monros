@@ -1,0 +1,85 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h2>Crear Nuevo Producto</h2>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="productoForm" (ngSubmit)="onSubmit()">
+
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombre" formControlName="nombre" />
+              @if (productoForm.controls['nombre'].invalid && productoForm.controls['nombre'].touched) {
+              <div class="invalid-feedback">
+                @if (productoForm.controls['nombre'].errors?.['required']) {
+                <small>El nombre es obligatorio.</small>
+                }
+              </div>
+              }
+            </div>
+
+            <div class="mb-3">
+              <label for="descripcion" class="form-label">Descripción</label>
+              <textarea class="form-control" id="descripcion" rows="3" formControlName="descripcion"></textarea>
+              @if (productoForm.controls['descripcion'].invalid && productoForm.controls['descripcion'].touched) {
+              <div class="invalid-feedback">
+                @if (productoForm.controls['descripcion'].errors?.['required']) {
+                <small>La descripción es obligatoria.</small>
+                }
+              </div>
+              }
+            </div>
+
+            <div class="mb-3">
+              <label for="precio" class="form-label">Precio</label>
+              <input type="number" class="form-control" id="precio" formControlName="precio" />
+              @if (productoForm.controls['precio'].invalid && productoForm.controls['precio'].touched) {
+              <div class="invalid-feedback">
+                @if (productoForm.controls['precio'].errors?.['required']) {
+                <small>El precio es obligatorio.</small>
+                }
+              </div>
+              }
+            </div>
+
+            <div class="mb-3">
+              <label for="stock" class="form-label">Stock</label>
+              <input type="number" class="form-control" id="stock" formControlName="stock" />
+              @if (productoForm.controls['stock'].invalid && productoForm.controls['stock'].touched) {
+              <div class="invalid-feedback">
+                @if (productoForm.controls['stock'].errors?.['required']) {
+                <small>El stock es obligatorio.</small>
+                }
+              </div>
+              }
+            </div>
+
+            <div class="mb-3">
+              <label for="foto" class="form-label">Foto</label>
+              <input type="file" (change)="onFileChange($event)" class="form-control" id="foto" formControlName="foto"
+                accept="image/*" />
+              @if (productoForm.controls['foto'].invalid && productoForm.controls['foto'].touched) {
+              <div class="invalid-feedback">
+                @if (productoForm.controls['foto'].errors?.['required']) {
+                <small>La foto es obligatoria.</small>
+                }
+              </div>
+              }
+            </div>
+
+            <div class="d-flex gap-2 justify-content-end">
+              <button type="button" class="btn btn-secondary" (click)="cancelar()">
+                Cancelar
+              </button>
+              <button type="submit" class="btn btn-primary" [disabled]="productoForm.invalid">
+                Crear
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
