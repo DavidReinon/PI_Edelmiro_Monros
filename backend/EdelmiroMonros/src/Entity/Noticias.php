@@ -24,7 +24,7 @@ class Noticias
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $fecha = null;
 
-    #[ORM\Column(type: TYPES::TEXT)]
+    #[ORM\Column(type: TYPES::TEXT, nullable: true)]
     private ?string $foto;
 
     #[ORM\ManyToOne(inversedBy: 'noticias')]
@@ -33,13 +33,6 @@ class Noticias
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function setId(int $id): static
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     public function getTitulo(): ?string

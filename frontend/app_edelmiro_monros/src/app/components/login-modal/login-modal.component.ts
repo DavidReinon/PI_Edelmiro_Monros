@@ -27,7 +27,7 @@ export class LoginModalComponent {
     });
   }
 
-  abrirModal() {
+  public abrirModal() {
     const modal = document.getElementById('registroModal');
     if (modal) {
       modal.classList.add('show');
@@ -36,7 +36,7 @@ export class LoginModalComponent {
     }
   }
 
-  cerrarModal() {
+  public cerrarModal() {
     const modal = document.getElementById('registroModal');
     if (modal) {
       modal.classList.remove('show');

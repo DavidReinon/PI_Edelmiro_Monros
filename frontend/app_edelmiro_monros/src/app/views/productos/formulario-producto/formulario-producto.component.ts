@@ -25,13 +25,12 @@ export class FormularioProductoComponent {
     usuario: new FormControl<number>(1, { nonNullable: true, validators: [Validators.required] }),
     foto: new FormControl<string | null>(null, { nonNullable: true, validators: [Validators.required] }),
   });
+  public newFoto: string = ''
 
   constructor(
     private router: Router,
     private productoService: ProductoService
   ) { }
-
-  public newFoto: string = ''
 
   public onFileChange(event: Event) {
     const input = event.target as HTMLInputElement;

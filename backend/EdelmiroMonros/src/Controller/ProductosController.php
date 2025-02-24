@@ -26,8 +26,14 @@ final class ProductosController extends AbstractController
         $usuarioId = $data['usuario'];
         $imagenBase64 = $data['foto'] ?? null;
 
-        if (!$nombre || !$descripcion || !$usuarioId) {
-            return new JsonResponse(['error' => 'Datos inválidos'], JsonResponse::HTTP_BAD_REQUEST);
+        if (!$nombre) {
+            return new JsonResponse(['error' => 'Nombre es requerido'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+        if (!$descripcion) {
+            return new JsonResponse(['error' => 'Descripción es requerida'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+        if (!$usuarioId) {
+            return new JsonResponse(['error' => 'El ID del Usuario es requerido'], JsonResponse::HTTP_BAD_REQUEST);
         }
 
         $usuario = $em->getRepository(Usuarios::class)->find($usuarioId);
@@ -95,6 +101,9 @@ final class ProductosController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
+
+        $imagenBase64 = $data['foto'] ?? null;
+
         $usuario = $em->getRepository(Usuarios::class)->find($data['usuario']);
         if (!$usuario) {
             return new JsonResponse(['error' => 'Usuario no encontrado'], JsonResponse::HTTP_BAD_REQUEST);
@@ -106,12 +115,35 @@ final class ProductosController extends AbstractController
         $producto->setStock($data['stock']);
         $producto->setUsuarioProducto($usuario);
 
-        if (isset($data['foto'])) {
-            $result = $this->handleImageUpload($data['foto']);
-            if ($result['error']) {
-                return new JsonResponse(['error' => $result['message']], $result['status']);
+        if ($imagenBase64) {
+            try {
+                if ($producto->getFoto()) {
+                    $uploadDir = $this->getParameter('kernel.project_dir') . '/public/uploads/productos/';
+                    $filePath = $uploadDir . basename($producto->getFoto());
+
+                    if (file_exists($filePath)) {
+                        unlink($filePath);
+                    }
+                }
+                $imageData = base64_decode($imagenBase64);
+
+                if ($imageData === false) {
+                    return new JsonResponse(['error' => 'Error al decodificar la imagen'], JsonResponse::HTTP_BAD_REQUEST);
+                }
+
+                $fileName = uniqid('noticia_') . '.jpg';
+
+                $uploadDir = $this->getParameter('kernel.project_dir') . '/public/uploads/productos/';
+                if (!file_exists($uploadDir)) {
+                    mkdir($uploadDir, 0777, true);
+                }
+
+                file_put_contents($uploadDir . $fileName, $imageData);
+
+                $producto->setFoto('/uploads/productos/' . $fileName);
+            } catch (\Exception $e) {
+                return new JsonResponse(['error' => 'Error al guardar la imagen'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
             }
-            $producto->setFoto($result['path']);
         }
 
         $em->flush();
@@ -143,11 +175,36 @@ final class ProductosController extends AbstractController
             $producto->setUsuarioProducto($usuario);
         }
         if (isset($data['foto'])) {
-            $result = $this->handleImageUpload($data['foto']);
-            if ($result['error']) {
-                return new JsonResponse(['error' => $result['message']], $result['status']);
+            if ($producto->getFoto()) {
+                $uploadDir = $this->getParameter('kernel.project_dir') . '/public/uploads/productos/';
+                $filePath = $uploadDir . basename($producto->getFoto());
+
+                if (file_exists($filePath)) {
+                    unlink($filePath);
+                }
             }
-            $producto->setFoto($result['path']);
+            if ($data['foto']) {
+                try {
+                    $imageData = base64_decode($data['foto']);
+
+                    if ($imageData === false) {
+                        return new JsonResponse(['error' => 'Error al decodificar la imagen'], JsonResponse::HTTP_BAD_REQUEST);
+                    }
+
+                    $fileName = uniqid('noticia_') . '.jpg';
+
+                    $uploadDir = $this->getParameter('kernel.project_dir') . '/public/uploads/productos/';
+                    if (!file_exists($uploadDir)) {
+                        mkdir($uploadDir, 0777, true);
+                    }
+
+                    file_put_contents($uploadDir . $fileName, $imageData);
+
+                    $producto->setFoto('/uploads/productos/' . $fileName);
+                } catch (\Exception $e) {
+                    return new JsonResponse(['error' => 'Error al guardar la imagen'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+                }
+            }
         }
 
         $em->flush();
@@ -157,6 +214,14 @@ final class ProductosController extends AbstractController
     #[Route('/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(Productos $producto, EntityManagerInterface $em): JsonResponse
     {
+        if ($producto->getFoto()) {
+            $uploadDir = $this->getParameter('kernel.project_dir') . '/public/uploads/noticias/';
+            $filePath = $uploadDir . basename($producto->getFoto());
+
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+        }
         $em->remove($producto);
         $em->flush();
         return new JsonResponse(['status' => 'Producto eliminado']);
