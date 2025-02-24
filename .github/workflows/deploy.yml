@@ -104,12 +104,12 @@ jobs:
                       latest_migration=$(docker exec symfony_app ls -t /var/www/html/migrations | head -n 1)
                       docker exec symfony_app cat /var/www/html/migrations/$latest_migration
 
-            - name: Crear la base de datos si no existe y ejecutar migraciones
-              uses: appleboy/ssh-action@master
-              with:
-                  host: ${{ secrets.REMOTE_HOST }}
-                  username: ${{ secrets.REMOTE_USER }}
-                  key: ${{ secrets.REMOTE_KEY }}
-                  script: |
-                      docker exec symfony_app php bin/console doctrine:database:create --if-not-exists
-                      docker exec symfony_app php bin/console doctrine:migrations:migrate --no-interaction
+            # - name: Crear la base de datos si no existe y ejecutar migraciones
+            #   uses: appleboy/ssh-action@master
+            #   with:
+            #       host: ${{ secrets.REMOTE_HOST }}
+            #       username: ${{ secrets.REMOTE_USER }}
+            #       key: ${{ secrets.REMOTE_KEY }}
+            #       script: |
+            #           docker exec symfony_app php bin/console doctrine:database:create --if-not-exists
+            #           docker exec symfony_app php bin/console doctrine:migrations:migrate --no-interaction
