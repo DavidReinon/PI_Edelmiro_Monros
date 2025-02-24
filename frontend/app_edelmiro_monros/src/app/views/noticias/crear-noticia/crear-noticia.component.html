@@ -7,30 +7,51 @@
         </div>
         <div class="card-body">
           <form [formGroup]="noticiaForm" (ngSubmit)="onSubmit()" method="post">
+
             <div class="mb-3">
               <label for="titulo" class="form-label">Título</label>
               <input type="text" class="form-control" id="titulo" formControlName="titulo">
+              @if (noticiaForm.controls['titulo'].invalid && noticiaForm.controls['titulo'].touched) {
+              <div class="invalid-feedback">
+                @if (noticiaForm.controls['titulo'].errors?.['required']) {
+                <small>El título es obligatorio.</small>
+                }
+              </div>
+              }
             </div>
 
             <div class="mb-3">
               <label for="descripcion" class="form-label">Descripción</label>
               <textarea class="form-control" id="descripcion" rows="3" formControlName="descripcion"></textarea>
+              @if (noticiaForm.controls['descripcion'].invalid && noticiaForm.controls['descripcion'].touched) {
+              <div class="invalid-feedback">
+                @if (noticiaForm.controls['descripcion'].errors?.['required']) {
+                <small>La descripción es obligatoria.</small>
+                }
+              </div>
+              }
             </div>
 
             <div class="mb-3">
               <label for="fecha" class="form-label">Fecha</label>
               <input type="date" class="form-control" id="fecha" formControlName="fecha">
+              @if (noticiaForm.controls['fecha'].invalid && noticiaForm.controls['fecha'].touched) {
+              <div class="invalid-feedback">
+                <small>La fecha es obligatoria.</small>
+              </div>
+              }
             </div>
 
             <div class="mb-3">
               <label for="foto" class="form-label">Foto</label>
-              <input type="file" (change)="onFileChange($event)" class="form-control" id="foto" name="foto" accept="image/*">
+              <input type="file" class="form-control" id="foto" (change)="onFileChange($event)" accept="image/*">
             </div>
 
             <div class="d-flex gap-2 justify-content-end">
               <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
-              <button type="submit" class="btn btn-primary">Guardar</button>
+              <button type="submit" class="btn btn-primary" [disabled]="noticiaForm.invalid">Guardar</button>
             </div>
+
           </form>
         </div>
       </div>

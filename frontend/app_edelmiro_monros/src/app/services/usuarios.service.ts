@@ -3,34 +3,29 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Usuarios } from '../models/usuario.interfaz';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsuariosService {
-
   constructor(public http: HttpClient) {}
 
-  public getUsuarios(url: string): Observable<Usuarios> {
-    return this.http.get<Usuarios>(url);
+  private apiUrl = 'http://44.214.111.49/api/usuarios';
+
+  public getUsuarios(): Observable<Usuarios> {
+    return this.http.get<Usuarios>(this.apiUrl);
   }
-  public postUsuarios(url: string, Usuarios: Usuarios): Observable<Usuarios> {
-    return this.http.post<Usuarios>(url, Usuarios);
+  public postUsuarios(Usuarios: Usuarios): Observable<Usuarios> {
+    return this.http.post<Usuarios>(this.apiUrl, Usuarios);
   }
 
-  public putUsuarios(
-    url: string,
-    id: number,
-    Usuarios: Usuarios
-  ): Observable<Usuarios> {
-    return this.http.put<Usuarios>(`${url}/${id}`, Usuarios);
+  public putUsuarios(id: number, Usuarios: Usuarios): Observable<Usuarios> {
+    return this.http.put<Usuarios>(`${this.apiUrl}/${id}`, Usuarios);
   }
 
   public patchUsuarios(
-    url: string,
     id: number,
     Usuarios: Partial<Usuarios>
   ): Observable<Usuarios> {
-    return this.http.patch<Usuarios>(`${url}/${id}`, Usuarios);
+    return this.http.patch<Usuarios>(`${this.apiUrl}/${id}`, Usuarios);
   }
 }

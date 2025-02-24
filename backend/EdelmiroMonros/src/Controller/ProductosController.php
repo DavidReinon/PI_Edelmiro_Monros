@@ -101,7 +101,9 @@ final class ProductosController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
+
         $imagenBase64 = $data['foto'] ?? null;
+
         $usuario = $em->getRepository(Usuarios::class)->find($data['usuario']);
         if (!$usuario) {
             return new JsonResponse(['error' => 'Usuario no encontrado'], JsonResponse::HTTP_BAD_REQUEST);

@@ -17,15 +17,15 @@
 <div class="container mt-5">
   @if (isAdmin$ | async) {
     <div class="d-flex justify-content-end mb-4">
-      <button class="btn btn-primary" (click)="agregarNoticia()">
+      <button class="btn" (click)="agregarNoticia()">
         <i class="bi bi-plus-lg me-2"></i>Añadir Noticia
       </button>
     </div>
   }
-  
+
   <div class="row g-4">
     @for (noticia of noticias; track noticia.id) {
-      <div class="col-12 noticia-item">
+      <div class="col-12 noticia-item mb-5">
         <app-card-noticias
           [id]="noticia.id"
           [titulo]="noticia.titulo"

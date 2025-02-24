@@ -18,11 +18,12 @@ import { Productos } from '../../../models/productos.interfaces';
 })
 export class FormularioProductoComponent {
   productoForm = new FormGroup({
-    nombre: new FormControl('', { nonNullable: true }),
-    descripcion: new FormControl('', { nonNullable: true }),
-    precio: new FormControl(null, Validators.min(0)),
-    stock: new FormControl(null, Validators.min(0)),
-    foto: new FormControl(''),
+    nombre: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
+    descripcion: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
+    precio: new FormControl<number | null>(null),
+    stock: new FormControl<number | null>(null),
+    usuario: new FormControl<number>(1, { nonNullable: true, validators: [Validators.required] }),
+    foto: new FormControl<string | null>(null, { nonNullable: true, validators: [Validators.required] }),
   });
   public newFoto: string = ''
 
@@ -49,27 +50,31 @@ export class FormularioProductoComponent {
   }
 
   public onSubmit() {
-    const rawValue = this.productoForm.getRawValue();
+    if (this.productoForm.valid) {
+      const payload: Productos = {
+        nombre: this.productoForm.value.nombre || '',
+        descripcion: this.productoForm.value.descripcion || '',
+        precio: Number(this.productoForm.value.precio) || 0,
+        stock: Number(this.productoForm.value.stock) || 0,
+        usuario: 1,
+        foto: this.newFoto,
+      };
 
-    const payload: Productos = {
-      nombre: rawValue.nombre,
-      descripcion: rawValue.descripcion,
-      precio: rawValue.precio,
-      stock: rawValue.stock,
-      usuarioId: 1,
-      foto: this.newFoto
-    };
-    console.log(payload);
+      console.log('Enviando payload:', payload);
 
-    this.productoService.createProducto(payload).subscribe({
-      next: (response) => {
-        console.log('Producto creado', response);
-        this.router.navigate(['/productos']);
-      },
-      error: (error) => {
-        console.error('Error al crear producto', error);
-      },
-    });
+      this.productoService.createProducto(payload).subscribe({
+        next: (response) => {
+          console.log('Producto creado:', response);
+          this.router.navigate(['/productos']);
+        },
+        error: (error) => {
+          console.error('Error al crear producto:', error);
+          if (error.error) {
+            console.log('Error detallado:', error.error);
+          }
+        },
+      });
+    }
   }
 
   public cancelar() {

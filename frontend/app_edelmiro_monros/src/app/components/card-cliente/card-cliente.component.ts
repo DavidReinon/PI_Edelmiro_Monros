@@ -1,6 +1,6 @@
 import { NgClass, NgStyle } from '@angular/common';
 import { Component, Input, Output,EventEmitter} from '@angular/core';
-import { RatingStarComponent } from '../../rating-star/rating-star.component';
+import { RatingStarComponent } from '../rating-star/rating-star.component';
 
 @Component({
   selector: 'app-card-cliente',

@@ -1,9 +1,9 @@
-export interface Productos { 
-    id?: number | null;
-    nombre: string; 
-    descripcion: string; 
+export interface Productos {
+    id?: number;
+    nombre: string;
+    descripcion: string;
     precio: number | null;
     stock: number | null;
-    usuarioId: number;
-    foto: string | null;
+    usuario: number | null;
+    foto?: string | null;
 };

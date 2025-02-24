@@ -1,9 +1,18 @@
 .jumbotron {
     background-color: #000000;
-    min-height: 60vh;
+    min-height: 90vh;
     display: flex;
     align-items: center;
     margin-bottom: 0;
+}
+
+.jumbotron .container {
+    width: 100%;
+}
+
+.jumbotron .row {
+    min-height: 80vh;
+    align-items: center;
 }
 
 .placeholder-box {
@@ -31,10 +40,6 @@ video {
     border-radius: 8px;
 }
 
-.video-section {
-    background-color: #f8f9fa;
-}
-
 .circular-image {
     width: 150px;
     height: 150px;
@@ -56,10 +61,8 @@ video {
 .historia-section {
   position: relative;
   background: linear-gradient(45deg, #1a1a1a, #2c2c2c);
-  border-top: 4px solid gold;
-  border-bottom: 4px solid gold;
+  border-top: 4px solid var(--primary-color);
 }
-
 
 .separator {
   display: flex;
@@ -71,12 +74,12 @@ video {
 .line {
   height: 2px;
   width: 100px;
-  background: gold;
+  background: var(--primary-color);
   margin: 0 15px;
 }
 
 .icon {
-  color: gold;
+  color: var(--primary-color);
   font-size: 24px;
 }
 
@@ -90,7 +93,7 @@ video {
 .quote-mark {
   position: absolute;
   font-size: 60px;
-  color: rgba(255, 215, 0, 0.2);
+  color: rgba(255, 163, 8, 0.2);
 }
 
 .left-quote {
@@ -104,14 +107,14 @@ video {
 }
 
 .highlight-box {
-  background: rgba(255, 215, 0, 0.1);
+  background: rgba(255, 163, 8, 0.1);
   padding: 30px;
   border-radius: 10px;
-  border: 1px solid rgba(255, 215, 0, 0.2);
+  border: 1px solid rgba(255, 163, 8, 0.2);
 }
 
 .highlight-text {
-  color: gold;
+  color: var(--primary-color);
   font-size: 1.4rem;
   font-weight: bold;
   margin-right: 10px;
@@ -126,5 +129,23 @@ video {
 .highlight-box:hover {
   transform: translateY(-5px);
   transition: transform 0.3s ease;
+}
+
+.btn-outline-light:hover {
+  background-color: rgba(255, 163, 8, 0.6);
+  border-color: rgba(255, 163, 8, 0.6);
+  color: var(--text-on-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.jumbotron .display-4::after {
+  display: none;
+}
+
+/* Sobrescribir el estilo text-muted solo para la sección de colaboraciones */
+.colaboracion-info .text-muted {
+  color: #333333 !important;  /* Color más oscuro y legible */
+  opacity: 1;  /* Opacidad completa */
 }
   
